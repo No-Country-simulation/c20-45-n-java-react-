@@ -7,7 +7,8 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node-modules/-nextui-org/theme/dist/**/*.-js,ts,jsx,tsx",
+    "./node_modules/@nextui-org/theme/dist/components/[object Object].js"
   ],
   theme: {
     extend: {},
