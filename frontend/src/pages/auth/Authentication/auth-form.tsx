@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 import React from "react";
 import { IoMdLogIn } from "react-icons/io";
@@ -10,7 +9,6 @@ import { Card, CardBody, CardHeader, Tab, Tabs } from "@nextui-org/react";
 
 export default function Form() {
 
-    const location = useLocation();
     const navigate = useNavigate();
     const tabs = [
         {
