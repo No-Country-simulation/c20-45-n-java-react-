@@ -1,7 +1,13 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Button, Input, Select, SelectItem } from '@nextui-org/react';
+import { Button, Input } from '../../../../export-components';
+import { MdOutlineAttachEmail } from 'react-icons/md';
+import { TbEyeFilled } from "react-icons/tb";
+import { FaEyeSlash } from "react-icons/fa";
+import { Select, SelectItem } from '@nextui-org/select';
+
+
 
 interface FormValues {
     name: string;
@@ -26,93 +32,114 @@ const roles = [
     { key: "caregiver", label: "Cuidador" },
 ];
 
-const RegistrationForm: React.FC = () => {
+
+export default function RegistrationForm() {
     const handleSubmit = (values: FormValues, actions: any) => {
     };
+    const [isVisible, setIsVisible] = React.useState(false);
 
+    const toggleVisibility = () => setIsVisible(!isVisible);
     return (
-        <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
-            <h1 className="text-2xl font-bold mb-4">Register Account</h1>
-            <Formik
-                initialValues={{
-                    name: '',
-                    email: '',
-                    password: '',
-                    confirmPassword: '',
-                    role: 'owner',
-                }}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-            >
-                {({ isSubmitting }) => (
-                    <Form>
-                        <div className="mb-4">
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-                            <Field
-                                type="text"
-                                name="name"
-                                as={Input}
-                                placeholder="Enter your name"
-                                className="mt-1 block w-full"
+        <Formik
+            initialValues={{
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                role: 'owner',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+        >
+            {({ isSubmitting }) => (
+                <>
+                    <div>
+                        <div className='flex justify-between'>
+                            <Input
+                                type="name"
+                                name='Name'
+                                variant='faded'
+                                radius='md'
+                                label="Ingrese tu nombre"
+                                className="max-w-72 mt-2"
                             />
                             <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
-                        </div>
-
-                        <div className="mb-4">
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                            <Field
-                                type="email"
-                                name="email"
-                                as={Input}
-                                placeholder="Enter your email"
-                                className="mt-1 block w-full"
+                            <Input
+                                type="lastname"
+                                name='Lastname'
+                                variant='faded'
+                                radius='md'
+                                label="Ingrese tu apellido"
+                                className="max-w-72 mt-2"
                             />
-                            <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                            <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
+
                         </div>
 
-                        <div className="mb-4">
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                            <Field
-                                type="password"
+                        <Input
+                            type="email"
+                            name='Email'
+                            variant='faded'
+                            radius='md'
+                            label="Ingrese tu correo electrónico"
+                            className=" mt-2"
+                            endContent={<MdOutlineAttachEmail />}
+                        />
+                        <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+
+                        <div className='flex justify-between'>
+                            <Input
+                                type={isVisible ? "text" : "password"}
                                 name="password"
-                                as={Input}
-                                placeholder="Enter your password"
-                                className="mt-1 block w-full"
+                                variant='faded'
+                                radius='md'
+                                label="Contraseña"
+                                className="max-w-72 mt-2"
+                                endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
+                                    {isVisible ? (
+                                        <FaEyeSlash />
+                                    ) : (
+                                        <TbEyeFilled />
+                                    )}
+                                </button>}
                             />
                             <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-                        </div>
 
-                        <div className="mb-4">
-                            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-                            <Field
-                                type="password"
-                                name="confirmPassword"
-                                as={Input}
-                                placeholder="Confirm your password"
-                                className="mt-1 block w-full"
+                            <Input
+                                type={isVisible ? "text" : "password"}
+                                name="confpassword"
+                                variant='faded'
+                                radius='md'
+                                label="Confirmar Contraseña"
+                                className="max-w-72 mt-2"
+                                endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
+                                    {isVisible ? (
+                                        <FaEyeSlash />
+                                    ) : (
+                                        <TbEyeFilled />
+                                    )}
+                                </button>}
                             />
-                            <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm" />
+                            <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+
                         </div>
 
-                        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-                            <Select
-                                placeholder="Elige un rol"
-                                className="max-w-xs"
-                            >
-                                {roles.map((role) => (
-                                    <SelectItem key={role.key} value={role.key}>
-                                        {role.label}
-                                    </SelectItem>
-                                ))}
-                            </Select>
-                        </div>
-
-                        <Button type="submit" color="primary" disabled={isSubmitting} className="w-full">Register</Button>
-                    </Form>
-                )}
-            </Formik>
-        </div>
+                        <Select
+                            items={roles}
+                            label="Selecciona tu Pata Rol"
+                            className="max-w-72 mt-2 text-black "
+                            color='primary'
+                        >
+                            {(rol) => <SelectItem key={rol.key} className='text-black'>{rol.label} </SelectItem>}
+                        </Select>
+                    </div>
+                    <div className='flex justify-center'>
+                        <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-2">Crea tu cuenta</Button>
+                    </div>
+                </>
+            )}
+        </Formik>
     );
 };
 
-export default RegistrationForm;
+

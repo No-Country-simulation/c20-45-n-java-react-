@@ -1,18 +1,16 @@
 import Footer from "./components/footer/footer";
 import HomeNavbar from "./components/navbar2/navbar";
+import Form from "./pages/auth/Authentication/auth-form";
 
 function App() {
   return (
     <>
       <div className="flex flex-col h-screen w-screen">
-        {/* Header */}
         <HomeNavbar />
-        {/* Main Content */}
         <main className="flex-grow bg-gray-300 border-t border-b border-gray-400 flex items-center justify-center">
-          {/* Aquí va el contenido principal */}
+          <Form />
         </main>
 
-        {/* Footer */}
         <Footer />
       </div>
     </>

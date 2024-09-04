@@ -5,7 +5,7 @@ import { IoMdLogIn } from "react-icons/io";
 import { IoCreate } from "react-icons/io5";
 import LoginForm from "./components/login";
 import RegistrationForm from "./components/register";
-import { Card, CardBody, CardHeader, Tab, Tabs } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Image, Tab, Tabs } from "@nextui-org/react";
 
 
 export default function Form() {
@@ -46,28 +46,34 @@ export default function Form() {
 
     return (
         <Card className="py-4 bg-white flex w-full flex-col">
-            {/* <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                <p className="text-tiny uppercase font-bold">Daily Mix</p>
-                <small className="text-default-500">12 Tracks</small>
-                <h4 className="font-bold text-large">Frontend Radio</h4>
-            </CardHeader> */}
             <CardBody className="overflow-visible py-2">
-                <div className="basis-1/2 px-0 sm:px-8">
-                    <Tabs
-                        color="primary"
-                        size="lg"
-                        aria-label="Dynamic tabs"
-                        items={tabs}
-                        classNames={{
-                            tabList: "w-full h-[44px] py-2 items-center px-2",
-                            tabContent: "w-full",
-                            tab: "h-[34px]",
-                        }}
+                <div className="flex gap-2 p-2 sm:p-4 mt-5 lg:flex-row flex-col-reverse ">
+                    <div className="basis-1/2 flex flex-col gap-8">
+                        <img
+                            src="../../../../src/assets/Icons/PataAmiga.png"
+                            alt="Pata AMIGA Logo"
+                            className="h-96"
+                        />
+                    </div>
+                    <div className="basis-1/2 px-0 sm:px-8 bg-green-200 p-4 rounded-2xl">
+                        <Tabs
+                            color="success"
+                            size="lg"
+                            aria-label="Dynamic tabs"
+                            items={tabs}
+                            classNames={{
+                                tabList: "w-full h-[44px] py-2 items-center px-2",
+                                tabContent: "w-full",
+                                tab: "h-[34px]",
+                            }}
 
-                    >
-                        {(item) => <Tab title={item.label}>{item.content}</Tab>}
-                    </Tabs>
+                        >
+                            {(item) => <Tab title={item.label}>{item.content}</Tab>}
+                        </Tabs>
+                    </div>
+
                 </div>
+
             </CardBody>
         </Card>
     )

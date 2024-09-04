@@ -1,10 +1,11 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Button, Input } from '@nextui-org/react';
-import { EyeFilledIcon } from './resource/EyeFilledIcon';
-import { EyeSlashFilledIcon } from './resource/EyeSlashFilledIcon';
-
+import { Button } from '@nextui-org/react';
+import { Input } from '../../../../export-components';
+import { MdOutlineAttachEmail } from "react-icons/md";
+import { TbEyeFilled } from "react-icons/tb";
+import { FaEyeSlash } from "react-icons/fa";
 
 
 interface LoginValues {
@@ -23,10 +24,7 @@ export default function LoginForm() {
     const toggleVisibility = () => setIsVisible(!isVisible);
 
     const handleSubmit = (values: LoginValues, actions: any) => {
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-        }, 1000);
+
     };
 
     return (
@@ -42,32 +40,36 @@ export default function LoginForm() {
                 <><div>
                     <Input
                         type="email"
-                        variant='faded'
-                        radius='full'
-                        label="Email"
                         name='Email'
-                        placeholder="Ingresa tu email"
-                        className="mt-1 block w-full" />
+                        variant='faded'
+                        radius='md'
+                        label="Ingrese tu correo electrónico"
+                        className=" mt-3"
+                        endContent={<MdOutlineAttachEmail />}
+                    />
                     <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
 
                     <Input
+                        type={isVisible ? "text" : "password"}
                         name="password"
                         variant='faded'
-                        radius='full'
-                        label="Contraseña"
-                        placeholder="Enter your password"
-                        className="max-w-xs"
+                        radius='md'
+                        label="Ingrese su contraseña"
+                        className=" mt-3"
                         endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
                             {isVisible ? (
-                                <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                                <FaEyeSlash />
                             ) : (
-                                <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                                <TbEyeFilled />
                             )}
                         </button>}
-                        type={isVisible ? "text" : "password"} />
+                    />
                     <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-                </div><Button type="submit" color="primary" disabled={isSubmitting} className="w-full">Login</Button></>
-
+                </div>
+                    <div className='flex justify-center'>
+                        <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-3">Iniciar sesion</Button>
+                    </div>
+                </>
             )}
         </Formik>
     );
