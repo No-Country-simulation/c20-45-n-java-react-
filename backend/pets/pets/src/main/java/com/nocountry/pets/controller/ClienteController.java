@@ -49,13 +49,24 @@ public class ClienteController {
         if (result.hasErrors()) {
             return validation(result);
         }
+
         if (clienteRequest.getCliente() == null || clienteRequest.getUserSec() == null) {
-            return ResponseEntity.badRequest().body("Cliente or UserSec cannot be null");
+            return ResponseEntity.badRequest().body("Cliente y UserSec no pueden ser nulos");
         }
-        UserSec userSec = clienteRequest.getUserSec();
+
         Cliente cliente = clienteRequest.getCliente();
+        UserSec userSec = clienteRequest.getUserSec();
+
+        // Guardar Domicilio si existe
+        Domicilio domicilio = cliente.getDomicilio();
+        if (domicilio != null) {
+            Domicilio savedDomicilio = domicilioService.save(domicilio);
+            cliente.setDomicilio(savedDomicilio);
+        }
+
         // Encriptar la contraseña
         userSec.setPassword(userService.encriptPassword(userSec.getPassword()));
+
         // Recuperar y asignar roles
         Set<Role> roleList = new HashSet<>();
         for (Role role : userSec.getRolesList()) {
@@ -64,18 +75,29 @@ public class ClienteController {
                 roleList.add(readRole);
             }
         }
-        if (!roleList.isEmpty()) {
-            userSec.setRolesList(roleList);
-            // Guarda Cliente 
-            clienteService.save(cliente);
-            // Asigna Cliente a UserSec
-            userSec.setPersona(cliente);
-            // Guardar UserSec
-            UserSec newUser = userService.save(userSec);
-            return ResponseEntity.ok(newUser);
+
+        if (roleList.isEmpty()) {
+            return ResponseEntity.badRequest().body("Roles inválidos");
         }
-        return ResponseEntity.badRequest().body("Invalid roles");
+
+        // Asigna roles al UserSec
+        userSec.setRolesList(roleList);
+
+        // Asigna UserSec a Cliente antes de guardar
+        cliente.setUserSec(userSec);
+
+        // Guarda Cliente
+        Cliente savedCliente = clienteService.save(cliente);
+
+        // Asigna Cliente a UserSec
+        userSec.setPersona(savedCliente);
+
+        // Guarda UserSec
+        userService.save(userSec);
+
+        return ResponseEntity.ok().body("Cliente creado con éxito");
     }
+
     @PutMapping("{id}")
     public ResponseEntity<?> updateCliente(@PathVariable Long id, @Valid @RequestBody ClienteRequest clienteRequest, BindingResult result) {
         if (result.hasErrors()) {
@@ -126,7 +148,7 @@ public class ClienteController {
 
         if (existingDomicilio != null) {
             existingDomicilio.setCalle(newDomicilio.getCalle());
-            existingDomicilio.setAltura(newDomicilio.getAltura());
+            existingDomicilio.setNumero(newDomicilio.getNumero());
             existingDomicilio.setLocalidad(newDomicilio.getLocalidad());
             existingDomicilio.setProvincia(newDomicilio.getProvincia());
 

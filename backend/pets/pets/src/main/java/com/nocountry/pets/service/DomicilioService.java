@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DomicilioService implements IDomicilioService{
+public class DomicilioService implements IDomicilioService {
     @Autowired
     private IDomicilioRepository domicilioRepo;
+
     @Override
     public List<Domicilio> findAll() {
         return domicilioRepo.findAll();
@@ -36,10 +37,12 @@ public class DomicilioService implements IDomicilioService{
     @Override
     public Domicilio save(Domicilio domicilio) {
 
-        if(domicilioRepo.existsById(domicilio.getIdDomicilio())){
+        if (domicilio.getId_domicilio() != null && domicilioRepo.existsById(domicilio.getId_domicilio())) {
+            // Actualizar el Domicilio existente
             return domicilioRepo.save(domicilio);
-        }else{
-            throw new EntityNotFoundException("Domicilio no encontrado con ID: " + domicilio.getIdDomicilio());
+        } else {
+            // Guardar el nuevo Domicilio
+            return domicilioRepo.save(domicilio);
         }
     }
 }

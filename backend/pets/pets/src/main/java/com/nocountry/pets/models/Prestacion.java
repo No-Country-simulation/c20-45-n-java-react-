@@ -20,7 +20,7 @@ public class Prestacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_prestacion;
     @NotBlank
     private String nombrePrest;
     @NotBlank
@@ -30,6 +30,8 @@ public class Prestacion {
     @NotNull
     private Double precio;
 
+    private int duracion;
+    private String zona;
     @ManyToMany(mappedBy = "prestaciones")
-    private List<Cuidador> cuidadores = new ArrayList<>();
+    private List<Prestador> prestador = new ArrayList<>();
 }

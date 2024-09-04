@@ -20,5 +20,4 @@ public class Cliente extends Persona{
     private List<Mascota> mascotas = new ArrayList<>();
 
 
-
 }

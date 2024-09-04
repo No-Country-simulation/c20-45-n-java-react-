@@ -1,5 +1,6 @@
 package com.nocountry.pets.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,16 +18,16 @@ import java.util.List;
 public class Domicilio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDomicilio;
+    private Long id_domicilio;
     @NotBlank
     private String calle;
-    @NotBlank
-    private int altura;
+    @NotNull
+    private int numero;
     @NotBlank
     private String localidad;
     @NotBlank
     private String provincia;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "domicilio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Persona> personas;
 }

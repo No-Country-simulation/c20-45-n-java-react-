@@ -1,6 +1,7 @@
 package com.nocountry.pets.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Turno {
 
         @NotNull
         @Temporal(TemporalType.DATE)
+        @Future
         private Date fecha;
 
         @NotNull
@@ -31,8 +33,8 @@ public class Turno {
         private Cliente cliente;
 
         @ManyToOne
-        @JoinColumn(name = "cuidador_id", nullable = false)
-        private Cuidador cuidador;
+        @JoinColumn(name = "prestador_id", nullable = false)
+        private Prestador cuidador;
 
         @ManyToOne
         @JoinColumn(name = "prestacion_id", nullable = false)

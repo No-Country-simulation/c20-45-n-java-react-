@@ -23,14 +23,13 @@ public class UserController {
     private IRoleService roleService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+
     public ResponseEntity<List<UserSec>> getAllUsers() {
         List<UserSec> users = userService.findAll();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<UserSec> getUserById(@PathVariable Long id) {
         Optional<UserSec> user = userService.findById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
