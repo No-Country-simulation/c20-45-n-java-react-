@@ -10,8 +10,8 @@ export default function HomeNavbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     return (
-        <Navbar isBordered className="bg-green-200 h-20 p-5">
-            <Container className="grid grid-cols-3 items-center px-8">
+        <Navbar isBordered className="bg-green-200 h-20 w-screen" maxWidth="full">
+            <Container className="grid grid-cols-3 items-center">
                 {/* Left-aligned Logo */}
                 <NavbarBrand className="flex justify-start">
                     <Link
@@ -36,14 +36,14 @@ export default function HomeNavbar() {
                         <Input
                             placeholder="Buscar..."
                             radius="lg"
-                            className="bg-slate-50 w-full"
+                            className="w-full"
                             startContent={<FaSearch />}
                         />
                     </div>
                 </NavbarContent>
 
                 {/* Right-aligned Button and Avatar */}
-                <NavbarContent className="flex justify-end space-x-4">
+                <NavbarContent justify="end" className="flex justify-end space-x-4">
                     <Button startContent={<FaDog />} className="bg-green-500" radius="full">
                         Empezar a pasear
                     </Button>
