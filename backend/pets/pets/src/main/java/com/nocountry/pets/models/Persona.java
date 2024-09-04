@@ -24,16 +24,19 @@ public abstract class Persona {
     private String nombre;
     @NotNull
     private String apellido;
-    private String urlFoto;
+    @NotNull
+    private int dni;
     @NotNull
     @Email
     private String email;
     @NotNull
     private String telefono;
+
+    private String telefonoEmergencia;
     @ManyToOne
-    @JoinColumn(name = "domicilio_id", referencedColumnName = "idDomicilio")
+    @JoinColumn(name = "domicilio_id", referencedColumnName = "id_domicilio")
     private Domicilio domicilio;
-    @OneToOne
-    @JoinColumn(name = "userSec_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_sec_id", referencedColumnName = "id")
     private UserSec userSec;
 }

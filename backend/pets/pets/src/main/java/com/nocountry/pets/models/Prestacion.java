@@ -1,6 +1,5 @@
 package com.nocountry.pets.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,25 +8,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Domicilio {
+public class Prestacion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_domicilio;
+    private Long id_prestacion;
     @NotBlank
-    private String calle;
+    private String nombrePrest;
+    @NotBlank
+    private String descripcionPrest;
+    @NotBlank
+    private String caracteristicasPrest;
     @NotNull
-    private int numero;
-    @NotBlank
-    private String localidad;
-    @NotBlank
-    private String provincia;
-    @JsonIgnore
-    @OneToMany(mappedBy = "domicilio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Persona> personas;
+    private Double precio;
+
+    private int duracion;
+    private String zona;
+    @ManyToMany(mappedBy = "prestaciones")
+    private List<Prestador> prestador = new ArrayList<>();
 }
