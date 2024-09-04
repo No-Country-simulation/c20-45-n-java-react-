@@ -1,5 +1,6 @@
 package com.nocountry.pets.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity
 public class Cliente extends Persona{
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Mascota> mascotas = new ArrayList<>();
 

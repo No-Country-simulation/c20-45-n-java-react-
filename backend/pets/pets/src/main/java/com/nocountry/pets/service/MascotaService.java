@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MascostaService implements IMascotaService{
+public class MascotaService implements IMascotaService{
     @Autowired
     private IMascotaRepository mascostaRepo;
     @Override

@@ -1,5 +1,7 @@
 package com.nocountry.pets.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,7 @@ public class Mascota {
     private String imagen;
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonBackReference
     private Cliente cliente;
 
     @ManyToOne
