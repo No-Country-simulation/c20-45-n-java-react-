@@ -54,9 +54,9 @@ export default function HomeNavbar() {
                                 radius="full"
                                 as="button"
                                 className="transition-transform"
-                                color="secondary"
-                                name="Jason Hughes"
-                                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                                color="primary"
+                                name=""
+                                src=""
                             />
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Profile Actions" variant="flat" className="w-48">

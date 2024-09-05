@@ -5,6 +5,7 @@ import { MdPersonPin } from "react-icons/md";
 import { FaDog } from "react-icons/fa";
 import { MdInsertComment } from "react-icons/md";
 import { useNavigate } from "react-router";
+import Profile_Cu from "./components/profile";
 
 export default function Profile_Carer() {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function Profile_Carer() {
                 </div>
             ),
             content: (
-                {}
+                <Profile_Cu />
             ),
         },
         {
@@ -36,7 +37,7 @@ export default function Profile_Carer() {
                 </div>
             ),
             content: (
-                {}
+                <></>
             ),
         },
         {
@@ -52,14 +53,14 @@ export default function Profile_Carer() {
                 </div>
             ),
             content: (
-                {}
+                <></>
             ),
         },
     ];
 
     return (
         <Card className="py-4 bg-white flex w-3/4 flex-col">
-            <CardBody className="overflow-visible py-2">
+            <CardBody className="p-px">
                 <div className="basis-1/2 px-0 sm:px-8 bg-green-200 p-4 rounded-2xl" >
                     <Tabs
                         color="success"
@@ -73,7 +74,7 @@ export default function Profile_Carer() {
                         }}
 
                     >
-                        {(item) => <Tab title={item.label}>{ }</Tab>}
+                        {(item) => <Tab title={item.label}>{item.content}</Tab>}
                     </Tabs>
                 </div>
             </CardBody>

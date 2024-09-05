@@ -1,0 +1,175 @@
+{
+  "countries": [
+    {
+      "key": "argentina",
+      "label": "Argentina",
+      "cities": [
+        { "key": "buenos_aires", "label": "Buenos Aires" },
+        { "key": "cordoba", "label": "Córdoba" },
+        { "key": "rosario", "label": "Rosario" }
+      ]
+    },
+    {
+      "key": "bolivia",
+      "label": "Bolivia",
+      "cities": [
+        { "key": "la_paz", "label": "La Paz" },
+        { "key": "santa_cruz", "label": "Santa Cruz" },
+        { "key": "cochabamba", "label": "Cochabamba" }
+      ]
+    },
+    {
+      "key": "brazil",
+      "label": "Brasil",
+      "cities": [
+        { "key": "sao_paulo", "label": "São Paulo" },
+        { "key": "rio_de_janeiro", "label": "Río de Janeiro" },
+        { "key": "salvador", "label": "Salvador" }
+      ]
+    },
+    {
+      "key": "chile",
+      "label": "Chile",
+      "cities": [
+        { "key": "santiago", "label": "Santiago" },
+        { "key": "valparaiso", "label": "Valparaíso" },
+        { "key": "concepcion", "label": "Concepción" }
+      ]
+    },
+    {
+      "key": "colombia",
+      "label": "Colombia",
+      "cities": [
+        { "key": "bogota", "label": "Bogotá" },
+        { "key": "medellin", "label": "Medellín" },
+        { "key": "cali", "label": "Cali" }
+      ]
+    },
+    {
+      "key": "costa_rica",
+      "label": "Costa Rica",
+      "cities": [
+        { "key": "san_jose", "label": "San José" },
+        { "key": "alajuela", "label": "Alajuela" },
+        { "key": "cartago", "label": "Cartago" }
+      ]
+    },
+    {
+      "key": "cuba",
+      "label": "Cuba",
+      "cities": [
+        { "key": "havana", "label": "La Habana" },
+        { "key": "santiago_de_cuba", "label": "Santiago de Cuba" },
+        { "key": "camaguey", "label": "Camagüey" }
+      ]
+    },
+    {
+      "key": "dominican_republic",
+      "label": "República Dominicana",
+      "cities": [
+        { "key": "santo_domingo", "label": "Santo Domingo" },
+        { "key": "santiago_de_los_caballeros", "label": "Santiago de los Caballeros" },
+        { "key": "la_romana", "label": "La Romana" }
+      ]
+    },
+    {
+      "key": "ecuador",
+      "label": "Ecuador",
+      "cities": [
+        { "key": "quito", "label": "Quito" },
+        { "key": "guayaquil", "label": "Guayaquil" },
+        { "key": "cuenca", "label": "Cuenca" }
+      ]
+    },
+    {
+      "key": "el_salvador",
+      "label": "El Salvador",
+      "cities": [
+        { "key": "san_salvador", "label": "San Salvador" },
+        { "key": "santa_ana", "label": "Santa Ana" },
+        { "key": "soyapango", "label": "Soyapango" }
+      ]
+    },
+    {
+      "key": "guatemala",
+      "label": "Guatemala",
+      "cities": [
+        { "key": "guatemala_city", "label": "Ciudad de Guatemala" },
+        { "key": "quetzaltenango", "label": "Quetzaltenango" },
+        { "key": "escuintla", "label": "Escuintla" }
+      ]
+    },
+    {
+      "key": "honduras",
+      "label": "Honduras",
+      "cities": [
+        { "key": "tegucigalpa", "label": "Tegucigalpa" },
+        { "key": "san_pedro_sula", "label": "San Pedro Sula" },
+        { "key": "la_ceiba", "label": "La Ceiba" }
+      ]
+    },
+    {
+      "key": "mexico",
+      "label": "México",
+      "cities": [
+        { "key": "ciudad_de_mexico", "label": "Ciudad de México" },
+        { "key": "guadalajara", "label": "Guadalajara" },
+        { "key": "monterrey", "label": "Monterrey" }
+      ]
+    },
+    {
+      "key": "nicaragua",
+      "label": "Nicaragua",
+      "cities": [
+        { "key": "managua", "label": "Managua" },
+        { "key": "leon", "label": "León" },
+        { "key": "masaya", "label": "Masaya" }
+      ]
+    },
+    {
+      "key": "panama",
+      "label": "Panamá",
+      "cities": [
+        { "key": "panama_city", "label": "Ciudad de Panamá" },
+        { "key": "colón", "label": "Colón" },
+        { "key": "david", "label": "David" }
+      ]
+    },
+    {
+      "key": "paraguay",
+      "label": "Paraguay",
+      "cities": [
+        { "key": "asuncion", "label": "Asunción" },
+        { "key": "ciudad_del_este", "label": "Ciudad del Este" },
+        { "key": "encarnacion", "label": "Encarnación" }
+      ]
+    },
+    {
+      "key": "peru",
+      "label": "Perú",
+      "cities": [
+        { "key": "lima", "label": "Lima" },
+        { "key": "arequipa", "label": "Arequipa" },
+        { "key": "cusco", "label": "Cusco" }
+      ]
+    },
+    {
+      "key": "uruguay",
+      "label": "Uruguay",
+      "cities": [
+        { "key": "montevideo", "label": "Montevideo" },
+        { "key": "paysandu", "label": "Paysandú" },
+        { "key": "salto", "label": "Salto" }
+      ]
+    },
+    {
+      "key": "venezuela",
+      "label": "Venezuela",
+      "cities": [
+        { "key": "caracas", "label": "Caracas" },
+        { "key": "maracaibo", "label": "Maracaibo" },
+        { "key": "valencia", "label": "Valencia" }
+      ]
+    }
+  ]
+}

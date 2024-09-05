@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input } from '../../../../export-components';
 import { MdOutlineAttachEmail } from 'react-icons/md';
-import { TbEyeFilled } from "react-icons/tb";
+import { TbEyeFilled, TbTooltip } from "react-icons/tb";
 import { FaEyeSlash } from "react-icons/fa";
 import { Select, SelectItem } from '@nextui-org/select';
 
@@ -35,7 +35,7 @@ export default function RegistrationForm() {
     const [isVisible, setIsVisible] = React.useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleSubmit = (values: FormValues, actions: any) => {
+    const handleSubmit = (values: FormValues) => {
         // Handle form submission
     };
 
@@ -82,17 +82,20 @@ export default function RegistrationForm() {
                         </div>
                     </div>
 
-                    <Field
-                        as={Input}
-                        type="email"
-                        name='email'
-                        variant='faded'
-                        radius='md'
-                        label="Ingrese tu correo electrónico"
-                        className="mt-2"
-                        endContent={<MdOutlineAttachEmail />}
-                    />
-                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                    <div>
+                        <Field
+                            as={Input}
+                            type="email"
+                            name='email'
+                            variant='faded'
+                            radius='md'
+                            label="Ingrese tu correo electrónico"
+                            className="mt-2"
+                            endContent={<MdOutlineAttachEmail />}
+                        />
+                        <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+
+                    </div>
 
                     <div className='flex justify-between'>
                         <div className='w-full'>
@@ -100,11 +103,12 @@ export default function RegistrationForm() {
                                 as={Input}
                                 type={isVisible ? "text" : "password"}
                                 name="password"
-                                placeholder="Enter your password"
-                                className="mt-1 block w-full"
+                                variant='faded'
+                                radius='md'
+                                label="Ingresa Contraseña"
+                                className="max-w-72 mt-2"
                             />
                             <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-
 
                         </div>
                         <div className='w-full'>
@@ -129,21 +133,25 @@ export default function RegistrationForm() {
                         </div>
                     </div>
 
-                    <Field
-                        as={Select}
-                        name="role"
-                        label="Selecciona tu Pata Rol"
-                        className="max-w-72 mt-2 text-black"
-                        color='primary'
-                        onChange={(e: any) => setFieldValue("role", e.target.value)}
-                    >
-                        {roles.map(rol => (
-                            <SelectItem key={rol.key} value={rol.key}>
-                                {rol.label}
-                            </SelectItem>
-                        ))}
-                    </Field>
-                    <ErrorMessage name="role" component="div" className="text-red-500 text-sm" />
+                    <div className='w-full'>
+                        <Field
+                            as={Select}
+                            name="role"
+                            label="Selecciona tu Pata Rol"
+                            className="max-w-72 mt-2 text-black"
+                            color='primary'
+                            onChange={(e: any) => setFieldValue("role", e.target.value)}
+                        >
+                            {roles.map(rol => (
+                                <SelectItem key={rol.key} value={rol.key}>
+                                    {rol.label}
+                                </SelectItem>
+                            ))}
+                        </Field>
+                        <ErrorMessage name="role" component="div" className="text-red-500 text-sm" />
+
+                    </div>
+
 
                     <div className='flex justify-center'>
                         <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-2">Crea tu cuenta</Button>
