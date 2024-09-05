@@ -26,7 +26,7 @@ interface FormValues {
 
 const validationSchema = Yup.object({});
 
-export default function Profile_Cu() {
+export default function Profile_Client() {
     const [selectedCountry, setSelectedCountry] = useState("");
     const [cityOptions, setCityOptions] = useState<City[]>([]);
 
@@ -96,20 +96,20 @@ export default function Profile_Cu() {
                             </div>
                         </div>
 
-                        <div className='w-full'>
-                            <Field
-                                as={Input}
-                                type="text"
-                                name='email'
-                                variant='faded'
-                                radius='md'
-                                label="Correo"
-                                className="w-full mt-2"
-                            />
-                            <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
-                        </div>
-
                         <div className='flex'>
+                            <div className='w-full'>
+                                <Field
+                                    as={Input}
+                                    type="text"
+                                    name='email'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Correo"
+                                    className="w-full mt-2"
+                                />
+                                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                            </div>
+
                             <div className='w-full'>
                                 <Field
                                     as={Input}
@@ -122,6 +122,9 @@ export default function Profile_Cu() {
                                 />
                                 <ErrorMessage name="dni" component="div" className="text-red-500 text-sm" />
                             </div>
+                        </div>
+
+                        <div className='flex'>
                             <div className='w-full'>
                                 <Field
                                     as={Input}
@@ -134,10 +137,23 @@ export default function Profile_Cu() {
                                 />
                                 <ErrorMessage name="telefono" component="div" className="text-red-500 text-sm" />
                             </div>
+                            <div className='w-full'>
+                                <Field
+                                    as={Input}
+                                    type="text"
+                                    name='telefonoemerg'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Teléfono Emergencia"
+                                    className="mt-2 mr-2"
+
+                                />
+                                <ErrorMessage name="telefonoemerg" component="div" className="text-red-500 text-sm" />
+                            </div>
                         </div>
 
                         <div className='flex'>
-                            <div className='w-full'>
+                            <div className='w-full mr-1'>
                                 <Field
                                     as={Select}
                                     name="pais"
@@ -177,20 +193,20 @@ export default function Profile_Cu() {
                     <Field
                         as={Textarea}
                         type="text"
-                        name='experiencia_previa'
+                        name='direccion'
                         variant='faded'
                         radius='md'
-                        label="Experiencia previa"
+                        label="Dirección"
                         className=" mt-2"
                     />
 
                     <Field
                         as={Textarea}
                         type="text"
-                        name='certificaciones'
+                        name='preferencia'
                         variant='faded'
                         radius='md'
-                        label="Certificaciones o Capacitación"
+                        label="Preferencia de servicio o comentarios"
                         className="mt-2"
                     />
 

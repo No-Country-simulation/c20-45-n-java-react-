@@ -26,7 +26,7 @@ interface FormValues {
 
 const validationSchema = Yup.object({});
 
-export default function Profile_Cu() {
+export default function Profile_Mascota() {
     const [selectedCountry, setSelectedCountry] = useState("");
     const [cityOptions, setCityOptions] = useState<City[]>([]);
 
@@ -66,7 +66,7 @@ export default function Profile_Cu() {
             {({ isSubmitting, setFieldValue }) => (
                 <Form>
                     <div className="flex justify-center font-extrabold text-xl font-mono">
-                        Información personal
+                        Información de tu mascota
                     </div>
                     <div className="w-8/12">
                         <div className='flex'>
@@ -86,27 +86,14 @@ export default function Profile_Cu() {
                                 <Field
                                     as={Input}
                                     type="text"
-                                    name='apellido'
+                                    name='raza'
                                     variant='faded'
                                     radius='md'
-                                    label="Apellido"
+                                    label="Raza"
                                     className=" mt-2 mr-2"
                                 />
-                                <ErrorMessage name="apellido" component="div" className="text-red-500 text-sm" />
+                                <ErrorMessage name="raza" component="div" className="text-red-500 text-sm" />
                             </div>
-                        </div>
-
-                        <div className='w-full'>
-                            <Field
-                                as={Input}
-                                type="text"
-                                name='email'
-                                variant='faded'
-                                radius='md'
-                                label="Correo"
-                                className="w-full mt-2"
-                            />
-                            <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                         </div>
 
                         <div className='flex'>
@@ -114,85 +101,74 @@ export default function Profile_Cu() {
                                 <Field
                                     as={Input}
                                     type="text"
-                                    name='dni'
+                                    name='edad'
                                     variant='faded'
                                     radius='md'
-                                    label="DNI"
-                                    className="mt-2 mr-2"
+                                    label="Edad"
+                                    className="w-full mt-2"
                                 />
-                                <ErrorMessage name="dni" component="div" className="text-red-500 text-sm" />
+                                <ErrorMessage name="edad" component="div" className="text-red-500 text-sm" />
                             </div>
+
                             <div className='w-full'>
                                 <Field
                                     as={Input}
                                     type="text"
-                                    name='telefono'
+                                    name='sexo'
                                     variant='faded'
                                     radius='md'
-                                    label="Teléfono"
+                                    label="Genero"
                                     className="mt-2 mr-2"
                                 />
-                                <ErrorMessage name="telefono" component="div" className="text-red-500 text-sm" />
+                                <ErrorMessage name="sexo" component="div" className="text-red-500 text-sm" />
                             </div>
                         </div>
 
-                        <div className='flex'>
-                            <div className='w-full'>
-                                <Field
-                                    as={Select}
-                                    name="pais"
-                                    label="País"
-                                    className="mt-2 text-black"
-                                    color='primary'
-                                    onChange={handleCountryChange}
-                                >
-                                    {latam_paises.countries.map(p => (
-                                        <SelectItem key={p.key} value={p.key}>
-                                            {p.label}
-                                        </SelectItem>
-                                    ))}
-                                </Field>
-                                <ErrorMessage name="pais" component="div" className="text-red-500 text-sm" />
-                            </div>
-                            <div className='w-full'>
-                                <Field
-                                    as={Select}
-                                    name="ciudad"
-                                    label="Ciudad"
-                                    className="mt-2 mr-2 text-black"
-                                    color='primary'
-                                    disabled={!selectedCountry}
-                                >
-                                    {cityOptions.map((c) => (
-                                        <SelectItem key={c.key} value={c.key}>
-                                            {c.label}
-                                        </SelectItem>
-                                    ))}
-                                </Field>
-                                <ErrorMessage name="ciudad" component="div" className="text-red-500 text-sm" />
-                            </div>
-                        </div>
                     </div>
 
-                    <Field
-                        as={Textarea}
-                        type="text"
-                        name='experiencia_previa'
-                        variant='faded'
-                        radius='md'
-                        label="Experiencia previa"
-                        className=" mt-2"
-                    />
+                    <div className='flex'>
+                        <Field
+                            as={Textarea}
+                            type="text"
+                            name='condiciones'
+                            variant='faded'
+                            radius='md'
+                            label="Condiciones médicas"
+                            className=" mt-2"
+                        />
 
-                    <Field
-                        as={Textarea}
-                        type="text"
-                        name='certificaciones'
-                        variant='faded'
-                        radius='md'
-                        label="Certificaciones o Capacitación"
-                        className="mt-2"
-                    />
+                        <Field
+                            as={Textarea}
+                            type="text"
+                            name='vacunas'
+                            variant='faded'
+                            radius='md'
+                            label="Vacunas"
+                            className="mt-2"
+                        />
+                    </div>
+
+                    <div className='flex'>
+                        <Field
+                            as={Textarea}
+                            type="text"
+                            name='comportamiento'
+                            variant='faded'
+                            radius='md'
+                            label="Comportamiento"
+                            className=" mt-2"
+                        />
+
+                        <Field
+                            as={Textarea}
+                            type="text"
+                            name='dieta'
+                            variant='faded'
+                            radius='md'
+                            label="Dieta"
+                            className="mt-2"
+                        />
+                    </div>
 
                     <div className='flex justify-center'>
                         <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-2">Guardar cambios</Button>
