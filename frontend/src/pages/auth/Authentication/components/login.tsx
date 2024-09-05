@@ -1,32 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input } from '@nextui-org/react';
-import { EyeFilledIcon } from './resource/EyeFilledIcon';
-import { EyeSlashFilledIcon } from './resource/EyeSlashFilledIcon';
-
-
+import { MdOutlineAttachEmail } from 'react-icons/md';
+import { FaEyeSlash } from 'react-icons/fa';
+import { TbEyeFilled } from 'react-icons/tb';
+import apiClient from '../../../../config/axiosConfig';
 
 interface LoginValues {
     email: string;
     password: string;
 }
 
-const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+const validationSchema = Yup.object().shape({
+    email: Yup.string().email('Correo invalido').required('Correo invalido'),
+    password: Yup.string().required('Contraseña requerida').min(6, 'Mínimo 6 caracteres'),
 });
 
 export default function LoginForm() {
-    const [isVisible, setIsVisible] = React.useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleSubmit = (values: LoginValues, actions: any) => {
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-        }, 1000);
+    const handleSubmit = async (values: LoginValues) => {
+        try {
+            const response = await apiClient.post('/login', values); 
+            localStorage.setItem('token', response.data.token);
+            window.location.href = '/dashboard';
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+        }
     };
 
     return (
@@ -39,38 +42,54 @@ export default function LoginForm() {
             onSubmit={handleSubmit}
         >
             {({ isSubmitting }) => (
-                <><div>
-                    <Input
-                        type="email"
-                        variant='faded'
-                        radius='full'
-                        label="Email"
-                        name='Email'
-                        placeholder="Ingresa tu email"
-                        className="mt-1 block w-full" />
-                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
-
-                    <Input
-                        name="password"
-                        variant='faded'
-                        radius='full'
-                        label="Contraseña"
-                        placeholder="Enter your password"
-                        className="max-w-xs"
-                        endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
-                            {isVisible ? (
-                                <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                            ) : (
-                                <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                <Form>
+                    <div>
+                        <Field name="email">
+                            {({ field }: any) => (
+                                <Input
+                                    {...field}
+                                    type="email"
+                                    variant='faded'
+                                    radius='md'
+                                    label="Ingrese tu correo electrónico"
+                                    className="mt-3"
+                                    endContent={<MdOutlineAttachEmail />}
+                                />
                             )}
-                        </button>}
-                        type={isVisible ? "text" : "password"} />
-                    <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-                </div><Button type="submit" color="primary" disabled={isSubmitting} className="w-full">Login</Button></>
+                        </Field>
+                        <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
 
+                        <Field name="password">
+                            {({ field }: any) => (
+                                <Input
+                                    {...field}
+                                    type={isVisible ? "text" : "password"}
+                                    variant='faded'
+                                    radius='md'
+                                    label="Ingrese su contraseña"
+                                    className="mt-3"
+                                    endContent={
+                                        <button
+                                            className="focus:outline-none"
+                                            type="button"
+                                            onClick={toggleVisibility}
+                                            aria-label="toggle password visibility"
+                                        >
+                                            {isVisible ? <FaEyeSlash /> : <TbEyeFilled />}
+                                        </button>
+                                    }
+                                />
+                            )}
+                        </Field>
+                        <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+                    </div>
+                    <div className='flex justify-center'>
+                        <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-3">
+                            Iniciar sesión
+                        </Button>
+                    </div>
+                </Form>
             )}
         </Formik>
     );
-};
-
-
+}
