@@ -6,6 +6,7 @@ import { MdOutlineAttachEmail } from 'react-icons/md';
 import { TbEyeFilled, TbTooltip } from "react-icons/tb";
 import { FaEyeSlash } from "react-icons/fa";
 import { Select, SelectItem } from '@nextui-org/select';
+import apiClient from '../../../../config/axiosConfig';
 
 interface FormValues {
     name: string;
@@ -35,8 +36,13 @@ export default function RegistrationForm() {
     const [isVisible, setIsVisible] = React.useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleSubmit = (values: FormValues) => {
-        // Handle form submission
+    const handleSubmit = async (values: FormValues) => {
+        try {
+            const response = await apiClient.post('', values);
+            window.location.href = '/acceder';
+        } catch (error) {
+            console.error('Error al registrar:', error);
+        }
     };
 
     return (

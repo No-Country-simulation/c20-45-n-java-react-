@@ -35,6 +35,7 @@
     "@nextui-org/tooltip": "^2.0.39",
     "@nextui-org/user": "^2.0.33",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.7.7",
     "formik": "^2.4.6",
     "framer-motion": "^11.5.2",
     "frontend": "file:",
