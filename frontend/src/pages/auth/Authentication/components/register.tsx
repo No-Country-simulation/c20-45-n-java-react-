@@ -6,6 +6,10 @@ import { MdOutlineAttachEmail } from 'react-icons/md';
 import { TbEyeFilled, TbTooltip } from "react-icons/tb";
 import { FaEyeSlash } from "react-icons/fa";
 import { Select, SelectItem } from '@nextui-org/select';
+import apiClient from '../../../../config/axiosConfig';
+import { useNavigate } from 'react-router-dom';
+
+
 
 interface FormValues {
     name: string;
@@ -32,11 +36,20 @@ const roles = [
 ];
 
 export default function RegistrationForm() {
-    const [isVisible, setIsVisible] = React.useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleSubmit = (values: FormValues) => {
-        // Handle form submission
+    const [isVisibleC, setIsVisibleC] = useState(false);
+    const toggleVisibilityC = () => setIsVisibleC(!isVisibleC);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (values: FormValues) => {
+        try {
+            const response = await apiClient.post('/register', values);
+            navigate('/acceder');
+        } catch (error) {
+            console.error('Error al registrar:', error);
+        }
     };
 
     return (
@@ -99,29 +112,43 @@ export default function RegistrationForm() {
 
                     <div className='flex justify-between'>
                         <div className='w-full'>
-                            <Field
-                                as={Input}
-                                type={isVisible ? "text" : "password"}
-                                name="password"
-                                variant='faded'
-                                radius='md'
-                                label="Ingresa Contraseña"
-                                className="max-w-72 mt-2"
-                            />
+
+                            <Field name="password">
+                                {({ field }: any) => (
+                                    <Input
+                                        {...field}
+                                        type={isVisible ? "text" : "password"}
+                                        variant='faded'
+                                        radius='md'
+                                        label="Ingrese su contraseña"
+                                        className="mt-3"
+                                        endContent={
+                                            <button
+                                                className="focus:outline-none"
+                                                type="button"
+                                                onClick={toggleVisibility}
+                                                aria-label="toggle password visibility"
+                                            >
+                                                {isVisible ? <FaEyeSlash /> : <TbEyeFilled />}
+                                            </button>
+                                        }
+                                    />
+                                )}
+                            </Field>
                             <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
 
                         </div>
-                        <div className='w-full'>
+                        {/* <div className='w-full'>
                             <Field
                                 as={Input}
-                                type={isVisible ? "text" : "password"}
+                                type={isVisibleC ? "text" : "password"}
                                 name="confirmPassword"
                                 variant='faded'
                                 radius='md'
                                 label="Confirmar Contraseña"
                                 className="max-w-72 mt-2"
-                                endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
-                                    {isVisible ? (
+                                endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibilityC} aria-label="toggle password visibility">
+                                    {isVisibleC ? (
                                         <FaEyeSlash />
                                     ) : (
                                         <TbEyeFilled />
@@ -130,7 +157,7 @@ export default function RegistrationForm() {
                             />
                             <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm" />
 
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className='w-full'>

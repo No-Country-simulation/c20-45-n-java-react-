@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input } from '@nextui-org/react';
 import { MdOutlineAttachEmail } from 'react-icons/md';
 import { FaEyeSlash } from 'react-icons/fa';
 import { TbEyeFilled } from 'react-icons/tb';
-
+import apiClient from '../../../../config/axiosConfig';
 
 interface LoginValues {
     email: string;
@@ -18,12 +18,18 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginForm() {
-    const [isVisible, setIsVisible] = React.useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleSubmit = (values: LoginValues, actions: any) => {
-        console.log(values);
+    const handleSubmit = async (values: LoginValues) => {
+        try {
+            const response = await apiClient.post('/login', values); 
+            localStorage.setItem('token', response.data.token);
+            window.location.href = '/dashboard';
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+        }
     };
 
     return (
