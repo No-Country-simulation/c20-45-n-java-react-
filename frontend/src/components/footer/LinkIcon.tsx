@@ -13,8 +13,9 @@ export default function LinkListIcons({
             <h2 className="text-xl font-bold text-white">{title}</h2>
             <div className="bg-primary h-0.5 w-36 my-3" />
             <div className="flex flex-col gap-1.5 ">
-                {list.map((entry) => (
+                {list.map((entry, index) => (
                     <Link
+                        key={entry.id || index}
                         to={entry.link}
                         target="_blank"
                         className="flex items-center text-gray-800 group-hover:rotate-12 duration-500 transition-transform group-hover:text-gray-100 group-hover:scale-110"

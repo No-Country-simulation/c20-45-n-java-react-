@@ -1,7 +1,11 @@
-import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
-import { Button, Input, Select, SelectItem } from '@nextui-org/react';
+import { Button, Input } from '../../../../export-components';
+import { MdOutlineAttachEmail } from 'react-icons/md';
+import { TbEyeFilled, TbTooltip } from "react-icons/tb";
+import { FaEyeSlash } from "react-icons/fa";
+import { Select, SelectItem } from '@nextui-org/select';
 
 interface FormValues {
     name: string;
@@ -12,13 +16,14 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().email('Invalid email address').required('Email is required'),
-    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    name: Yup.string().required('Nombre es requerido'),
+    lastname: Yup.string().required('Apellido es requerido'),
+    email: Yup.string().email('Correo invalido').required('Email es requerido'),
+    password: Yup.string().min(6, 'Contraseña debe tener al menos 6 caracteres').required('Contraseña es requerida'),
     confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
-        .required('Confirm Password is required'),
-    role: Yup.string().oneOf(['owner', 'caregiver'], 'Role is required').required('Role is required'),
+        .oneOf([Yup.ref('password'), undefined], 'La contraseña debe coincidir')
+        .required('Confirmación de contraseña requerida'),
+    role: Yup.string().oneOf(['owner', 'caregiver'], 'Rol es requerido').required('Rol es requerido'),
 });
 
 const roles = [
@@ -26,93 +31,133 @@ const roles = [
     { key: "caregiver", label: "Cuidador" },
 ];
 
-const RegistrationForm: React.FC = () => {
-    const handleSubmit = (values: FormValues, actions: any) => {
+export default function RegistrationForm() {
+    const [isVisible, setIsVisible] = React.useState(false);
+    const toggleVisibility = () => setIsVisible(!isVisible);
+
+    const handleSubmit = (values: FormValues) => {
+        // Handle form submission
     };
 
     return (
-        <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
-            <h1 className="text-2xl font-bold mb-4">Register Account</h1>
-            <Formik
-                initialValues={{
-                    name: '',
-                    email: '',
-                    password: '',
-                    confirmPassword: '',
-                    role: 'owner',
-                }}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-            >
-                {({ isSubmitting }) => (
-                    <Form>
-                        <div className="mb-4">
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+        <Formik
+            initialValues={{
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                role: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+        >
+            {({ isSubmitting, setFieldValue }) => (
+                <Form>
+                    <div className='flex justify-between'>
+                        <div className='w-full'>
                             <Field
-                                type="text"
-                                name="name"
                                 as={Input}
-                                placeholder="Enter your name"
-                                className="mt-1 block w-full"
+                                type="text"
+                                name='name'
+                                variant='faded'
+                                radius='md'
+                                label="Ingrese tu nombre"
+                                className="max-w-72 mt-2"
                             />
                             <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
-                        </div>
 
-                        <div className="mb-4">
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                        </div>
+                        <div className='w-full'>
                             <Field
-                                type="email"
-                                name="email"
                                 as={Input}
-                                placeholder="Enter your email"
-                                className="mt-1 block w-full"
+                                type="text"
+                                name='lastname'
+                                variant='faded'
+                                radius='md'
+                                label="Ingrese tu apellido"
+                                className="max-w-72 mt-2"
                             />
-                            <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
-                        </div>
+                            <ErrorMessage name="lastname" component="div" className="text-red-500 text-sm" />
 
-                        <div className="mb-4">
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <Field
+                            as={Input}
+                            type="email"
+                            name='email'
+                            variant='faded'
+                            radius='md'
+                            label="Ingrese tu correo electrónico"
+                            className="mt-2"
+                            endContent={<MdOutlineAttachEmail />}
+                        />
+                        <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+
+                    </div>
+
+                    <div className='flex justify-between'>
+                        <div className='w-full'>
                             <Field
-                                type="password"
-                                name="password"
                                 as={Input}
-                                placeholder="Enter your password"
-                                className="mt-1 block w-full"
+                                type={isVisible ? "text" : "password"}
+                                name="password"
+                                variant='faded'
+                                radius='md'
+                                label="Ingresa Contraseña"
+                                className="max-w-72 mt-2"
                             />
                             <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-                        </div>
 
-                        <div className="mb-4">
-                            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+                        </div>
+                        <div className='w-full'>
                             <Field
-                                type="password"
-                                name="confirmPassword"
                                 as={Input}
-                                placeholder="Confirm your password"
-                                className="mt-1 block w-full"
+                                type={isVisible ? "text" : "password"}
+                                name="confirmPassword"
+                                variant='faded'
+                                radius='md'
+                                label="Confirmar Contraseña"
+                                className="max-w-72 mt-2"
+                                endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
+                                    {isVisible ? (
+                                        <FaEyeSlash />
+                                    ) : (
+                                        <TbEyeFilled />
+                                    )}
+                                </button>}
                             />
                             <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm" />
-                        </div>
 
-                        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-                            <Select
-                                placeholder="Elige un rol"
-                                className="max-w-xs"
-                            >
-                                {roles.map((role) => (
-                                    <SelectItem key={role.key} value={role.key}>
-                                        {role.label}
-                                    </SelectItem>
-                                ))}
-                            </Select>
                         </div>
+                    </div>
 
-                        <Button type="submit" color="primary" disabled={isSubmitting} className="w-full">Register</Button>
-                    </Form>
-                )}
-            </Formik>
-        </div>
+                    <div className='w-full'>
+                        <Field
+                            as={Select}
+                            name="role"
+                            label="Selecciona tu Pata Rol"
+                            className="max-w-72 mt-2 text-black"
+                            color='primary'
+                            onChange={(e: any) => setFieldValue("role", e.target.value)}
+                        >
+                            {roles.map(rol => (
+                                <SelectItem key={rol.key} value={rol.key}>
+                                    {rol.label}
+                                </SelectItem>
+                            ))}
+                        </Field>
+                        <ErrorMessage name="role" component="div" className="text-red-500 text-sm" />
+
+                    </div>
+
+
+                    <div className='flex justify-center'>
+                        <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-2">Crea tu cuenta</Button>
+                    </div>
+                </Form>
+            )}
+        </Formik>
     );
-};
-
-export default RegistrationForm;
+}
