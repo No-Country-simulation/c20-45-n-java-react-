@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
-import { Button, Input } from '../../../../export-components';
+import { Button, Input } from '@nextui-org/react';
 import { MdOutlineAttachEmail } from 'react-icons/md';
-import { TbEyeFilled, TbTooltip } from "react-icons/tb";
+import { TbEyeFilled } from "react-icons/tb";
 import { FaEyeSlash } from "react-icons/fa";
 import { Select, SelectItem } from '@nextui-org/select';
 import apiClient from '../../../../config/axiosConfig';
@@ -11,7 +11,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 interface FormValues {
+    usuario: string;
     name: string;
     email: string;
     password: string;
@@ -19,7 +21,8 @@ interface FormValues {
     role: string;
 }
 
-const validationSchema = Yup.object({
+const validationSchema = Yup.object().shape({
+    usuario: Yup.string().required('Usuario es requerido'),
     name: Yup.string().required('Nombre es requerido'),
     lastname: Yup.string().required('Apellido es requerido'),
     email: Yup.string().email('Correo invalido').required('Email es requerido'),
@@ -44,8 +47,12 @@ export default function RegistrationForm() {
     const navigate = useNavigate();
 
     const handleSubmit = async (values: FormValues) => {
+
+
+
         try {
-            const response = await apiClient.post('/register', values);
+            const response = await apiClient.post('/create', values);
+            console.log("OK pasamos", values)
             navigate('/acceder');
         } catch (error) {
             console.error('Error al registrar:', error);
@@ -55,6 +62,7 @@ export default function RegistrationForm() {
     return (
         <Formik
             initialValues={{
+                usuario: '',
                 name: '',
                 email: '',
                 password: '',
@@ -67,6 +75,16 @@ export default function RegistrationForm() {
             {({ isSubmitting, setFieldValue }) => (
                 <Form>
                     <div className='flex justify-between'>
+                        <Field
+                            as={Input}
+                            type="text"
+                            name='usuario'
+                            variant='faded'
+                            radius='md'
+                            label="Usuario"
+                            className="max-w-72 mt-2"
+                        />
+                        <ErrorMessage name="usuario" component="div" className="text-red-500 text-sm" />
                         <div className='w-full'>
                             <Field
                                 as={Input}
@@ -74,7 +92,7 @@ export default function RegistrationForm() {
                                 name='name'
                                 variant='faded'
                                 radius='md'
-                                label="Ingrese tu nombre"
+                                label="Nombre"
                                 className="max-w-72 mt-2"
                             />
                             <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
@@ -87,7 +105,7 @@ export default function RegistrationForm() {
                                 name='lastname'
                                 variant='faded'
                                 radius='md'
-                                label="Ingrese tu apellido"
+                                label="Apellido"
                                 className="max-w-72 mt-2"
                             />
                             <ErrorMessage name="lastname" component="div" className="text-red-500 text-sm" />
@@ -102,7 +120,7 @@ export default function RegistrationForm() {
                             name='email'
                             variant='faded'
                             radius='md'
-                            label="Ingrese tu correo electrónico"
+                            label="Correo electrónico"
                             className="mt-2"
                             endContent={<MdOutlineAttachEmail />}
                         />
@@ -120,7 +138,7 @@ export default function RegistrationForm() {
                                         type={isVisible ? "text" : "password"}
                                         variant='faded'
                                         radius='md'
-                                        label="Ingrese su contraseña"
+                                        label="Contraseña"
                                         className="mt-3"
                                         endContent={
                                             <button
@@ -138,7 +156,7 @@ export default function RegistrationForm() {
                             <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
 
                         </div>
-                        {/* <div className='w-full'>
+                        <div className='w-full'>
                             <Field
                                 as={Input}
                                 type={isVisibleC ? "text" : "password"}
@@ -146,7 +164,7 @@ export default function RegistrationForm() {
                                 variant='faded'
                                 radius='md'
                                 label="Confirmar Contraseña"
-                                className="max-w-72 mt-2"
+                                className="mt-3"
                                 endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibilityC} aria-label="toggle password visibility">
                                     {isVisibleC ? (
                                         <FaEyeSlash />
@@ -157,7 +175,7 @@ export default function RegistrationForm() {
                             />
                             <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm" />
 
-                        </div> */}
+                        </div>
                     </div>
 
                     <div className='w-full'>

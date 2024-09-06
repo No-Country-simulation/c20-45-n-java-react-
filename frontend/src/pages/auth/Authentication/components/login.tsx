@@ -2,31 +2,33 @@ import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input } from '@nextui-org/react';
-import { MdOutlineAttachEmail } from 'react-icons/md';
+import { FaUser } from "react-icons/fa";
 import { FaEyeSlash } from 'react-icons/fa';
 import { TbEyeFilled } from 'react-icons/tb';
 import apiClient from '../../../../config/axiosConfig';
+import { useNavigate } from 'react-router-dom';
+
 
 interface LoginValues {
-    email: string;
+    username: string;
     password: string;
 }
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string().email('Correo invalido').required('Correo invalido'),
+    username: Yup.string().required('Usuario requerido'),
     password: Yup.string().required('Contraseña requerida').min(6, 'Mínimo 6 caracteres'),
 });
 
 export default function LoginForm() {
     const [isVisible, setIsVisible] = useState(false);
-
+    const navigate = useNavigate();
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleSubmit = async (values: LoginValues) => {
+    const handleSubmit = async (values: LoginValues,) => {
         try {
-            const response = await apiClient.post('/login', values); 
+            const response = await apiClient.post('/login', values);
             localStorage.setItem('token', response.data.token);
-            window.location.href = '/dashboard';
+            navigate("/perfil-cliente");
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
         }
@@ -35,7 +37,7 @@ export default function LoginForm() {
     return (
         <Formik
             initialValues={{
-                email: '',
+                username: '',
                 password: '',
             }}
             validationSchema={validationSchema}
@@ -44,20 +46,20 @@ export default function LoginForm() {
             {({ isSubmitting }) => (
                 <Form>
                     <div>
-                        <Field name="email">
+                        <Field name="username">
                             {({ field }: any) => (
                                 <Input
                                     {...field}
-                                    type="email"
+                                    type="username"
                                     variant='faded'
                                     radius='md'
-                                    label="Ingrese tu correo electrónico"
+                                    label="Usuario"
                                     className="mt-3"
-                                    endContent={<MdOutlineAttachEmail />}
+                                    endContent={<FaUser />}
                                 />
                             )}
                         </Field>
-                        <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                        <ErrorMessage name="username" component="div" className="text-red-500 text-sm" />
 
                         <Field name="password">
                             {({ field }: any) => (
@@ -66,7 +68,7 @@ export default function LoginForm() {
                                     type={isVisible ? "text" : "password"}
                                     variant='faded'
                                     radius='md'
-                                    label="Ingrese su contraseña"
+                                    label="Contraseña"
                                     className="mt-3"
                                     endContent={
                                         <button

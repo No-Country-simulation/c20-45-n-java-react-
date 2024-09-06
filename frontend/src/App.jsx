@@ -1,8 +1,8 @@
 import Footer from "./components/footer/footer";
 import HomeNavbar from "./components/navbar2/navbar";
 import Form from "./pages/auth/Authentication/auth-form";
-//import Profile_Carer from "./pages/profile_carer/profile-carer";
-//import Profile_Cliente from "./pages/profile_cliente/profile-cliente";
+import Profile_Carer from "./pages/profile_carer/profile-carer";
+import Profile_Cliente from "./pages/profile_cliente/profile-cliente";
 
 function App() {
   return (
