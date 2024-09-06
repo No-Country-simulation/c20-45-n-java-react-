@@ -6,6 +6,7 @@ import { FaDog } from "react-icons/fa";
 import { MdInsertComment } from "react-icons/md";
 import { useNavigate } from "react-router";
 import Profile_Cu from "./components/profile";
+import RideDog from "./components/ride";
 
 export default function Profile_Carer() {
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function Profile_Carer() {
                 </div>
             ),
             content: (
-                <></>
+                <RideDog />
             ),
         },
         {

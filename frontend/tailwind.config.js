@@ -12,7 +12,11 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridAutoColumns: {
+        "2fr": "minmax(0, 2fr)",
+      },
+    },
   },
   darkMode: "class",
   plugins: [nextui()],
