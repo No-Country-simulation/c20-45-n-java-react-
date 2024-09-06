@@ -47,8 +47,12 @@ export default function RegistrationForm() {
     const navigate = useNavigate();
 
     const handleSubmit = async (values: FormValues) => {
+
+
+
         try {
-            const response = await apiClient.post('/register', values);
+            const response = await apiClient.post('/create', values);
+            console.log("OK pasamos", values)
             navigate('/acceder');
         } catch (error) {
             console.error('Error al registrar:', error);

@@ -12,7 +12,7 @@ function App() {
         <HomeNavbar />
         {/* Main Content */}
         <main className="flex-grow bg-gray-300 border-t border-b border-gray-400 flex items-center justify-center">
-          <Profile_Carer />
+          <Form />
         </main>
 
         {/* Footer */}
