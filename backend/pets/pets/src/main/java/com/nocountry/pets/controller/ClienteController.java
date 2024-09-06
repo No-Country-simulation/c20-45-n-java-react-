@@ -45,7 +45,6 @@ public class ClienteController {
         return clienteService.findById(id);
     }
 
-
     @PostMapping("/create")
     public ResponseEntity<?> createCliente(@Valid @RequestBody ClienteRequest clienteRequest, BindingResult result) {
         if (result.hasErrors()) {

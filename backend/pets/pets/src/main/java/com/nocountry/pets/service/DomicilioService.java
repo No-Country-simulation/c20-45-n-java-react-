@@ -31,18 +31,15 @@ public class DomicilioService implements IDomicilioService {
 
     @Override
     public Domicilio update(Domicilio domicilio) {
-        return domicilioRepo.save(domicilio);
-    }
-
-    @Override
-    public Domicilio save(Domicilio domicilio) {
 
         if (domicilio.getId_domicilio() != null && domicilioRepo.existsById(domicilio.getId_domicilio())) {
-
             return domicilioRepo.save(domicilio);
         } else {
-
-            return domicilioRepo.save(domicilio);
+            throw new EntityNotFoundException("El domicilio con ID " + domicilio.getId_domicilio() + " no existe.");
         }
+    }
+    @Override
+    public Domicilio save(Domicilio domicilio) {
+            return domicilioRepo.save(domicilio);
     }
 }
