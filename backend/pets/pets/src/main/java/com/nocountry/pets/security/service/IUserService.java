@@ -1,6 +1,7 @@
 package com.nocountry.pets.security.service;
 
 import com.nocountry.pets.models.Cliente;
+import com.nocountry.pets.models.Persona;
 import com.nocountry.pets.security.models.Role;
 import com.nocountry.pets.security.models.UserSec;
 
@@ -20,6 +21,6 @@ public interface IUserService {
     UserSec update(UserSec userSec);
 
     String encriptPassword(String password);
-    Optional<UserSec> findByPersona(Cliente cliente);
+    Optional<UserSec> findByPersona(Persona persona);
 
 }

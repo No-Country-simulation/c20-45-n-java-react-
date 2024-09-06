@@ -1,6 +1,7 @@
 package com.nocountry.pets.security.service;
 
 import com.nocountry.pets.models.Cliente;
+import com.nocountry.pets.models.Persona;
 import com.nocountry.pets.security.models.Role;
 import com.nocountry.pets.security.repository.IUserRepository;
 import com.nocountry.pets.security.models.UserSec;
@@ -65,8 +66,8 @@ public class UserService implements IUserService {
         userRepository.save(userSec);
     }
     @Override
-    public Optional<UserSec> findByPersona(Cliente cliente) {
-        return userRepository.findByPersona(cliente);
+    public Optional<UserSec> findByPersona(Persona persona) {
+        return userRepository.findByPersona(persona);
     }
 
 }

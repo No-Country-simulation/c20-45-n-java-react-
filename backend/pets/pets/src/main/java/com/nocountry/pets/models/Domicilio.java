@@ -24,7 +24,7 @@ public class Domicilio {
     @NotNull
     private int numero;
     @NotBlank
-    private String localidad;
+    private String ciudad;
     @NotBlank
     private String provincia;
     @JsonIgnore
