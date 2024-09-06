@@ -84,8 +84,9 @@ public class PersonaService <T extends Persona>  {
         existingCliente.setNombre(cliente.getNombre());
         existingCliente.setApellido(cliente.getApellido());
         existingCliente.setEmail(cliente.getEmail());
+        existingCliente.setDni(cliente.getDni());
         existingCliente.setTelefono(cliente.getTelefono());
-
+        existingCliente.setTelefonoEmergencia(cliente.getTelefonoEmergencia());
         // Actualizar domicilio
         Domicilio newDomicilio = cliente.getDomicilio();
         if (newDomicilio != null) {
@@ -93,7 +94,7 @@ public class PersonaService <T extends Persona>  {
             if (existingDomicilio != null) {
                 existingDomicilio.setCalle(newDomicilio.getCalle());
                 existingDomicilio.setNumero(newDomicilio.getNumero());
-                existingDomicilio.setLocalidad(newDomicilio.getLocalidad());
+                existingDomicilio.setCiudad(newDomicilio.getCiudad());
                 existingDomicilio.setProvincia(newDomicilio.getProvincia());
             } else {
                 existingCliente.setDomicilio(domicilioService.save(newDomicilio));
@@ -119,7 +120,9 @@ public class PersonaService <T extends Persona>  {
         existingPrestador.setNombre(prestador.getNombre());
         existingPrestador.setApellido(prestador.getApellido());
         existingPrestador.setEmail(prestador.getEmail());
+        existingPrestador.setDni(prestador.getDni());
         existingPrestador.setTelefono(prestador.getTelefono());
+        existingPrestador.setTelefonoEmergencia(prestador.getTelefonoEmergencia());
         existingPrestador.setPrestacionOfrecida(prestador.getPrestacionOfrecida());
         existingPrestador.setUrlFoto(prestador.getUrlFoto());
 

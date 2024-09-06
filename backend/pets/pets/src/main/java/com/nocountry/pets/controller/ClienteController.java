@@ -51,12 +51,14 @@ public class ClienteController {
         if (result.hasErrors()) {
             return validation(result);
         }
-
-        if (clienteRequest.getCliente() == null || clienteRequest.getUserSec() == null) {
-            return ResponseEntity.badRequest().body("Cliente o UserSec no pueden ser nulos");
+        if (clienteRequest.getUserSec() == null) {
+            return ResponseEntity.badRequest().body("UserSec no puede ser nulo");
         }
+        Cliente cliente = new Cliente();
+        cliente.setNombre(clienteRequest.getNombre());
+        cliente.setApellido(clienteRequest.getApellido());
+        cliente.setEmail(clienteRequest.getEmail());
 
-        Cliente cliente = clienteRequest.getCliente();
         UserSec userSec = clienteRequest.getUserSec();
 
         cliente = personaService.createPersona(cliente, userSec);
@@ -74,17 +76,13 @@ public class ClienteController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> updateCliente(@PathVariable Long id, @Valid @RequestBody ClienteRequest clienteRequest, BindingResult result) {
+    public ResponseEntity<?> updateCliente(@PathVariable Long id, @Valid @RequestBody Cliente cliente, BindingResult result) {
         if (result.hasErrors()) {
             return validation(result);
         }
 
-        if (clienteRequest.getCliente() == null || clienteRequest.getUserSec() == null) {
-            return ResponseEntity.badRequest().body("Cliente y UserSec no pueden ser nulos");
-        }
-
         try {
-            Cliente updatedCliente = personaService.updatePersona(id, clienteRequest.getCliente(), clienteRequest.getUserSec());
+            Cliente updatedCliente = personaService.updatePersona(id, cliente, cliente.getUserSec());
             return ResponseEntity.ok("Cliente y usuario actualizados con éxito");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

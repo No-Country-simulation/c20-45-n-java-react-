@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,16 +27,17 @@ public class Mascota {
     @NotNull
     private String nombre;
 
-    private String color;
+    private String genero;
     @NotNull
-    private String observacion;
+    private String condicionMedica;
+    private String comportamiento;
+    private String dieta;
     private String imagen;
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonBackReference
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "prestador_id")
-    private Prestador prestador;
+    @ManyToMany(mappedBy = "mascotaList")
+    private List<Prestador> prestador = new ArrayList<>();
 }

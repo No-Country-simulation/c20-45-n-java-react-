@@ -4,6 +4,7 @@ import com.nocountry.pets.security.models.UserSec;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,14 +26,13 @@ public abstract class Persona {
     @NotNull
     private String apellido;
     @NotNull
-    private int dni;
-    @NotNull
     @Email
     private String email;
-    @NotNull
+    private int dni;
     private String telefono;
-
     private String telefonoEmergencia;
+    @Size(max=1500)
+    private String observaciones;
     @ManyToOne
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id_domicilio")
     private Domicilio domicilio;

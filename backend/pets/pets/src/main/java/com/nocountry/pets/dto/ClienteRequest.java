@@ -12,6 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClienteRequest {
-        private Cliente cliente;
-        private UserSec userSec;
+    private String nombre;
+    private String apellido;
+    private String email;
+    private UserSec userSec;
     }
