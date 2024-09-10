@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input } from '@nextui-org/react';
@@ -6,8 +6,8 @@ import { MdOutlineAttachEmail } from 'react-icons/md';
 import { TbEyeFilled } from "react-icons/tb";
 import { FaEyeSlash } from "react-icons/fa";
 import { Select, SelectItem } from '@nextui-org/select';
-import apiClient from '../../../../config/axiosConfig';
 import { useNavigate } from 'react-router-dom';
+import ApiService from '../../../../config/ApiService';
 
 
 
@@ -15,10 +15,11 @@ import { useNavigate } from 'react-router-dom';
 interface FormValues {
     usuario: string;
     name: string;
+    lastname: string;
     email: string;
     password: string;
     confirmPassword: string;
-    role: string;
+    role: number;
 }
 
 const validationSchema = Yup.object().shape({
@@ -30,12 +31,12 @@ const validationSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), undefined], 'La contraseña debe coincidir')
         .required('Confirmación de contraseña requerida'),
-    role: Yup.string().oneOf(['owner', 'caregiver'], 'Rol es requerido').required('Rol es requerido'),
+    role: Yup.string().oneOf(['1', '2'], 'Rol es requerido').required('Rol es requerido'),
 });
 
 const roles = [
-    { key: "owner", label: "Dueño" },
-    { key: "caregiver", label: "Cuidador" },
+    { key: "1", label: "Dueño" },
+    { key: "2", label: "Cuidador" },
 ];
 
 export default function RegistrationForm() {
@@ -47,27 +48,37 @@ export default function RegistrationForm() {
     const navigate = useNavigate();
 
     const handleSubmit = async (values: FormValues) => {
-
-
+        const registrationData = {
+            nombre: values.name,
+            apellido: values.lastname,
+            email: values.email,
+            userSec: {
+                username: values.usuario,
+                password: values.password,
+                role: values.role === 1 ? 'USER' : 'USERP', 
+            }
+        };
 
         try {
-            const response = await apiClient.post('/create', values);
-            console.log("OK pasamos", values)
-            navigate('/acceder');
+            const responseD = await ApiService.registerUser(registrationData);
+            console.log("Registro exitoso:", responseD);
+            navigate('/login');
         } catch (error) {
             console.error('Error al registrar:', error);
         }
     };
+
 
     return (
         <Formik
             initialValues={{
                 usuario: '',
                 name: '',
+                lastname: '',
                 email: '',
                 password: '',
                 confirmPassword: '',
-                role: '',
+                role: 0,
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
@@ -75,16 +86,18 @@ export default function RegistrationForm() {
             {({ isSubmitting, setFieldValue }) => (
                 <Form>
                     <div className='flex justify-between'>
-                        <Field
-                            as={Input}
-                            type="text"
-                            name='usuario'
-                            variant='faded'
-                            radius='md'
-                            label="Usuario"
-                            className="max-w-72 mt-2"
-                        />
-                        <ErrorMessage name="usuario" component="div" className="text-red-500 text-sm" />
+                        <div className='w-full'>
+                            <Field
+                                as={Input}
+                                type="text"
+                                name='usuario'
+                                variant='faded'
+                                radius='md'
+                                label="Usuario"
+                                className="max-w-72 mt-2"
+                            />
+                            <ErrorMessage name="usuario" component="div" className="text-red-500 text-sm" />
+                        </div>
                         <div className='w-full'>
                             <Field
                                 as={Input}
@@ -185,7 +198,10 @@ export default function RegistrationForm() {
                             label="Selecciona tu Pata Rol"
                             className="max-w-72 mt-2 text-black"
                             color='primary'
-                            onChange={(e: any) => setFieldValue("role", e.target.value)}
+                            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                                const selectedValue = Number(e.target.value);
+                                setFieldValue("role", selectedValue);
+                            }}
                         >
                             {roles.map(rol => (
                                 <SelectItem key={rol.key} value={rol.key}>

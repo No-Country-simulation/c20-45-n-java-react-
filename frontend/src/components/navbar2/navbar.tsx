@@ -6,8 +6,19 @@ import { FaDog, FaSearch } from "react-icons/fa";
 import { default as Container } from "../container/container";
 import { Input } from "../../export-components";
 
+
+const isAuthenticated = () => {
+    return !!localStorage.getItem('token'); 
+};
+
 export default function HomeNavbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+    const handleAvatarClick = () => {
+        if (!isAuthenticated()) {
+            window.location.href = '/login'; 
+        }
+    };
 
     return (
         <Navbar isBordered className="bg-green-200 h-20 w-screen" maxWidth="full">
@@ -48,7 +59,7 @@ export default function HomeNavbar() {
                         Empezar a pasear
                     </Button>
                     <Dropdown placement="bottom-end">
-                        <DropdownTrigger>
+                        <DropdownTrigger onClick={handleAvatarClick}>
                             <Avatar
                                 isBordered
                                 radius="full"
@@ -60,7 +71,7 @@ export default function HomeNavbar() {
                             />
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Profile Actions" variant="flat" className="w-48">
-                            <DropdownItem key="settings">My Settings</DropdownItem>
+                            <DropdownItem key="settings">My Perfil</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
                 </NavbarContent>
