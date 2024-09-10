@@ -39,4 +39,8 @@ public class Prestador extends Persona{
             inverseJoinColumns = @JoinColumn(name = "mascota_id")
     )
     private List<Mascota> mascotaList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "prestador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Disponibilidad> disponibilidades = new ArrayList<>();
+
 }

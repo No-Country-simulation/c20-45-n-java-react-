@@ -13,8 +13,10 @@ import com.nocountry.pets.service.IClienteService;
 import com.nocountry.pets.service.IDomicilioService;
 import com.nocountry.pets.service.IPrestadorService;
 import com.nocountry.pets.service.PersonaService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +68,37 @@ public class PrestadorController {
         return ResponseEntity.ok().body("Prestador creado con éxito");
     }
 
-    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updatePrestador(@PathVariable Long id, @Valid @RequestBody Prestador prestador, BindingResult result) {
+        if (result.hasErrors()) {
+            return validation(result);
+        }
+
+        try {
+            Prestador updatePrestador = personaService.updatePersona(id, prestador, prestador.getUserSec());
+            return ResponseEntity.ok("Prestador y usuario actualizados con éxito");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error actualizando prestador");
+        }
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        Prestador prestador = prestadorService.findById(id).orElse(null);
+        if (prestador == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado");
+        }
+
+        // Desactiva el usuario
+        UserSec userSec = userService.findByPersona(prestador).orElse(null);
+        if (userSec != null) {
+            userSec.setEnabled(false);
+            userService.save(userSec);
+        }
+
+        return ResponseEntity.ok("Prestador desactivado con éxito!!");
+    }
 
 
     private ResponseEntity<?> validation(BindingResult result) {
