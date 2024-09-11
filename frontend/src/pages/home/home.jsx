@@ -11,12 +11,10 @@ export default function Home() {
   }, []);
 
   if (isAuthenticated === null) {
-
     return null;
   }
 
   if (isAuthenticated) {
-
     return <Navigate to="/perfil-cliente" replace />;
   }
 
@@ -26,7 +24,7 @@ export default function Home() {
       <div className="flex mt-4">
         <button
           className="bg-green-500 text-white px-4 py-2 rounded mr-2"
-          onClick={() => navigate("/acceder")}
+          onClick={() => navigate("/login")}
         >
           Iniciar Sesión
         </button>

@@ -5,8 +5,8 @@ import { Button, Input } from '@nextui-org/react';
 import { FaUser } from "react-icons/fa";
 import { FaEyeSlash } from 'react-icons/fa';
 import { TbEyeFilled } from 'react-icons/tb';
-import apiClient from '../../../../config/axiosConfig';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import ApiService from '../../../../config/ApiService';
 
 
 interface LoginValues {
@@ -22,15 +22,35 @@ const validationSchema = Yup.object().shape({
 export default function LoginForm() {
     const [isVisible, setIsVisible] = useState(false);
     const navigate = useNavigate();
+    const [error, setError] = useState("");
     const toggleVisibility = () => setIsVisible(!isVisible);
+    const location = useLocation();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (values: LoginValues,) => {
+
+    const from = location.state?.from?.pathname || "/perfil-cliente";
+
+    const handleSubmit = async (values: LoginValues) => {
+        setIsLoading(true);
         try {
-            const response = await apiClient.post('/login', values);
-            localStorage.setItem('token', response.data.token);
-            navigate("/perfil-cliente");
+            const response = await ApiService.loginUser(values);
+            if (response.status >= 200 && response.status < 300) {
+                localStorage.setItem("token", response.token);
+                localStorage.setItem("role", response.role);
+
+                if (response.data.role === 'admin') {
+                    navigate('/admin-dashboard');
+                } else {
+                    navigate(from, { replace: true });
+                }
+            } else {
+                throw new Error("Credenciales incorrectas");
+            }
         } catch (error) {
-            console.error('Error al iniciar sesión:', error);
+            setError(error.response?.data?.message || "Error al iniciar sesión, intenta nuevamente");
+            setTimeout(() => setError(""), 5000);
+        } finally {
+            setIsLoading(false); // Terminamos la carga
         }
     };
 
@@ -86,9 +106,14 @@ export default function LoginForm() {
                         <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
                     </div>
                     <div className='flex justify-center'>
-                        <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-3">
-                            Iniciar sesión
+                        <Button
+                            type="submit"
+                            color="success"
+                            disabled={isSubmitting || isLoading}
+                            className="w-52 mt-3">
+                            {isLoading ? "Cargando..." : "Iniciar sesión"}
                         </Button>
+                        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                     </div>
                 </Form>
             )}

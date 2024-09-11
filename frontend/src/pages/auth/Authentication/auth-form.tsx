@@ -7,14 +7,14 @@ import RegistrationForm from "./components/register";
 import { Card, CardBody, CardHeader, Tab, Tabs } from "@nextui-org/react";
 
 
-export default function Form() {
+export default function FormLogin() {
 
     const navigate = useNavigate();
     const tabs = [
         {
             id: "LOGIN_LABEL",
             label: (
-                <div className="flex items-center" onClick={() => navigate("/acceder")}>
+                <div className="flex items-center" onClick={() => navigate("/login")}>
                     <IoMdLogIn size={24} />
                     &nbsp;
                     Inicio de Sesión

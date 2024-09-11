@@ -80,7 +80,7 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         Cliente cliente = clienteService.findById(id).orElse(null);
         if (cliente == null) {
@@ -96,6 +96,7 @@ public class ClienteController {
 
         return ResponseEntity.ok("Cliente desactivado con Exito!!");
     }
+    
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String, String> errors = new HashMap<>();
         result.getFieldErrors().forEach(error -> {
