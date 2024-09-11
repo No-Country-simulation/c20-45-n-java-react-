@@ -50,7 +50,7 @@ export default function LoginForm() {
             setError(error.response?.data?.message || "Error al iniciar sesión, intenta nuevamente");
             setTimeout(() => setError(""), 5000);
         } finally {
-            setIsLoading(false); // Terminamos la carga
+            setIsLoading(false); 
         }
     };
 

@@ -6,6 +6,8 @@ import Profile_Cliente from "./pages/profile_cliente/profile-cliente";
 import Home from "./pages/home/home";
 import FormLogin from "./pages/auth/Authentication/auth-form";
 import { ProtectedRoute } from "./config/guard";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   return (
@@ -14,8 +16,8 @@ function App() {
         <HomeNavbar />
         <main className="flex-grow bg-gray-300 border-t border-b border-gray-400 flex items-center justify-center">
           <Routes>
-            <Route exact path="/home" element={<Home />} />
-            <Route exact path="/login" element={<FormLogin />} />
+            <Route exact path="/home" element={<Profile_Cliente />} />
+            {/* <Route exact path="/login" element={<FormLogin />} />
             <Route path="/registrarse" element={<FormLogin />} />
 
             <Route
@@ -38,12 +40,11 @@ function App() {
               path="/referencias"
               element={<ProtectedRoute element={<Profile_Carer />} />}
             />
-            <Route path="*" element={<Navigate to="/login" />} />
+            <Route path="*" element={<Navigate to="/login" />} /> */}
           </Routes>
         </main>
         <Footer />
       </div>
-      ghjgh
     </>
   );
 }
