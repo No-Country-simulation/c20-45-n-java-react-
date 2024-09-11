@@ -5,59 +5,55 @@ import { Button, Input } from "../../../export-components";
 import { Select, SelectItem } from '@nextui-org/select';
 import { Textarea } from "@nextui-org/input";
 import latam_paises from "./latam_paises.json"
+import ApiService from "../../../config/ApiService";
 
-interface City {
-    key: string;
-    label: string;
-}
 
 interface FormValues {
     nombre: string;
-    apellido: string;
-    email: string;
-    dni: string;
-    experiencia_previa: string;
-    certificaciones: string;
-    pais: string;
-    ciudad: string;
-    telefono: string;
-    foto: string;
+    raza: string;
+    edad: string;
+    sexo: string;
+    condiciones: string;
+    vacunas: string;
+    comportamiento: string;
+    dieta: string;
 }
 
-const validationSchema = Yup.object({});
+const validationSchema = Yup.object({
+    nombre: Yup.string().required('El campo nombre es obligatorio'),
+    raza: Yup.string().required('La raza es obligatoria'),
+    edad: Yup.number().integer().positive().required('La edad es obligatoria'),
+    sexo: Yup.string().required('El sexo es obligatorio'),
+    condiciones: Yup.string().required('Las condiciones médicas son obligatorias'),
+    vacunas: Yup.string().required('Las vacunas son obligatorias'),
+    comportamiento: Yup.string().required('El comportamiento es obligatorio'),
+    dieta: Yup.string().required('La dieta es obligatoria')
+});
 
 export default function Profile_Mascota() {
-    const [selectedCountry, setSelectedCountry] = useState("");
-    const [cityOptions, setCityOptions] = useState<City[]>([]);
 
-    const handleCountryChange = (e: any) => {
-        const selectedCountryKey = e.target.value;
-        setSelectedCountry(selectedCountryKey);
 
-        const selectedCountryObj = latam_paises.countries.find(c => c.key === selectedCountryKey);
-        if (selectedCountryObj) {
-            setCityOptions(selectedCountryObj.cities);
-        } else {
-            setCityOptions([]);
+    const handleSubmit = async (values: FormValues) => {
+        try {
+            await ApiService.createMascota(values);
+            alert('Mascota creada con éxito');
+        } catch (error) {
+            console.error('Error al crear la mascota:', error);
+            alert('Error al crear la mascota');
         }
-    };
-
-    const handleSubmit = (values: FormValues) => {
-        // Handle form submission
     };
 
     return (
         <Formik
             initialValues={{
                 nombre: '',
-                apellido: '',
-                email: '',
-                dni: '',
-                experiencia_previa: '',
-                certificaciones: '',
-                pais: '',
-                ciudad: '',
-                telefono: '',
+                raza: '',
+                edad: '',
+                sexo: '',
+                condiciones: '',
+                vacunas: '',
+                comportamiento: '',
+                dieta: '',
                 foto: '',
             }}
             validationSchema={validationSchema}
@@ -170,8 +166,10 @@ export default function Profile_Mascota() {
                         />
                     </div>
 
-                    <div className='flex justify-center'>
-                        <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-2">Guardar cambios</Button>
+                    <div className="flex justify-center mt-4">
+                        <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
+                            {isSubmitting ? "Guardando..." : "Guardar"}
+                        </button>
                     </div>
 
                 </Form>

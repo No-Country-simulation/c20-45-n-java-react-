@@ -2,14 +2,36 @@ import { Formik, Field, Form } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { Card, CardBody, CardHeader, Spacer } from "@nextui-org/react";
+import ApiService from '../../../config/ApiService';
 
 
 const validationSchema = Yup.object({
     cost: Yup.number().required('Costo requerido'),
-    // Add other field validations as necessary
 });
 
 export default function RideDog() {
+
+    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+        try {
+            const prestacion = {
+                days: values.days,
+                time: values.time,
+                zone: values.zone,
+                cost: values.cost,
+            };
+
+            const response = await ApiService.createPrestacion(prestacion);
+            console.log('Prestación creada:', response);
+            alert('Prestación creada con éxito');
+            resetForm();
+        } catch (error) {
+            console.error('Error creando la prestación:', error);
+            alert('Hubo un error al crear la prestación');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <Formik
             initialValues={{
@@ -19,12 +41,9 @@ export default function RideDog() {
                 cost: '',
             }}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-                // Handle form submission
-                console.log(values);
-            }}
+            onSubmit={handleSubmit}
         >
-            {({ values, handleChange }) => (
+            {({ values, isSubmitting }) => (
                 <Form>
 
                     <div className="flex justify-center">
@@ -119,7 +138,11 @@ export default function RideDog() {
                             </CardBody>
 
                         </Card>
-                        <button type="submit">Guardar</button>
+                        <div className="flex justify-center mt-4">
+                            <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
+                                {isSubmitting ? "Guardando..." : "Guardar"}
+                            </button>
+                        </div>
                     </div>
 
 

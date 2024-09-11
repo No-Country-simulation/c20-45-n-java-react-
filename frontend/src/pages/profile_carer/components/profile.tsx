@@ -5,6 +5,7 @@ import { Button, Input } from "../../../export-components";
 import { Select, SelectItem } from '@nextui-org/select';
 import { Textarea } from "@nextui-org/input";
 import latam_paises from "./latam_paises.json"
+import ApiService from "../../../config/ApiService";
 
 interface City {
     key: string;
@@ -42,8 +43,19 @@ export default function Profile_Cu() {
         }
     };
 
-    const handleSubmit = (values: FormValues) => {
-        // Handle form submission
+    const handleSubmit = async (values: FormValues) => {
+        const clienteId = localStorage.getItem("clienteId");
+        if (!clienteId) {
+            console.error('No se encontró ID de cliente');
+            return;
+        }
+
+        try {
+            const response = await ApiService.updateCliente(clienteId, values);
+            console.log('Cliente actualizado con éxito:', response.data);
+        } catch (error) {
+            console.error('Error actualizando cliente:', error.response?.data || error.message);
+        }
     };
 
     return (
@@ -194,8 +206,10 @@ export default function Profile_Cu() {
                         className="mt-2"
                     />
 
-                    <div className='flex justify-center'>
-                        <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-2">Guardar cambios</Button>
+                    <div className="flex justify-center mt-4">
+                        <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
+                            {isSubmitting ? "Guardando..." : "Guardar"}
+                        </button>
                     </div>
 
                 </Form>
