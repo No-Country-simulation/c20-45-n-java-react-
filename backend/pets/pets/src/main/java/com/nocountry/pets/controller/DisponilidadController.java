@@ -1,7 +1,9 @@
 package com.nocountry.pets.controller;
 
 import com.nocountry.pets.models.Disponibilidad;
+import com.nocountry.pets.models.Prestador;
 import com.nocountry.pets.service.IDisponibilidadService;
+import com.nocountry.pets.service.IPrestadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +19,36 @@ public class DisponilidadController {
     @Autowired
     private IDisponibilidadService disponibilidadService;
 
+    @Autowired
+    private IPrestadorService prestadorService;
     @GetMapping
     public List<Disponibilidad> findAll(){
         return disponibilidadService.findAll();
     }
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Disponibilidad disponibilidad){
-        return ResponseEntity.ok().body("Disponibilidad creada con exito");
+    public ResponseEntity<?> create(@RequestBody Disponibilidad disponibilidadRequest) {
+        // Obtener el prestador por ID
+        Optional<Prestador> optionalPrestador = prestadorService.findById(disponibilidadRequest.getPrestador().getId());
+
+        if (!optionalPrestador.isPresent()) {
+            return ResponseEntity.badRequest().body("Prestador no encontrado");
+        }
+
+        Prestador prestador = optionalPrestador.get();
+
+        // Crear la disponibilidad
+        Disponibilidad disponibilidad = new Disponibilidad();
+        disponibilidad.setDia(disponibilidadRequest.getDia());
+        disponibilidad.setHoraInicio(disponibilidadRequest.getHoraInicio());
+        disponibilidad.setHoraFin(disponibilidadRequest.getHoraFin());
+
+        // Asignar el prestador a la disponibilidad
+        disponibilidad.setPrestador(prestador);
+
+        // Guardar la disponibilidad
+        disponibilidadService.save(disponibilidad);
+
+        return ResponseEntity.ok("Disponibilidad creada con éxito");
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Disponibilidad disponibilidad){

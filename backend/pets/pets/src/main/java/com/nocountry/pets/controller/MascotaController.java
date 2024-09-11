@@ -1,7 +1,6 @@
 package com.nocountry.pets.controller;
 
 import com.nocountry.pets.models.Mascota;
-import com.nocountry.pets.repository.IMascotaRepository;
 import com.nocountry.pets.service.IMascotaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

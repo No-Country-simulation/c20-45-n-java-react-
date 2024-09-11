@@ -2,15 +2,9 @@ package com.nocountry.pets.controller;
 
 
 import com.nocountry.pets.dto.PrestadorRequest;
-import com.nocountry.pets.models.Cliente;
-import com.nocountry.pets.models.Domicilio;
 import com.nocountry.pets.models.Prestador;
-import com.nocountry.pets.security.models.Role;
 import com.nocountry.pets.security.models.UserSec;
-import com.nocountry.pets.security.service.IRoleService;
 import com.nocountry.pets.security.service.IUserService;
-import com.nocountry.pets.service.IClienteService;
-import com.nocountry.pets.service.IDomicilioService;
 import com.nocountry.pets.service.IPrestadorService;
 import com.nocountry.pets.service.PersonaService;
 import jakarta.persistence.EntityNotFoundException;
@@ -50,11 +44,15 @@ public class PrestadorController {
         if (result.hasErrors()) {
             return validation(result);
         }
-        if (prestadorRequest.getPrestador() == null || prestadorRequest.getUserSec() == null) {
-            return ResponseEntity.badRequest().body("Prestador ó UserSec no pueden ser nulos");
+       Prestador prestador = new Prestador();
+        prestador.setNombre(prestadorRequest.getNombre());
+        prestador.setApellido(prestadorRequest.getApellido());
+        prestador.setEmail(prestadorRequest.getEmail());
+        prestador.setTelefono(prestadorRequest.getTelefono());
+        if (prestadorRequest.getPrestacion() != null) {
+            prestador.getPrestaciones().add(prestadorRequest.getPrestacion());
         }
 
-        Prestador prestador = prestadorRequest.getPrestador();
         UserSec userSec = prestadorRequest.getUserSec();
 
         prestador = personaService.createPersona(prestador, userSec);

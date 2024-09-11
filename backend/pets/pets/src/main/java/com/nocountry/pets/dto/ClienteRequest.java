@@ -1,7 +1,6 @@
 package com.nocountry.pets.dto;
 
 
-import com.nocountry.pets.models.Cliente;
 import com.nocountry.pets.security.models.UserSec;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

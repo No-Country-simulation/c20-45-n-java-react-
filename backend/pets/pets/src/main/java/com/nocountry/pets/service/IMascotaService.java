@@ -13,5 +13,5 @@ public interface IMascotaService {
     Mascota save(Mascota mascota);
     void deleteById(Long id);
 
-    Mascota update(Mascota mascosta);
+    Mascota update(Mascota mascota);
 }

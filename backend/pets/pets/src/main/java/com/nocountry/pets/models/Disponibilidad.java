@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -23,11 +24,11 @@ public class Disponibilidad {
     @Column(nullable = false)
     private Dia dia;
 
-    private LocalDateTime horaInicio;
+    private LocalTime horaInicio;
 
-    private LocalDateTime horaFin;
+    private LocalTime  horaFin;
 
     @ManyToOne
-    @JoinColumn(name = "prestador_ir", nullable = false)
+    @JoinColumn(name = "prestador_id", nullable = false)
     private Prestador prestador;
 }

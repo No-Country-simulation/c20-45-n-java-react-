@@ -45,15 +45,16 @@ public class PersonaService <T extends Persona>  {
 
         // Recuperar y asignar roles
         Set<Role> roleList = new HashSet<>();
-        for (Role role : userSec.getRolesList()) {
-            Role foundRole = roleService.findById(role.getId()).orElse(null);
-            if (foundRole != null) {
-                roleList.add(foundRole);
+        if (userSec.getRolesList() == null || userSec.getRolesList().isEmpty()) {
+            Role defaultRole = roleService.findByRole("USER").orElseThrow(() -> new IllegalArgumentException("Role 'USER' no encontrado"));
+            roleList.add(defaultRole);
+        } else {
+            for (Role role : userSec.getRolesList()) {
+                Role foundRole = roleService.findById(role.getId()).orElse(null);
+                if (foundRole != null) {
+                    roleList.add(foundRole);
+                }
             }
-        }
-
-        if (roleList.isEmpty()) {
-            throw new IllegalArgumentException("Roles inválidos");
         }
 
         // Asignar roles al UserSec
@@ -123,7 +124,6 @@ public class PersonaService <T extends Persona>  {
         existingPrestador.setDni(prestador.getDni());
         existingPrestador.setTelefono(prestador.getTelefono());
         existingPrestador.setTelefonoEmergencia(prestador.getTelefonoEmergencia());
-        existingPrestador.setPrestacionOfrecida(prestador.getPrestacionOfrecida());
         existingPrestador.setUrlFoto(prestador.getUrlFoto());
 
         // Actualizar UserSec

@@ -5,15 +5,11 @@ import com.nocountry.pets.models.Cliente;
 
 
 import com.nocountry.pets.security.models.UserSec;
-
 import com.nocountry.pets.security.service.UserService;
-
 import com.nocountry.pets.service.IClienteService;
-
 import com.nocountry.pets.service.PersonaService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/cliente")
+@RequestMapping("/api/clientes")
 @CrossOrigin("http://localhost:5173")
 public class ClienteController {
 
@@ -50,9 +46,6 @@ public class ClienteController {
         if (result.hasErrors()) {
             return validation(result);
         }
-        if (clienteRequest.getUserSec() == null) {
-            return ResponseEntity.badRequest().body("UserSec no puede ser nulo");
-        }
         Cliente cliente = new Cliente();
         cliente.setNombre(clienteRequest.getNombre());
         cliente.setApellido(clienteRequest.getApellido());
@@ -62,13 +55,10 @@ public class ClienteController {
 
         cliente = personaService.createPersona(cliente, userSec);
 
-        // Guarda Cliente
         Cliente savedCliente = clienteService.save(cliente);
 
-        // Asigna Cliente a UserSec
         userSec.setPersona(savedCliente);
 
-        // Guarda UserSec
         userService.save(userSec);
 
         return ResponseEntity.ok().body("Cliente creado con éxito");

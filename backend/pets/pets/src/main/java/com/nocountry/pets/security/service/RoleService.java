@@ -23,7 +23,9 @@ public class RoleService implements IRoleService {
     public Optional<Role> findById(Long id) {
         return roleRepository.findById(id);
     }
-
+    public Optional<Role> findByRole(String role) {
+        return roleRepository.findByRole(role);
+    }
     @Override
     public Role save(Role role) {
 

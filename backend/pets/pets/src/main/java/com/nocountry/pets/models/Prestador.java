@@ -18,8 +18,6 @@ import java.util.List;
 
 public class Prestador extends Persona{
 
-    private String prestacionOfrecida;
-
     private String urlFoto;
 
     private String calificacion;

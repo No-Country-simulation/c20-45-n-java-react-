@@ -28,7 +28,6 @@ public class Mascota {
     private String nombre;
 
     private String genero;
-    @NotNull
     private String condicionMedica;
     private String comportamiento;
     private String dieta;
