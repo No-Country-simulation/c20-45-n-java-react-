@@ -6,6 +6,7 @@ import { Select, SelectItem } from '@nextui-org/select';
 import { Textarea } from "@nextui-org/input";
 import latam_paises from "./latam_paises.json"
 import ApiService from "../../../config/ApiService";
+import ImageUpload from "../../../components/ImageUpload/ImageUpload";
 
 
 interface FormValues {
@@ -31,11 +32,22 @@ const validationSchema = Yup.object({
 });
 
 export default function Profile_Mascota() {
+    const [imageUrl, setImageUrl] = useState(null);
 
+    const handleImageUploadSuccess = (url) => {
+        setImageUrl(url);
+        console.log("URL:", url)
+    };
 
     const handleSubmit = async (values: FormValues) => {
+
+        const mascotaData = {
+            ...values,
+            fotoUrl: imageUrl,
+        };
+
         try {
-            await ApiService.createMascota(values);
+            await ApiService.createMascota(mascotaData);
             alert('Mascota creada con éxito');
         } catch (error) {
             console.error('Error al crear la mascota:', error);
@@ -64,74 +76,86 @@ export default function Profile_Mascota() {
                     <div className="flex justify-center font-extrabold text-xl font-mono">
                         Información de tu mascota
                     </div>
-                    <div className="w-8/12">
-                        <div className='flex'>
-                            <div className='w-full'>
+
+                    <div className="flex justify-between">
+                        <div className="w-full">
+                            <div className='flex'>
+                                <div className='w-full'>
+                                    <Field
+                                        as={Input}
+                                        type="text"
+                                        name='nombre'
+                                        variant='faded'
+                                        radius='md'
+                                        label="Nombre"
+                                        className=" mt-2 mr-2"
+                                    />
+                                    <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
+                                </div>
+                                <div className='w-full ml-2'>
+                                    <Field
+                                        as={Input}
+                                        type="text"
+                                        name='raza'
+                                        variant='faded'
+                                        radius='md'
+                                        label="Raza"
+                                        className=" mt-2 mr-2"
+                                    />
+                                    <ErrorMessage name="raza" component="div" className="text-red-500 text-sm" />
+                                </div>
+                            </div>
+
+                            <div className='flex'>
+                                <div className='w-full'>
+                                    <Field
+                                        as={Input}
+                                        type="text"
+                                        name='edad'
+                                        variant='faded'
+                                        radius='md'
+                                        label="Edad"
+                                        className="w-full mt-2"
+                                    />
+                                    <ErrorMessage name="edad" component="div" className="text-red-500 text-sm" />
+                                </div>
+
+                                <div className='w-full ml-2'>
+                                    <Field
+                                        as={Input}
+                                        type="text"
+                                        name='sexo'
+                                        variant='faded'
+                                        radius='md'
+                                        label="Genero"
+                                        className="mt-2 mr-2"
+                                    />
+                                    <ErrorMessage name="sexo" component="div" className="text-red-500 text-sm" />
+                                </div>
+                            </div>
+
+                            <div className="w-full">
                                 <Field
-                                    as={Input}
+                                    as={Textarea}
                                     type="text"
-                                    name='nombre'
+                                    name='condiciones'
                                     variant='faded'
                                     radius='md'
-                                    label="Nombre"
-                                    className=" mt-2 mr-2"
+                                    label="Condiciones médicas"
+                                    className=" mt-2"
                                 />
-                                <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
                             </div>
-                            <div className='w-full'>
-                                <Field
-                                    as={Input}
-                                    type="text"
-                                    name='raza'
-                                    variant='faded'
-                                    radius='md'
-                                    label="Raza"
-                                    className=" mt-2 mr-2"
-                                />
-                                <ErrorMessage name="raza" component="div" className="text-red-500 text-sm" />
-                            </div>
+
+
                         </div>
-
-                        <div className='flex'>
-                            <div className='w-full'>
-                                <Field
-                                    as={Input}
-                                    type="text"
-                                    name='edad'
-                                    variant='faded'
-                                    radius='md'
-                                    label="Edad"
-                                    className="w-full mt-2"
-                                />
-                                <ErrorMessage name="edad" component="div" className="text-red-500 text-sm" />
-                            </div>
-
-                            <div className='w-full'>
-                                <Field
-                                    as={Input}
-                                    type="text"
-                                    name='sexo'
-                                    variant='faded'
-                                    radius='md'
-                                    label="Genero"
-                                    className="mt-2 mr-2"
-                                />
-                                <ErrorMessage name="sexo" component="div" className="text-red-500 text-sm" />
-                            </div>
+                        <div className="ml-2">
+                            <ImageUpload onImageUploadSuccess={handleImageUploadSuccess} />
                         </div>
-
                     </div>
 
+
                     <div className='flex'>
-                        <Field
-                            as={Textarea}
-                            type="text"
-                            name='condiciones'
-                            variant='faded'
-                            radius='md'
-                            label="Condiciones médicas"
-                            className=" mt-2"
-                        />
+
 
                         <Field
                             as={Textarea}

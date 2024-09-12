@@ -46,11 +46,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ imageName, onImageUploadSucce
     return (
         <div className="mx-auto max-w-md p-6 rounded-lg bg-white">
             <div
-                className="h-56 w-56 mb-6 rounded-lg bg-gray-200 overflow-hidden flex items-center justify-center flex-col"
+                className="h-36 w-48- mb-6 rounded-lg bg-gray-200 overflow-hidden flex items-center justify-center flex-col"
                 data-img={imageName || ''}
             >
                 {selectedImage ? (
-                    <img src={selectedImage} alt="Previsualización de imagen" className=' h-48' />
+                    <img src={selectedImage} alt="Previsualización de imagen" className='h-48' />
                 ) : (
                     <>
                         <IoCloudUploadOutline className="bx bxs-cloud-upload icon text-4xl" />
@@ -70,7 +70,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ imageName, onImageUploadSucce
             />
             <Button
                 type="button"
-                className="w-full px-4 py-2 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-700 transition duration-300"
+                className="w-full px-4 py-1 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-700 transition duration-300"
                 onClick={() => document.getElementById("file")?.click()}
             >
                 {uploading ? "Subiendo..." : "Seleccionar imagen"}
