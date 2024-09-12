@@ -6,6 +6,7 @@ import { Select, SelectItem } from '@nextui-org/select';
 import { Textarea } from "@nextui-org/input";
 import latam_paises from "./latam_paises.json"
 import ApiService from "../../../config/ApiService";
+import ImageUpload from "../../../components/ImageUpload/ImageUpload";
 
 interface City {
     key: string;
@@ -30,6 +31,12 @@ const validationSchema = Yup.object({});
 export default function Profile_Cu() {
     const [selectedCountry, setSelectedCountry] = useState("");
     const [cityOptions, setCityOptions] = useState<City[]>([]);
+    const [imageUrl, setImageUrl] = useState(null);
+
+    const handleImageUploadSuccess = (url) => {
+        setImageUrl(url);
+        console.log("URL:", url)
+    };
 
     const handleCountryChange = (e: any) => {
         const selectedCountryKey = e.target.value;
@@ -49,9 +56,13 @@ export default function Profile_Cu() {
             console.error('No se encontró ID de cliente');
             return;
         }
+        const perfil = {
+            ...values,
+            fotoUrl: imageUrl,
+        };
 
         try {
-            const response = await ApiService.updateCliente(clienteId, values);
+            const response = await ApiService.updateCliente(clienteId, perfil);
             console.log('Cliente actualizado con éxito:', response.data);
         } catch (error) {
             console.error('Error actualizando cliente:', error.response?.data || error.message);
@@ -80,109 +91,114 @@ export default function Profile_Cu() {
                     <div className="flex justify-center font-extrabold text-xl font-mono">
                         Información personal
                     </div>
-                    <div className="w-8/12">
-                        <div className='flex'>
-                            <div className='w-full'>
-                                <Field
-                                    as={Input}
-                                    type="text"
-                                    name='nombre'
-                                    variant='faded'
-                                    radius='md'
-                                    label="Nombre"
-                                    className=" mt-2 mr-2"
-                                />
-                                <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
+                    <div className="flex justify-between">
+                        <div className="w-full">
+                            <div className='flex'>
+                                <div className='w-full'>
+                                    <Field
+                                        as={Input}
+                                        type="text"
+                                        name='nombre'
+                                        variant='faded'
+                                        radius='md'
+                                        label="Nombre"
+                                        className=" mt-2 mr-2"
+                                    />
+                                    <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
+                                </div>
+                                <div className='w-full ml-2'>
+                                    <Field
+                                        as={Input}
+                                        type="text"
+                                        name='apellido'
+                                        variant='faded'
+                                        radius='md'
+                                        label="Apellido"
+                                        className=" mt-2 mr-2"
+                                    />
+                                    <ErrorMessage name="apellido" component="div" className="text-red-500 text-sm" />
+                                </div>
                             </div>
+
                             <div className='w-full'>
                                 <Field
                                     as={Input}
                                     type="text"
-                                    name='apellido'
+                                    name='email'
                                     variant='faded'
                                     radius='md'
-                                    label="Apellido"
-                                    className=" mt-2 mr-2"
+                                    label="Correo"
+                                    className="w-full mt-2"
                                 />
-                                <ErrorMessage name="apellido" component="div" className="text-red-500 text-sm" />
+                                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                            </div>
+
+                            <div className='flex'>
+                                <div className='w-full'>
+                                    <Field
+                                        as={Input}
+                                        type="text"
+                                        name='dni'
+                                        variant='faded'
+                                        radius='md'
+                                        label="DNI"
+                                        className="mt-2 mr-2"
+                                    />
+                                    <ErrorMessage name="dni" component="div" className="text-red-500 text-sm" />
+                                </div>
+                                <div className='w-full ml-2'>
+                                    <Field
+                                        as={Input}
+                                        type="text"
+                                        name='telefono'
+                                        variant='faded'
+                                        radius='md'
+                                        label="Teléfono"
+                                        className="mt-2 mr-2"
+                                    />
+                                    <ErrorMessage name="telefono" component="div" className="text-red-500 text-sm" />
+                                </div>
+                            </div>
+
+                            <div className='flex'>
+                                <div className='w-full'>
+                                    <Field
+                                        as={Select}
+                                        name="pais"
+                                        label="País"
+                                        className="mt-2 text-black"
+                                        color='primary'
+                                        onChange={handleCountryChange}
+                                    >
+                                        {latam_paises.countries.map(p => (
+                                            <SelectItem key={p.key} value={p.key}>
+                                                {p.label}
+                                            </SelectItem>
+                                        ))}
+                                    </Field>
+                                    <ErrorMessage name="pais" component="div" className="text-red-500 text-sm" />
+                                </div>
+                                <div className='w-full ml-2'>
+                                    <Field
+                                        as={Select}
+                                        name="ciudad"
+                                        label="Ciudad"
+                                        className="mt-2 mr-2 text-black"
+                                        color='primary'
+                                        disabled={!selectedCountry}
+                                    >
+                                        {cityOptions.map((c) => (
+                                            <SelectItem key={c.key} value={c.key}>
+                                                {c.label}
+                                            </SelectItem>
+                                        ))}
+                                    </Field>
+                                    <ErrorMessage name="ciudad" component="div" className="text-red-500 text-sm" />
+                                </div>
                             </div>
                         </div>
-
-                        <div className='w-full'>
-                            <Field
-                                as={Input}
-                                type="text"
-                                name='email'
-                                variant='faded'
-                                radius='md'
-                                label="Correo"
-                                className="w-full mt-2"
-                            />
-                            <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
-                        </div>
-
-                        <div className='flex'>
-                            <div className='w-full'>
-                                <Field
-                                    as={Input}
-                                    type="text"
-                                    name='dni'
-                                    variant='faded'
-                                    radius='md'
-                                    label="DNI"
-                                    className="mt-2 mr-2"
-                                />
-                                <ErrorMessage name="dni" component="div" className="text-red-500 text-sm" />
-                            </div>
-                            <div className='w-full'>
-                                <Field
-                                    as={Input}
-                                    type="text"
-                                    name='telefono'
-                                    variant='faded'
-                                    radius='md'
-                                    label="Teléfono"
-                                    className="mt-2 mr-2"
-                                />
-                                <ErrorMessage name="telefono" component="div" className="text-red-500 text-sm" />
-                            </div>
-                        </div>
-
-                        <div className='flex'>
-                            <div className='w-full'>
-                                <Field
-                                    as={Select}
-                                    name="pais"
-                                    label="País"
-                                    className="mt-2 text-black"
-                                    color='primary'
-                                    onChange={handleCountryChange}
-                                >
-                                    {latam_paises.countries.map(p => (
-                                        <SelectItem key={p.key} value={p.key}>
-                                            {p.label}
-                                        </SelectItem>
-                                    ))}
-                                </Field>
-                                <ErrorMessage name="pais" component="div" className="text-red-500 text-sm" />
-                            </div>
-                            <div className='w-full'>
-                                <Field
-                                    as={Select}
-                                    name="ciudad"
-                                    label="Ciudad"
-                                    className="mt-2 mr-2 text-black"
-                                    color='primary'
-                                    disabled={!selectedCountry}
-                                >
-                                    {cityOptions.map((c) => (
-                                        <SelectItem key={c.key} value={c.key}>
-                                            {c.label}
-                                        </SelectItem>
-                                    ))}
-                                </Field>
-                                <ErrorMessage name="ciudad" component="div" className="text-red-500 text-sm" />
-                            </div>
+                        <div className="ml-2">
+                            <ImageUpload onImageUploadSuccess={handleImageUploadSuccess} />
                         </div>
                     </div>
 

@@ -15,10 +15,15 @@ function App() {
         <main className="flex-grow bg-gray-300 border-t border-b border-gray-400 flex items-center justify-center">
           <Routes>
             <Route exact path="/home" element={<Home />} />
+            <Route exact path="/perfil-cliente" element={<Profile_Cliente />} />
+            <Route exact path="/mascota" element={<Profile_Cliente />} />
+            <Route exact path="/perfil-cuidador" element={<Profile_Carer />} />
+            <Route exact path="/paseo" element={<Profile_Carer />} />
+
             <Route exact path="/login" element={<FormLogin />} />
             <Route path="/registrarse" element={<FormLogin />} />
 
-            <Route
+            {/* <Route
               path="/perfil-cliente"
               element={<ProtectedRoute element={<Profile_Cliente />} />}
             />
@@ -37,13 +42,12 @@ function App() {
             <Route
               path="/referencias"
               element={<ProtectedRoute element={<Profile_Carer />} />}
-            />
+            />*/}
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </main>
         <Footer />
       </div>
-      ghjgh
     </>
   );
 }
