@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from 'yup';
 import { Button, Input } from "../../../export-components";
 import { Select, SelectItem } from '@nextui-org/select';
@@ -9,7 +9,7 @@ import ApiService from "../../../config/ApiService";
 import ImageUpload from "../../../components/ImageUpload/ImageUpload";
 
 
-interface FormValues {
+interface Mascota {
     nombre: string;
     raza: string;
     edad: string;
@@ -18,6 +18,7 @@ interface FormValues {
     vacunas: string;
     comportamiento: string;
     dieta: string;
+    foto: string;
 }
 
 const validationSchema = Yup.object({
@@ -32,14 +33,41 @@ const validationSchema = Yup.object({
 });
 
 export default function Profile_Mascota() {
+    const [error, setError] = useState<string | null>(null);
+    const [pet, setPet] = useState<Mascota | null>(null);
     const [imageUrl, setImageUrl] = useState(null);
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const token = localStorage.getItem("token");
+            const userId = localStorage.getItem("userId");
+            if (!userId || !token) {
+                console.error("No se encontró token o ID de usuario");
+                return;
+            }
+
+            try {
+                const userResponse = await ApiService.getUserById(userId);
+                setPet(userResponse);
+
+                // Fetch pet data using the user ID
+                const petResponse = await ApiService.getMascotasByCliente(userId);
+                setPet(petResponse.data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
+
 
     const handleImageUploadSuccess = (url) => {
         setImageUrl(url);
         console.log("URL:", url)
     };
 
-    const handleSubmit = async (values: FormValues) => {
+    const handleSubmit = async (values: Mascota) => {
 
         const mascotaData = {
             ...values,
@@ -58,15 +86,15 @@ export default function Profile_Mascota() {
     return (
         <Formik
             initialValues={{
-                nombre: '',
-                raza: '',
-                edad: '',
-                sexo: '',
-                condiciones: '',
-                vacunas: '',
-                comportamiento: '',
-                dieta: '',
-                foto: '',
+                nombre: pet?.nombre || '',
+                raza: pet?.raza || '',
+                edad: pet?.edad || '',
+                sexo: pet?.sexo || '',
+                condiciones: pet?.condiciones || '',
+                vacunas: pet?.vacunas || '',
+                comportamiento: pet?.comportamiento || '',
+                dieta: pet?.dieta || '',
+                foto: pet?.foto || '',
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
