@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from 'yup';
 import { Button, Input } from "../../../export-components";
 import { Select, SelectItem } from '@nextui-org/select';
@@ -13,7 +13,7 @@ interface City {
     label: string;
 }
 
-interface FormValues {
+interface User {
     nombre: string;
     apellido: string;
     email: string;
@@ -29,9 +29,32 @@ interface FormValues {
 const validationSchema = Yup.object({});
 
 export default function Profile_Client() {
+    const [user, setUser] = useState<User | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [selectedCountry, setSelectedCountry] = useState("");
     const [cityOptions, setCityOptions] = useState<City[]>([]);
     const [imageUrl, setImageUrl] = useState(null);
+
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const token = localStorage.getItem("token");
+            const userId = localStorage.getItem("userId");
+            if (!userId || !token) {
+                console.error("No se encontró token o ID de usuario");
+                return;
+            }
+
+            try {
+                const response = await ApiService.getUserById(userId);
+                setUser(response);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
 
     const handleImageUploadSuccess = (url) => {
         setImageUrl(url);
@@ -50,7 +73,7 @@ export default function Profile_Client() {
         }
     };
 
-    const handleSubmit = async (values: FormValues) => {
+    const handleSubmit = async (values: User) => {
         const clienteId = localStorage.getItem("clienteId");
 
         if (!clienteId) {
@@ -73,16 +96,16 @@ export default function Profile_Client() {
     return (
         <Formik
             initialValues={{
-                nombre: '',
-                apellido: '',
-                email: '',
-                dni: '',
-                experiencia_previa: '',
-                certificaciones: '',
-                pais: '',
-                ciudad: '',
-                telefono: '',
-                foto: '',
+                nombre: user?.nombre || '',
+                apellido: user?.apellido || '',
+                email: user?.email || '',
+                dni: user?.dni || '',
+                experiencia_previa: user?.experiencia_previa || '',
+                certificaciones: user?.certificaciones || '',
+                pais: user?.pais || '',
+                ciudad: user?.ciudad || '',
+                telefono: user?.telefono || '',
+                foto: user?.foto || '',
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}

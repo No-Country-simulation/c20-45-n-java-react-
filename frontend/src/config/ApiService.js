@@ -52,10 +52,6 @@ export default class ApiService {
     return role === "USER";
   }
 
-  static isUserPrestador() {
-    const role = localStorage.getItem("role");
-    return role === "USERP";
-  }
 
   /*  Buscar usuario */
 
