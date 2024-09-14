@@ -50,7 +50,6 @@ export default function Profile_Mascota() {
                 const userResponse = await ApiService.getUserById(userId);
                 setPet(userResponse);
 
-                // Fetch pet data using the user ID
                 const petResponse = await ApiService.getMascotasByCliente(userId);
                 setPet(petResponse.data);
             } catch (error) {
@@ -105,86 +104,76 @@ export default function Profile_Mascota() {
                         Información de tu mascota
                     </div>
 
-                    <div className="flex justify-between">
-                        <div className="w-full">
-                            <div className='flex'>
-                                <div className='w-full'>
-                                    <Field
-                                        as={Input}
-                                        type="text"
-                                        name='nombre'
-                                        variant='faded'
-                                        radius='md'
-                                        label="Nombre"
-                                        className=" mt-2 mr-2"
-                                    />
-                                    <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
-                                </div>
-                                <div className='w-full ml-2'>
-                                    <Field
-                                        as={Input}
-                                        type="text"
-                                        name='raza'
-                                        variant='faded'
-                                        radius='md'
-                                        label="Raza"
-                                        className=" mt-2 mr-2"
-                                    />
-                                    <ErrorMessage name="raza" component="div" className="text-red-500 text-sm" />
-                                </div>
-                            </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2">
+                        <div className="mt-2.5">
+                            <ImageUpload onImageUploadSuccess={handleImageUploadSuccess} />
+                        </div>
 
-                            <div className='flex'>
-                                <div className='w-full'>
-                                    <Field
-                                        as={Input}
-                                        type="text"
-                                        name='edad'
-                                        variant='faded'
-                                        radius='md'
-                                        label="Edad"
-                                        className="w-full mt-2"
-                                    />
-                                    <ErrorMessage name="edad" component="div" className="text-red-500 text-sm" />
-                                </div>
-
-                                <div className='w-full ml-2'>
-                                    <Field
-                                        as={Input}
-                                        type="text"
-                                        name='sexo'
-                                        variant='faded'
-                                        radius='md'
-                                        label="Genero"
-                                        className="mt-2 mr-2"
-                                    />
-                                    <ErrorMessage name="sexo" component="div" className="text-red-500 text-sm" />
-                                </div>
-                            </div>
-
-                            <div className="w-full">
+                        <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-1 sm:ml-1">
+                            <div className='w-full'>
                                 <Field
-                                    as={Textarea}
+                                    as={Input}
                                     type="text"
-                                    name='condiciones'
+                                    name='nombre'
                                     variant='faded'
                                     radius='md'
-                                    label="Condiciones médicas"
-                                    className=" mt-2"
+                                    label="Nombre"
+                                    className=" mt-2 mr-2"
                                 />
+                                <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
                             </div>
-
-
-                        </div>
-                        <div className="ml-2">
-                            <ImageUpload onImageUploadSuccess={handleImageUploadSuccess} />
+                            <div className='w-full'>
+                                <Field
+                                    as={Input}
+                                    type="text"
+                                    name='raza'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Raza"
+                                    className=" mt-2 mr-2"
+                                />
+                                <ErrorMessage name="raza" component="div" className="text-red-500 text-sm" />
+                            </div>
+                            <div className='w-full'>
+                                <Field
+                                    as={Input}
+                                    type="text"
+                                    name='edad'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Edad"
+                                    className="w-full mt-2"
+                                />
+                                <ErrorMessage name="edad" component="div" className="text-red-500 text-sm" />
+                            </div>
+                            <div className='w-full'>
+                                <Field
+                                    as={Input}
+                                    type="text"
+                                    name='sexo'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Genero"
+                                    className="mt-2 mr-2"
+                                />
+                                <ErrorMessage name="sexo" component="div" className="text-red-500 text-sm" />
+                            </div>
                         </div>
                     </div>
 
+                    <div className="w-full">
+                        <Field
+                            as={Textarea}
+                            type="text"
+                            name='condiciones'
+                            variant='faded'
+                            radius='md'
+                            label="Condiciones médicas"
+                            className=" mt-2"
+                        />
+                    </div>
 
                     <div className='flex'>
-
-
                         <Field
                             as={Textarea}
                             type="text"
@@ -206,7 +195,9 @@ export default function Profile_Mascota() {
                             label="Comportamiento"
                             className=" mt-2"
                         />
+                    </div>
 
+                    <div className='flex'>
                         <Field
                             as={Textarea}
                             type="text"

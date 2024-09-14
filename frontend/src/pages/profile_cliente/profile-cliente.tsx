@@ -18,33 +18,25 @@ export default function Profile_Cliente() {
                     <MdPersonPin size={24} />
                     &nbsp;
                     Perfil
-                </div>
-            ),
-            content: (
-                <Profile_Client />
-            ),
+                </div>),
+            content: (<Profile_Client />),
         },
         {
             id: "Pets",
             label: (
-                <div
-                    className="flex items-center"
-                    onClick={() => navigate("/mascota")}
-                >
+                <div className="flex items-center"
+                    onClick={() => navigate("/mascota")}                >
                     <FaDog size={24} />
                     &nbsp;
                     Mascota
-                </div>
-            ),
-            content: (
-                <Profile_Mascota />
-            ),
+                </div>),
+            content: (<Profile_Mascota />),
         },
 
     ];
 
     return (
-        <Card className="py-4 bg-white flex w-3/4 flex-col">
+        <Card className="py-4 bg-white flex w-4/5 p-5 flex-col">
             <CardBody className="p-px">
                 <div className="basis-1/2 px-0 sm:px-8 bg-green-200 p-4 rounded-2xl" >
                     <Tabs
