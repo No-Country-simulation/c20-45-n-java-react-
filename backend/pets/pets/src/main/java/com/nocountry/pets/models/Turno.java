@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
 import java.util.Date;
 @Getter
 @Setter
@@ -25,8 +26,7 @@ public class Turno {
         private Date fecha;
 
         @NotNull
-        @Temporal(TemporalType.TIME)
-        private Date hora;
+        private LocalTime hora;
 
         @ManyToOne
         @JoinColumn(name = "cliente_id", nullable = false)

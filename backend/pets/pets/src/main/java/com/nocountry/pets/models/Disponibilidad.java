@@ -1,5 +1,7 @@
 package com.nocountry.pets.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,9 +28,9 @@ public class Disponibilidad {
 
     private LocalTime horaInicio;
 
-    private LocalTime  horaFin;
 
     @ManyToOne
     @JoinColumn(name = "prestador_id", nullable = false)
+    @JsonBackReference
     private Prestador prestador;
 }

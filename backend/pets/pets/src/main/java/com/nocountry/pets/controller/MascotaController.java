@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/mascotas")
+@RequestMapping("/api/mascota")
+@CrossOrigin( "http://localhost:5173/")
 public class MascotaController {
 
     @Autowired

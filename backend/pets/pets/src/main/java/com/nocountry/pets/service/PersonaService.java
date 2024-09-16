@@ -93,10 +93,9 @@ public class PersonaService <T extends Persona>  {
         if (newDomicilio != null) {
             Domicilio existingDomicilio = existingCliente.getDomicilio();
             if (existingDomicilio != null) {
-                existingDomicilio.setCalle(newDomicilio.getCalle());
-                existingDomicilio.setNumero(newDomicilio.getNumero());
+                existingDomicilio.setDireccion(newDomicilio.getDireccion());
                 existingDomicilio.setCiudad(newDomicilio.getCiudad());
-                existingDomicilio.setProvincia(newDomicilio.getProvincia());
+
             } else {
                 existingCliente.setDomicilio(domicilioService.save(newDomicilio));
             }
@@ -112,38 +111,37 @@ public class PersonaService <T extends Persona>  {
         return existingCliente;
     }
 
-    // Método para actualizar un Prestador
+
     private Prestador updatePrestador(Long id, Prestador prestador, UserSec userSec) {
         Prestador existingPrestador = prestadorService.findById(id).orElseThrow(() -> new EntityNotFoundException("Prestador no encontrado"));
         UserSec existingUserSec = userService.findByPersona(existingPrestador).orElseThrow(() -> new EntityNotFoundException("UserSec no encontrado"));
 
-        // Actualizar datos del prestador
         existingPrestador.setNombre(prestador.getNombre());
         existingPrestador.setApellido(prestador.getApellido());
         existingPrestador.setEmail(prestador.getEmail());
         existingPrestador.setDni(prestador.getDni());
         existingPrestador.setTelefono(prestador.getTelefono());
         existingPrestador.setTelefonoEmergencia(prestador.getTelefonoEmergencia());
-        existingPrestador.setUrlFoto(prestador.getUrlFoto());
+        existingPrestador.setImagen(prestador.getImagen());
 
-        // Actualizar UserSec
+
         updateUserSec(existingUserSec, userSec);
 
-        // Guardar Prestador y UserSec
+
         prestadorService.save(existingPrestador);
         userService.save(existingUserSec);
 
         return existingPrestador;
     }
 
-    // Método para actualizar UserSec
+
     private void updateUserSec(UserSec existingUserSec, UserSec userSec) {
         existingUserSec.setUsername(userSec.getUsername());
         if (!userSec.getPassword().equals(existingUserSec.getPassword())) {
             existingUserSec.setPassword(userService.encriptPassword(userSec.getPassword()));
         }
 
-        // Actualizar roles
+
         Set<Role> updatedRoles = new HashSet<>();
         for (Role role : userSec.getRolesList()) {
             Role existingRole = roleService.findById(role.getId()).orElse(null);

@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/prestacion")
+@CrossOrigin( "http://localhost:5173/")
 public class PrestacionController {
     @Autowired
     private IPrestacionService prestacionService;

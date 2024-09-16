@@ -31,6 +31,8 @@ public abstract class Persona {
     private int dni;
     private String telefono;
     private String telefonoEmergencia;
+    @Size(max = 750)
+    private String imagen;
     @Size(max=1500)
     private String observaciones;
     @ManyToOne

@@ -21,16 +21,10 @@ public class Prestacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_prestacion;
-    @NotBlank
     private String nombrePrest;
-    @NotBlank
     private String descripcionPrest;
-    @NotBlank
     private String caracteristicasPrest;
-    @NotNull
     private Double precio;
-
-    private int duracion;
     private String zona;
     @ManyToMany(mappedBy = "prestaciones")
     private List<Prestador> prestador = new ArrayList<>();

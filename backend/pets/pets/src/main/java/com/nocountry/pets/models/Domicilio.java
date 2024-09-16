@@ -19,14 +19,10 @@ public class Domicilio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_domicilio;
-    @NotBlank
-    private String calle;
-    @NotNull
-    private int numero;
-    @NotBlank
+    private String direccion;
     private String ciudad;
-    @NotBlank
-    private String provincia;
+    private String pais;
+
     @JsonIgnore
     @OneToMany(mappedBy = "domicilio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Persona> personas;

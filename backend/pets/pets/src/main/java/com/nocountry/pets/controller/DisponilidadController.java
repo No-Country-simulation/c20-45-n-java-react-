@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/disponilidad")
+@CrossOrigin( "http://localhost:5173/")
 public class DisponilidadController {
 
     @Autowired
@@ -40,7 +41,6 @@ public class DisponilidadController {
         Disponibilidad disponibilidad = new Disponibilidad();
         disponibilidad.setDia(disponibilidadRequest.getDia());
         disponibilidad.setHoraInicio(disponibilidadRequest.getHoraInicio());
-        disponibilidad.setHoraFin(disponibilidadRequest.getHoraFin());
 
         // Asignar el prestador a la disponibilidad
         disponibilidad.setPrestador(prestador);
@@ -59,7 +59,7 @@ public class DisponilidadController {
 
                 disponibilidadExistente.setDia(disponibilidad.getDia());
                 disponibilidadExistente.setHoraInicio(disponibilidad.getHoraInicio());
-                disponibilidadExistente.setHoraFin(disponibilidad.getHoraFin());
+
 
                 Disponibilidad disponibilidadUpdate = disponibilidadService.save(disponibilidadExistente);
                 return ResponseEntity.ok(disponibilidadUpdate);

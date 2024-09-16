@@ -1,6 +1,8 @@
 package com.nocountry.pets.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +20,11 @@ import java.util.List;
 
 public class Prestador extends Persona{
 
-    private String urlFoto;
+    private String imagen;
 
     private String calificacion;
+    @Size(max = 1000)
+    private String experiencia;
 
     @ManyToMany
     @JoinTable(
