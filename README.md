@@ -13,7 +13,6 @@ PataAmiga es una aplicación que permite la conexión de dueños de mascotas con
 ![Static Badge](https://img.shields.io/badge/SpringBoot%203-yellow)
 ![Static Badge](https://img.shields.io/badge/Postman-skyblue)
 
-Enlace a [Figma](https://www.figma.com/design/vVFzGqtR9Hd2couJYpdj2J/Plataforma-de-Cuidado-de-Mascotas?node-id=54-680&node-type=frame&t=s01E6MxgPQEzE9PZ-0).  (Ponemos el enlace?)
 
 ##  Navegadores compatibles
 
@@ -30,6 +29,9 @@ Enlace a [Figma](https://www.figma.com/design/vVFzGqtR9Hd2couJYpdj2J/Plataforma-
 - Inscripción de mascotas con su libreta sanitaria, historia clínica, alimentación y más..
 - Toma de turnos de paseo por zona geográfica
 
+## Plan de prueba
+Accedé desde ___[aquí](https://miniature-silicon-370.notion.site/Plan-de-pruebas-Aplicaci-n-Pata-Amiga-06948809a05b4ca7a33da52ec824e76c)___
+
 ## Navegación por el sitio
 
 Registro
@@ -45,11 +47,15 @@ Registro
 
 ## Integrantes del equipo
 
-| Nombre                   | Rol | 
-| -----------              | ----------- |
-| Daiana Palacios          | Tester       |
-| Antony Tenorio Cevallos   | Front End       |
+| Nombre                   | Rol | Linkedin
+| -----------              | ----------- | -----------
+| Daiana Palacios          | Tester       |  [Linkedin](https://www.linkedin.com/in/daiana-rocio-palacios)
+| Antony Tenorio    | Front End       | 
 | Gabriel Romero           | Back End     |
-| Gaston Herrmann  | Back End       |
+| Gaston Herrmann  | Back End       | [Linkedin](https://www.linkedin.com/in/gaston-herrmann)
 
+***
+git clone
 
+git sdasd
+***
