@@ -175,6 +175,14 @@ export default class ApiService {
     );
     return response.data;
   }
+  
+// Eliminar turno
+  static async deleteTurno(turnoId) {
+    const response = await axios.delete(`${this.baseURL}/api/turno/delete/${turnoId}`, {
+      headers: this.getHeader(),
+    });
+    return response.data;
+  }
 
   // Obtener turnos de un cliente
   static async getTurnosByCliente(clienteId) {

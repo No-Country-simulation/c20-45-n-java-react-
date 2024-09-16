@@ -4,8 +4,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaDog, FaSearch } from "react-icons/fa";
 import { default as Container } from "../container/container";
-import { Input } from "../../export-components";
-
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token');
@@ -63,19 +61,19 @@ export default function HomeNavbar() {
                         </NavbarItem>
                         <NavbarItem isActive className="hover:shadow-md hover:opacity-40 font-bold duration-300 sm:p-1 rounded-3xl hover:bg-orange-400 hover:underline">
                             <Link
-                                to={"/"}>
+                                to={"/servicios"}>
                                 Servicios
                             </Link>
                         </NavbarItem>
                         <NavbarItem isActive className="hover:shadow-md hover:opacity-40 font-bold duration-300 sm:p-1  rounded-3xl hover:bg-orange-400 hover:underline">
                             <Link
-                                to={"/"}>
+                                to={"/testimonios"}>
                                 Testimonios
                             </Link>
                         </NavbarItem>
                         <NavbarItem isActive className="hover:shadow-md hover:opacity-40 font-bold duration-300 sm:p-1 rounded-3xl hover:bg-orange-400 hover:underline">
                             <Link
-                                to={"/"}>
+                                to={"/galeria"}>
                                 Galeria
                             </Link>
                         </NavbarItem>
@@ -96,7 +94,7 @@ export default function HomeNavbar() {
 
                     <NavbarContent justify="center" className="col-end-6" >
                         <NavbarItem className="hidden lg:flex">
-                            <Link to="/perfil-cliente" className="bg-green-500 flex items-center px-4 py-2 rounded-full transition-colors duration-300 hover:bg-green-700">
+                            <Link to="/lista-prestaciones" className="bg-green-500 flex items-center px-4 py-2 rounded-full transition-colors duration-300 hover:bg-green-700">
                                 <FaDog className="mr-2" /> Empezar a pasear
                             </Link>
                         </NavbarItem>
@@ -110,7 +108,6 @@ export default function HomeNavbar() {
                                         as="button"
                                         className="transition-transform"
                                         color="primary"
-                                        name=""
                                         src=""
                                     />
                                 </DropdownTrigger>
