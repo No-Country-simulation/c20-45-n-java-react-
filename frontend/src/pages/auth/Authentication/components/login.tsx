@@ -5,7 +5,7 @@ import { Button, Input } from '@nextui-org/react';
 import { FaUser } from "react-icons/fa";
 import { FaEyeSlash } from 'react-icons/fa';
 import { TbEyeFilled } from 'react-icons/tb';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ApiService from '../../../../config/ApiService';
 
 
@@ -31,27 +31,26 @@ export default function LoginForm() {
     const from = location.state?.from?.pathname || "/perfil-cliente";
 
     const handleSubmit = async (values: LoginValues) => {
-        setIsLoading(true);
         try {
+            console.log("User:", values.username)
+            console.log("Contraseña:", values.password)
             const response = await ApiService.loginUser(values);
-            if (response.status >= 200 && response.status < 300) {
-                localStorage.setItem("token", response.token);
-                localStorage.setItem("role", response.role);
+            console.log("Response:", response)
 
-                if (response.data.role === 'admin') {
-                    navigate('/admin-dashboard');
-                } else {
-                    navigate(from, { replace: true });
-                }
+            if (response.status === true) {
+                localStorage.setItem("token", response.token);
+                console.log("Token", response.token);
+                localStorage.setItem("role", response.role);
+                console.log("Role", response.role);
+                navigate(from, { replace: true });
             } else {
-                throw new Error("Credenciales incorrectas");
+                console.log("No ingrese a if ")
             }
         } catch (error) {
             setError(error.response?.data?.message || "Error al iniciar sesión, intenta nuevamente");
             setTimeout(() => setError(""), 5000);
-        } finally {
-            setIsLoading(false); // Terminamos la carga
         }
+
     };
 
     return (

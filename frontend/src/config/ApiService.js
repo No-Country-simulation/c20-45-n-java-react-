@@ -24,7 +24,7 @@ export default class ApiService {
   //   Login
   static async loginUser(loginDetails) {
     const response = await axios.post(
-      `${this.baseURL}/auth/login`,
+      `${this.baseURL}/api/cliente/login`,
       loginDetails
     );
     return response.data;
