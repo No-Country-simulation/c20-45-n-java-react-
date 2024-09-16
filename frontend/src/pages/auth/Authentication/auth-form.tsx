@@ -14,31 +14,22 @@ export default function FormLogin() {
         {
             id: "LOGIN_LABEL",
             label: (
-                <div className="flex items-center" onClick={() => navigate("/login")}>
-                    <IoMdLogIn size={24} />
+                <div className="flex items-center text-xs md:text-base" onClick={() => navigate("/login")}>
+                    <IoMdLogIn size={22} />
                     &nbsp;
                     Inicio de Sesión
-                </div>
-            ),
-            content: (
-                <LoginForm />
-            ),
+                </div>),
+            content: (<LoginForm />),
         },
         {
             id: "REGISTER_LABEL",
             label: (
-                <div
-                    className="flex items-center"
-                    onClick={() => navigate("/registrarse")}
-                >
-                    <IoCreate size={24} />
+                <div className="flex items-center text-xs md:text-base" onClick={() => navigate("/registrarse")}>
+                    <IoCreate size={22} />
                     &nbsp;
                     Crear un cuenta
-                </div>
-            ),
-            content: (
-                <RegistrationForm />
-            ),
+                </div>),
+            content: (<RegistrationForm />),
         },
     ];
 
@@ -63,15 +54,11 @@ export default function FormLogin() {
                                 tabList: "w-full h-[44px] py-2 items-center px-2",
                                 tabContent: "w-full",
                                 tab: "h-[34px]",
-                            }}
-
-                        >
+                            }} >
                             {(item) => <Tab title={item.label}>{item.content}</Tab>}
                         </Tabs>
                     </div>
-
                 </div>
-
             </CardBody>
         </Card>
     )

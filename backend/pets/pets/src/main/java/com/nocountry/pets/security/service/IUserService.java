@@ -1,8 +1,6 @@
 package com.nocountry.pets.security.service;
 
-import com.nocountry.pets.models.Cliente;
 import com.nocountry.pets.models.Persona;
-import com.nocountry.pets.security.models.Role;
 import com.nocountry.pets.security.models.UserSec;
 
 import java.util.List;

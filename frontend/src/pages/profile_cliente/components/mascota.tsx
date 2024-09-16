@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from 'yup';
 import { Button, Input } from "../../../export-components";
 import { Select, SelectItem } from '@nextui-org/select';
@@ -9,7 +9,7 @@ import ApiService from "../../../config/ApiService";
 import ImageUpload from "../../../components/ImageUpload/ImageUpload";
 
 
-interface FormValues {
+interface Mascota {
     nombre: string;
     raza: string;
     edad: string;
@@ -18,6 +18,7 @@ interface FormValues {
     vacunas: string;
     comportamiento: string;
     dieta: string;
+    foto: string;
 }
 
 const validationSchema = Yup.object({
@@ -32,14 +33,40 @@ const validationSchema = Yup.object({
 });
 
 export default function Profile_Mascota() {
+    const [error, setError] = useState<string | null>(null);
+    const [pet, setPet] = useState<Mascota | null>(null);
     const [imageUrl, setImageUrl] = useState(null);
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const token = localStorage.getItem("token");
+            const userId = localStorage.getItem("userId");
+            if (!userId || !token) {
+                console.error("No se encontró token o ID de usuario");
+                return;
+            }
+
+            try {
+                const userResponse = await ApiService.getUserById(userId);
+                setPet(userResponse);
+
+                const petResponse = await ApiService.getMascotasByCliente(userId);
+                setPet(petResponse.data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
+
 
     const handleImageUploadSuccess = (url) => {
         setImageUrl(url);
         console.log("URL:", url)
     };
 
-    const handleSubmit = async (values: FormValues) => {
+    const handleSubmit = async (values: Mascota) => {
 
         const mascotaData = {
             ...values,
@@ -58,15 +85,15 @@ export default function Profile_Mascota() {
     return (
         <Formik
             initialValues={{
-                nombre: '',
-                raza: '',
-                edad: '',
-                sexo: '',
-                condiciones: '',
-                vacunas: '',
-                comportamiento: '',
-                dieta: '',
-                foto: '',
+                nombre: pet?.nombre || '',
+                raza: pet?.raza || '',
+                edad: pet?.edad || '',
+                sexo: pet?.sexo || '',
+                condiciones: pet?.condiciones || '',
+                vacunas: pet?.vacunas || '',
+                comportamiento: pet?.comportamiento || '',
+                dieta: pet?.dieta || '',
+                foto: pet?.foto || '',
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
@@ -77,86 +104,76 @@ export default function Profile_Mascota() {
                         Información de tu mascota
                     </div>
 
-                    <div className="flex justify-between">
-                        <div className="w-full">
-                            <div className='flex'>
-                                <div className='w-full'>
-                                    <Field
-                                        as={Input}
-                                        type="text"
-                                        name='nombre'
-                                        variant='faded'
-                                        radius='md'
-                                        label="Nombre"
-                                        className=" mt-2 mr-2"
-                                    />
-                                    <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
-                                </div>
-                                <div className='w-full ml-2'>
-                                    <Field
-                                        as={Input}
-                                        type="text"
-                                        name='raza'
-                                        variant='faded'
-                                        radius='md'
-                                        label="Raza"
-                                        className=" mt-2 mr-2"
-                                    />
-                                    <ErrorMessage name="raza" component="div" className="text-red-500 text-sm" />
-                                </div>
-                            </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2">
+                        <div className="mt-2.5">
+                            <ImageUpload onImageUploadSuccess={handleImageUploadSuccess} />
+                        </div>
 
-                            <div className='flex'>
-                                <div className='w-full'>
-                                    <Field
-                                        as={Input}
-                                        type="text"
-                                        name='edad'
-                                        variant='faded'
-                                        radius='md'
-                                        label="Edad"
-                                        className="w-full mt-2"
-                                    />
-                                    <ErrorMessage name="edad" component="div" className="text-red-500 text-sm" />
-                                </div>
-
-                                <div className='w-full ml-2'>
-                                    <Field
-                                        as={Input}
-                                        type="text"
-                                        name='sexo'
-                                        variant='faded'
-                                        radius='md'
-                                        label="Genero"
-                                        className="mt-2 mr-2"
-                                    />
-                                    <ErrorMessage name="sexo" component="div" className="text-red-500 text-sm" />
-                                </div>
-                            </div>
-
-                            <div className="w-full">
+                        <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-1 sm:ml-1">
+                            <div className='w-full'>
                                 <Field
-                                    as={Textarea}
+                                    as={Input}
                                     type="text"
-                                    name='condiciones'
+                                    name='nombre'
                                     variant='faded'
                                     radius='md'
-                                    label="Condiciones médicas"
-                                    className=" mt-2"
+                                    label="Nombre"
+                                    className=" mt-2 mr-2"
                                 />
+                                <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
                             </div>
-
-
-                        </div>
-                        <div className="ml-2">
-                            <ImageUpload onImageUploadSuccess={handleImageUploadSuccess} />
+                            <div className='w-full'>
+                                <Field
+                                    as={Input}
+                                    type="text"
+                                    name='raza'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Raza"
+                                    className=" mt-2 mr-2"
+                                />
+                                <ErrorMessage name="raza" component="div" className="text-red-500 text-sm" />
+                            </div>
+                            <div className='w-full'>
+                                <Field
+                                    as={Input}
+                                    type="text"
+                                    name='edad'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Edad"
+                                    className="w-full mt-2"
+                                />
+                                <ErrorMessage name="edad" component="div" className="text-red-500 text-sm" />
+                            </div>
+                            <div className='w-full'>
+                                <Field
+                                    as={Input}
+                                    type="text"
+                                    name='sexo'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Genero"
+                                    className="mt-2 mr-2"
+                                />
+                                <ErrorMessage name="sexo" component="div" className="text-red-500 text-sm" />
+                            </div>
                         </div>
                     </div>
 
+                    <div className="w-full">
+                        <Field
+                            as={Textarea}
+                            type="text"
+                            name='condiciones'
+                            variant='faded'
+                            radius='md'
+                            label="Condiciones médicas"
+                            className=" mt-2"
+                        />
+                    </div>
 
                     <div className='flex'>
-
-
                         <Field
                             as={Textarea}
                             type="text"
@@ -178,7 +195,9 @@ export default function Profile_Mascota() {
                             label="Comportamiento"
                             className=" mt-2"
                         />
+                    </div>
 
+                    <div className='flex'>
                         <Field
                             as={Textarea}
                             type="text"

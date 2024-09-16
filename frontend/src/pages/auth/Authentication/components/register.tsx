@@ -19,7 +19,6 @@ interface FormValues {
     email: string;
     password: string;
     confirmPassword: string;
-    role: number;
 }
 
 const validationSchema = Yup.object().shape({
@@ -31,13 +30,7 @@ const validationSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), undefined], 'La contraseña debe coincidir')
         .required('Confirmación de contraseña requerida'),
-    role: Yup.string().oneOf(['1', '2'], 'Rol es requerido').required('Rol es requerido'),
 });
-
-const roles = [
-    { key: "1", label: "Dueño" },
-    { key: "2", label: "Cuidador" },
-];
 
 export default function RegistrationForm() {
     const [isVisible, setIsVisible] = useState(false);
@@ -55,7 +48,6 @@ export default function RegistrationForm() {
             userSec: {
                 username: values.usuario,
                 password: values.password,
-                role: values.role === 1 ? 'USER' : 'USERP', 
             }
         };
 
@@ -78,7 +70,6 @@ export default function RegistrationForm() {
                 email: '',
                 password: '',
                 confirmPassword: '',
-                role: 0,
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
@@ -190,30 +181,6 @@ export default function RegistrationForm() {
 
                         </div>
                     </div>
-
-                    <div className='w-full'>
-                        <Field
-                            as={Select}
-                            name="role"
-                            label="Selecciona tu Pata Rol"
-                            className="max-w-72 mt-2 text-black"
-                            color='primary'
-                            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                                const selectedValue = Number(e.target.value);
-                                setFieldValue("role", selectedValue);
-                            }}
-                        >
-                            {roles.map(rol => (
-                                <SelectItem key={rol.key} value={rol.key}>
-                                    {rol.label}
-                                </SelectItem>
-                            ))}
-                        </Field>
-                        <ErrorMessage name="role" component="div" className="text-red-500 text-sm" />
-
-                    </div>
-
-
                     <div className='flex justify-center'>
                         <Button type="submit" color="success" disabled={isSubmitting} className="w-52 mt-2">Crea tu cuenta</Button>
                     </div>

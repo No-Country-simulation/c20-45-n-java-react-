@@ -61,7 +61,7 @@ public class ClienteController {
 
         userService.save(userSec);
 
-        return ResponseEntity.ok().body("Cliente creado con éxito");
+        return ResponseEntity.ok(cliente);
     }
 
     @PutMapping("{id}")

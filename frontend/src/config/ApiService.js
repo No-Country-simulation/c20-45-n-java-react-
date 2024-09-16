@@ -52,10 +52,6 @@ export default class ApiService {
     return role === "USER";
   }
 
-  static isUserPrestador() {
-    const role = localStorage.getItem("role");
-    return role === "USERP";
-  }
 
   /*  Buscar usuario */
 
@@ -177,6 +173,14 @@ export default class ApiService {
         headers: this.getHeader(),
       }
     );
+    return response.data;
+  }
+  
+// Eliminar turno
+  static async deleteTurno(turnoId) {
+    const response = await axios.delete(`${this.baseURL}/api/turno/delete/${turnoId}`, {
+      headers: this.getHeader(),
+    });
     return response.data;
   }
 

@@ -64,8 +64,12 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String accessToken = jwtUtils.createToken(authentication);
-        AuthResponseDTO authResponseDTO = new AuthResponseDTO(username, "Login seccesfull", accessToken, true);
-        return authResponseDTO;
+        // Obtener el usuario desde el repositorio
+        UserSec userSec = userRepo.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("El usuario " + username + " no fue encontrado"));
+
+        // Crear la respuesta de autenticación incluyendo el ID del usuario
+        return new AuthResponseDTO(userSec.getId(), username, "Login successful", accessToken, true);
     }
     public Authentication authenticate(String username, String password) {
 

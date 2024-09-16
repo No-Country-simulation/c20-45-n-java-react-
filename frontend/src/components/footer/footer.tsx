@@ -6,8 +6,7 @@ import { FaInstagram, FaWhatsapp, FaFacebook } from 'react-icons/fa';
 
 
 const F_Middle = [
-    { label: '¿Quienes somos?', link: "/" },
-    { label: 'Tarifas', link: "/" },
+    { label: '¿Quienes somos?', link: "/quienes-somos" },
     { label: 'Preguntas frecuentes', link: "/" },
 ]
 

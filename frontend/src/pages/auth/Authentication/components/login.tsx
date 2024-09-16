@@ -31,6 +31,7 @@ export default function LoginForm() {
     const from = location.state?.from?.pathname || "/perfil-cliente";
 
     const handleSubmit = async (values: LoginValues) => {
+        setIsLoading(true);
         try {
             console.log("User:", values.username)
             console.log("Contraseña:", values.password)
@@ -40,17 +41,22 @@ export default function LoginForm() {
             if (response.status === true) {
                 localStorage.setItem("token", response.token);
                 console.log("Token", response.token);
+
                 localStorage.setItem("role", response.role);
                 console.log("Role", response.role);
+
+                localStorage.setItem("userId", response.id);
+                console.log("USerId", response.id);
                 navigate(from, { replace: true });
             } else {
-                console.log("No ingrese a if ")
+                throw new Error("Credenciales incorrectas");
             }
         } catch (error) {
             setError(error.response?.data?.message || "Error al iniciar sesión, intenta nuevamente");
             setTimeout(() => setError(""), 5000);
+        } finally {
+            setIsLoading(false);
         }
-
     };
 
     return (
