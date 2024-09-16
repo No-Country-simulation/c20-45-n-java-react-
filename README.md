@@ -1,16 +1,19 @@
 
-  ![imagenPataAmiga](https://github.com/user-attachments/assets/3b0b30eb-f770-4ab2-ad59-c0558432a046)
-  
+ 
+![img pata amiga actual](https://github.com/user-attachments/assets/8f0d35f8-b353-4261-b12e-8080d58f9611)
+
 
 
 ## Descripción de la app
-API PataAmiga es una aplicación que permite la conexión de dueños de mascotas con paseadores. En tan solo segundos, podrás encontrar la mejor opción a la hora del paseo de tu mejor amigo, brindándote seguridad y confianza durante todo el proceso.
+PataAmiga es una aplicación que permite la conexión de dueños de mascotas con paseadores. En tan solo segundos, podrás encontrar la mejor opción a la hora del paseo de tu mejor amigo, brindándote seguridad y confianza durante todo el proceso.
 
 ![Static Badge](https://img.shields.io/badge/java-21-green)
 ![Static Badge](https://img.shields.io/badge/react-xxx-blue)
 ![Static Badge](https://img.shields.io/badge/MySQL-v8.0-orange)
 ![Static Badge](https://img.shields.io/badge/SpringBoot%203-yellow)
 ![Static Badge](https://img.shields.io/badge/Postman-skyblue)
+
+Enlace a [Figma](https://www.figma.com/design/vVFzGqtR9Hd2couJYpdj2J/Plataforma-de-Cuidado-de-Mascotas?node-id=54-680&node-type=frame&t=s01E6MxgPQEzE9PZ-0).  (Ponemos el enlace?)
 
 ##  Navegadores compatibles
 
@@ -19,6 +22,13 @@ API PataAmiga es una aplicación que permite la conexión de dueños de mascotas
 - Safari
 - Opera
 - Microsoft Edge
+
+## Funcionalidades
+
+- Registro de usuarios y preferencias
+- Publicación de paseadores con su disponibilidad horaria
+- Inscripción de mascotas con su libreta sanitaria, historia clínica, alimentación y más..
+- Toma de turnos de paseo por zona geográfica
 
 ## Navegación por el sitio
 
@@ -33,6 +43,13 @@ Registro
 
 ![Empezar a pasear](https://github.com/user-attachments/assets/6f88b95e-4420-44a3-9a87-1d48273b1b0c)
 
+## Integrantes del equipo
 
+| Nombre                   | Rol | 
+| -----------              | ----------- |
+| Daiana Palacios          | Tester       |
+| Antony Tenorio Cevallos   | Front End       |
+| Gabriel Romero           | Back End     |
+| Gaston Herrmann  | Back End       |
 
 
