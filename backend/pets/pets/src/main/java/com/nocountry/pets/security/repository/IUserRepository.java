@@ -1,8 +1,6 @@
 package com.nocountry.pets.security.repository;
 
-import com.nocountry.pets.models.Cliente;
 import com.nocountry.pets.models.Persona;
-import com.nocountry.pets.security.models.Role;
 import com.nocountry.pets.security.models.UserSec;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
