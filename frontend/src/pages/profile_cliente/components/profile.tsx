@@ -83,8 +83,20 @@ export default function Profile_Client() {
             return;
         }
 
+        const domicilio = {
+            direccion: values.domicilio, 
+            pais: values.pais, 
+            ciudad: values.ciudad 
+        };
+
+        const perfil = {
+            ...values,
+            domicilio: domicilio,
+            fotoUrl: imageUrl,
+        };
+
         try {
-            const response = await ApiService.updateCliente(clienteId, values);
+            const response = await ApiService.updateCliente(clienteId, perfil);
             console.log('Cliente actualizado con éxito:', response);
         } catch (error) {
             console.error('Error actualizando cliente:', error.response?.data || error.message);
