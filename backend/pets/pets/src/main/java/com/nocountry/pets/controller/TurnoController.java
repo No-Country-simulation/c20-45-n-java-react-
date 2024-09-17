@@ -1,8 +1,8 @@
 package com.nocountry.pets.controller;
 
-import com.nocountry.pets.dto.TurnoDto;
 import com.nocountry.pets.models.Turno;
 import com.nocountry.pets.service.ITurnoService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +26,12 @@ public class TurnoController {
         return turnoService.findById(id);
     }
     @PostMapping("/create")
-    public ResponseEntity<String> crearTurno(@RequestBody TurnoDto turnoDTO) {
+    public ResponseEntity<?> crearTurno(@RequestBody Turno turno) {
         try {
-            turnoService.crearTurno(turnoDTO);
-            return new ResponseEntity<>("Turno creado exitosamente", HttpStatus.CREATED);
+            Turno savedTurno = turnoService.save(turno);
+            return ResponseEntity.ok(savedTurno);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al crear el turno", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear el turno");
         }
     }
 

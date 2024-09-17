@@ -59,9 +59,18 @@ public class PrestadorController {
 
         if (prestadorRequest.getPrestaciones() != null && !prestadorRequest.getPrestaciones().isEmpty()) {
             for (Prestacion prestacion : prestadorRequest.getPrestaciones()) {
-                // Verificar si la prestación ya existe en la base de datos
-                if (prestacion.getId_prestacion() == null || !prestacionService.findById(prestacion.getId_prestacion()).isPresent())  {
-                    prestacion = prestacionService.save(prestacion); // Guardar la prestación si no existe
+                if (prestacion.getId_prestacion() != null) {
+                    // Verificar si la prestación ya existe en la base de datos
+                    Optional<Prestacion> existingPrestacion = prestacionService.findById(prestacion.getId_prestacion());
+                    if (existingPrestacion.isPresent()) {
+                        prestacion = existingPrestacion.get(); // Usar la prestación existente
+                    } else {
+                        // La prestación no existe, se guarda una nueva
+                        prestacion = prestacionService.save(prestacion);
+                    }
+                } else {
+                    // El ID es nulo, se guarda la nueva prestación
+                    prestacion = prestacionService.save(prestacion);
                 }
                 prestador.getPrestaciones().add(prestacion); // Agregar la prestación al prestador
             }

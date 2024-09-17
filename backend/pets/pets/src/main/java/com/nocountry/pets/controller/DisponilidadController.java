@@ -42,7 +42,7 @@ public class DisponilidadController {
         disponibilidad.setDia(disponibilidadRequest.getDia());
         disponibilidad.setHoraInicio(disponibilidadRequest.getHoraInicio());
 
-        // Asignar el prestador a la disponibilidad
+        // Asigna el prestador a la disponibilidad
         disponibilidad.setPrestador(prestador);
 
         // Guardar la disponibilidad

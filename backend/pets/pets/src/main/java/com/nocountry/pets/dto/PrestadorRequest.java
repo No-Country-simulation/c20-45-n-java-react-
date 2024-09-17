@@ -21,4 +21,5 @@ public class PrestadorRequest {
     private String telefono;
     private UserSec userSec;
     private List<Prestacion> prestaciones;
+
 }

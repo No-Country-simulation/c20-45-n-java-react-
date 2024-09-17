@@ -1,5 +1,6 @@
 package com.nocountry.pets.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Prestacion {
     private String caracteristicasPrest;
     private Double precio;
     private String zona;
+    @JsonIgnore
     @ManyToMany(mappedBy = "prestaciones")
     private List<Prestador> prestador = new ArrayList<>();
 }
