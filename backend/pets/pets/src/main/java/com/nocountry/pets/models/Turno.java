@@ -34,7 +34,7 @@ public class Turno {
 
         @ManyToOne
         @JoinColumn(name = "prestador_id", nullable = false)
-        private Prestador cuidador;
+        private Prestador prestador;
 
         @ManyToOne
         @JoinColumn(name = "prestacion_id", nullable = false)

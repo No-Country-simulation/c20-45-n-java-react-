@@ -1,6 +1,5 @@
 package com.nocountry.pets.service;
 
-import com.nocountry.pets.dto.TurnoDto;
 import com.nocountry.pets.models.Cliente;
 import com.nocountry.pets.models.Prestacion;
 import com.nocountry.pets.models.Prestador;
@@ -43,6 +42,20 @@ public class TurnoService implements ITurnoService{
 
     @Override
     public Turno save(Turno turno) {
+        // Verificar la existencia de las entidades asociadas
+        Cliente cliente = clienteRepository.findById(turno.getCliente().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
+        Prestador prestador = prestadorRepository.findById(turno.getPrestador().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Prestador no encontrado"));
+        Prestacion prestacion = prestacionRepository.findById(turno.getPrestacion().getId_prestacion())
+                .orElseThrow(() -> new EntityNotFoundException("Prestación no encontrada"));
+
+        // Establecer las entidades en el objeto Turno
+        turno.setCliente(cliente);
+        turno.setPrestador(prestador);
+        turno.setPrestacion(prestacion);
+
+        // Guardar el turno en la base de datos
         return turnoRepository.save(turno);
     }
 
@@ -56,24 +69,4 @@ public class TurnoService implements ITurnoService{
         return turnoRepository.save(turno);
     }
 
-    public void crearTurno(TurnoDto turnoDTO) throws EntityNotFoundException {
-        Turno turno = new Turno();
-
-        Cliente cliente = clienteRepository.findById(turnoDTO.getClienteId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente con ID " + turnoDTO.getClienteId() + " no encontrado"));
-
-        Prestador cuidador = prestadorRepository.findById(turnoDTO.getCuidadorId())
-                .orElseThrow(() -> new EntityNotFoundException("Cuidador con ID " + turnoDTO.getCuidadorId() + " no encontrado"));
-
-        Prestacion prestacion = prestacionRepository.findById(turnoDTO.getPrestacionId())
-                .orElseThrow(() -> new EntityNotFoundException("Prestacion con ID " + turnoDTO.getPrestacionId() + " no encontrada"));
-
-        turno.setFecha(turnoDTO.getFecha());
-        turno.setHora(turnoDTO.getHora());
-        turno.setCliente(cliente);
-        turno.setCuidador(cuidador);
-        turno.setPrestacion(prestacion);
-
-        turnoRepository.save(turno);
-    }
 }
