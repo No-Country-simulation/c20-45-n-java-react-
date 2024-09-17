@@ -64,7 +64,7 @@ public class ClienteController {
         return ResponseEntity.ok(cliente);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> updateCliente(@PathVariable Long id, @Valid @RequestBody Cliente cliente, BindingResult result) {
         if (result.hasErrors()) {
             return validation(result);

@@ -82,13 +82,9 @@ export default function Profile_Client() {
             return;
         }
 
-        const perfil = {
-            ...values,
-            fotoUrl: imageUrl,
-        };
         try {
-            const response = await ApiService.updateCliente(clienteId, perfil);
-            console.log('Cliente actualizado con éxito:', response.data);
+            const response = await ApiService.updateCliente(clienteId, values);
+            console.log('Cliente actualizado con éxito:', response);
         } catch (error) {
             console.error('Error actualizando cliente:', error.response?.data || error.message);
         }

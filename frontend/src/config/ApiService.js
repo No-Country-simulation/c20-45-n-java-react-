@@ -76,7 +76,7 @@ export default class ApiService {
   // Actualizar usuario
   static async updateCliente(id, clienteData) {
     const response = await axios.put(
-      `${this.baseURL}/api/cliente/${id}`,
+      `${this.baseURL}/api/cliente/update/${id}`,
       clienteData,
       {
         headers: this.getHeader(),
