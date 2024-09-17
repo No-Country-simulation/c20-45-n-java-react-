@@ -18,12 +18,13 @@ interface User {
     apellido: string;
     email: string;
     dni: string;
-    experiencia_previa: string;
-    certificaciones: string;
+    observaciones: string;
+    domicilio: string;
     pais: string;
     ciudad: string;
     telefono: string;
-    foto: string;
+    telefonoEmergencia: string;
+    imagen: string;
 }
 
 const validationSchema = Yup.object({});
@@ -44,9 +45,9 @@ export default function Profile_Client() {
                 console.error("No se encontró token o ID de usuario");
                 return;
             }
-
             try {
                 const response = await ApiService.getUserById(userId);
+                console.log("Response", response)
                 setUser(response);
                 console.log(response);
             } catch (error) {
@@ -96,22 +97,24 @@ export default function Profile_Client() {
 
     return (
         <Formik
+            enableReinitialize={true}
             initialValues={{
                 nombre: user?.nombre || '',
                 apellido: user?.apellido || '',
                 email: user?.email || '',
                 dni: user?.dni || '',
-                experiencia_previa: user?.experiencia_previa || '',
-                certificaciones: user?.certificaciones || '',
+                domicilio: user?.domicilio || '',
+                observaciones: user?.observaciones || '',
                 pais: user?.pais || '',
                 ciudad: user?.ciudad || '',
                 telefono: user?.telefono || '',
-                foto: user?.foto || '',
+                telefonoEmergencia: user?.telefonoEmergencia || '',
+                imagen: user?.imagen || '',
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
         >
-            {({ isSubmitting, setFieldValue }) => (
+            {({ isSubmitting, setFieldValue, values }) => (
                 <Form className="m-1">
                     <div className="flex justify-center font-extrabold text-xl font-mono">
                         Información personal
@@ -131,6 +134,7 @@ export default function Profile_Client() {
                                     radius='md'
                                     label="Nombre"
                                     className=" mt-2 mr-2"
+                                    initialValues={values.nombre}
                                 />
                                 <ErrorMessage name="nombre" component="div" className="text-red-500 text-sm" />
                             </div>
@@ -186,14 +190,14 @@ export default function Profile_Client() {
                                 <Field
                                     as={Input}
                                     type="text"
-                                    name='telefonoemerg'
+                                    name='telefonoEmergencia'
                                     variant='faded'
                                     radius='md'
                                     label="Teléfono Emergencia"
                                     className="mt-2 mr-2"
 
                                 />
-                                <ErrorMessage name="telefonoemerg" component="div" className="text-red-500 text-sm" />
+                                <ErrorMessage name="telefonoEmergencia" component="div" className="text-red-500 text-sm" />
                             </div>
                             <div className='w-full'>
                                 <Field
@@ -236,7 +240,7 @@ export default function Profile_Client() {
                     <Field
                         as={Textarea}
                         type="text"
-                        name='direccion'
+                        name='domicilio'
                         variant='faded'
                         radius='md'
                         label="Dirección"
@@ -246,7 +250,7 @@ export default function Profile_Client() {
                     <Field
                         as={Textarea}
                         type="text"
-                        name='preferencia'
+                        name='observaciones'
                         variant='faded'
                         radius='md'
                         label="Preferencia de servicio o comentarios"
