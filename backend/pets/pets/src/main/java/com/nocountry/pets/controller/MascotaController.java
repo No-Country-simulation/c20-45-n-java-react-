@@ -17,7 +17,7 @@ public class MascotaController {
     @Autowired
     private IMascotaService mascotaService;
 
-    @GetMapping()
+    @GetMapping( )
     public List<Mascota> findAll(){
         return mascotaService.findAll();
     }
@@ -26,9 +26,9 @@ public class MascotaController {
         return mascotaService.findById(id);
     }
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody Mascota mascota){
+    public ResponseEntity<?> create(@RequestBody Mascota mascota){
         mascotaService.save(mascota);
-        return ResponseEntity.ok("Mascosta creada con exito");
+        return ResponseEntity.ok("Mascota creada con éxito");
     }
 
 

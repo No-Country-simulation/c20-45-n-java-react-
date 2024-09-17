@@ -2,8 +2,6 @@ package com.nocountry.pets.controller;
 
 import com.nocountry.pets.dto.ClienteRequest;
 import com.nocountry.pets.models.Cliente;
-
-
 import com.nocountry.pets.security.models.UserSec;
 import com.nocountry.pets.security.service.UserService;
 import com.nocountry.pets.service.IClienteService;
@@ -16,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cliente")

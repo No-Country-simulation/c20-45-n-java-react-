@@ -2,9 +2,11 @@ package com.nocountry.pets.controller;
 
 
 import com.nocountry.pets.dto.PrestadorRequest;
+import com.nocountry.pets.models.Prestacion;
 import com.nocountry.pets.models.Prestador;
 import com.nocountry.pets.security.models.UserSec;
 import com.nocountry.pets.security.service.IUserService;
+import com.nocountry.pets.service.IPrestacionService;
 import com.nocountry.pets.service.IPrestadorService;
 import com.nocountry.pets.service.PersonaService;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,7 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/prestador")
@@ -23,6 +28,8 @@ public class PrestadorController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IPrestacionService prestacionService;
     @Autowired
     private IPrestadorService prestadorService;
     @Autowired
@@ -44,27 +51,33 @@ public class PrestadorController {
         if (result.hasErrors()) {
             return validation(result);
         }
-       Prestador prestador = new Prestador();
+        Prestador prestador = new Prestador();
         prestador.setNombre(prestadorRequest.getNombre());
         prestador.setApellido(prestadorRequest.getApellido());
         prestador.setEmail(prestadorRequest.getEmail());
         prestador.setTelefono(prestadorRequest.getTelefono());
-        if (prestadorRequest.getPrestacion() != null) {
-            prestador.getPrestaciones().add(prestadorRequest.getPrestacion());
+
+        if (prestadorRequest.getPrestaciones() != null && !prestadorRequest.getPrestaciones().isEmpty()) {
+            for (Prestacion prestacion : prestadorRequest.getPrestaciones()) {
+                // Verificar si la prestación ya existe en la base de datos
+                if (prestacion.getId_prestacion() == null || !prestacionService.findById(prestacion.getId_prestacion()).isPresent())  {
+                    prestacion = prestacionService.save(prestacion); // Guardar la prestación si no existe
+                }
+                prestador.getPrestaciones().add(prestacion); // Agregar la prestación al prestador
+            }
         }
+            UserSec userSec = prestadorRequest.getUserSec();
 
-        UserSec userSec = prestadorRequest.getUserSec();
+            prestador = personaService.createPersona(prestador, userSec);
 
-        prestador = personaService.createPersona(prestador, userSec);
+            Prestador savedPrestador = prestadorService.save(prestador);
 
-        Prestador savedPrestador = prestadorService.save(prestador);
+            userSec.setPersona(savedPrestador);
 
-        userSec.setPersona(savedPrestador);
+            userService.save(userSec);
 
-        userService.save(userSec);
-
-        return ResponseEntity.ok().body("Prestador creado con éxito");
-    }
+            return ResponseEntity.ok().body("Prestador creado con éxito");
+        }
 
     public ResponseEntity<?> updatePrestador(@PathVariable Long id, @Valid @RequestBody Prestador prestador, BindingResult result) {
         if (result.hasErrors()) {

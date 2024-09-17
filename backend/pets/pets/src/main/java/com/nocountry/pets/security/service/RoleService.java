@@ -1,7 +1,7 @@
 package com.nocountry.pets.security.service;
 
-import com.nocountry.pets.security.repository.IRoleRepository;
 import com.nocountry.pets.security.models.Role;
+import com.nocountry.pets.security.repository.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
