@@ -13,12 +13,12 @@ interface Mascota {
     nombre: string;
     raza: string;
     edad: string;
-    sexo: string;
-    condiciones: string;
-    vacunas: string;
+    genero: string;
+    condicionMedica: string;
+    vacuna: string;
     comportamiento: string;
     dieta: string;
-    foto: string;
+    imagen: string;
 }
 
 const validationSchema = Yup.object({
@@ -47,11 +47,10 @@ export default function Profile_Mascota() {
             }
 
             try {
-                const userResponse = await ApiService.getUserById(userId);
-                setPet(userResponse);
-
                 const petResponse = await ApiService.getMascotasByCliente(userId);
-                setPet(petResponse.data);
+                setPet(petResponse);
+                console.log("petResponse", petResponse)
+
             } catch (error) {
                 setError(error.message);
             }
@@ -84,16 +83,17 @@ export default function Profile_Mascota() {
 
     return (
         <Formik
+            enableReinitialize={true}
             initialValues={{
                 nombre: pet?.nombre || '',
                 raza: pet?.raza || '',
                 edad: pet?.edad || '',
-                sexo: pet?.sexo || '',
-                condiciones: pet?.condiciones || '',
-                vacunas: pet?.vacunas || '',
+                genero: pet?.genero || '',
+                condicionMedica: pet?.condicionMedica || '',
+                vacuna: pet?.vacuna || '',
                 comportamiento: pet?.comportamiento || '',
                 dieta: pet?.dieta || '',
-                foto: pet?.foto || '',
+                imagen: pet?.imagen || '',
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
@@ -150,13 +150,13 @@ export default function Profile_Mascota() {
                                 <Field
                                     as={Input}
                                     type="text"
-                                    name='sexo'
+                                    name='genero'
                                     variant='faded'
                                     radius='md'
                                     label="Genero"
                                     className="mt-2 mr-2"
                                 />
-                                <ErrorMessage name="sexo" component="div" className="text-red-500 text-sm" />
+                                <ErrorMessage name="genero" component="div" className="text-red-500 text-sm" />
                             </div>
                         </div>
                     </div>
@@ -165,7 +165,7 @@ export default function Profile_Mascota() {
                         <Field
                             as={Textarea}
                             type="text"
-                            name='condiciones'
+                            name='condicionMedica'
                             variant='faded'
                             radius='md'
                             label="Condiciones médicas"
@@ -177,7 +177,7 @@ export default function Profile_Mascota() {
                         <Field
                             as={Textarea}
                             type="text"
-                            name='vacunas'
+                            name='vacuna'
                             variant='faded'
                             radius='md'
                             label="Vacunas"

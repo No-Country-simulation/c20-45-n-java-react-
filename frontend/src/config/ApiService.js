@@ -52,7 +52,6 @@ export default class ApiService {
     return role === "USER";
   }
 
-
   /*  Buscar usuario */
 
   // Buscar usuario por ID
@@ -76,15 +75,11 @@ export default class ApiService {
 
   // Actualizar usuario
   static async updateCliente(id, clienteData) {
-    const token = localStorage.getItem("token"); 
     const response = await axios.put(
       `${this.baseURL}/api/cliente/${id}`,
       clienteData,
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+        headers: this.getHeader(),
       }
     );
     return response.data;
@@ -107,7 +102,7 @@ export default class ApiService {
   // Obtener todas las mascotas
   static async getMascotasByCliente(clienteId) {
     const response = await axios.get(
-      `${this.baseURL}/api/mascota/cliente/${clienteId}`,
+      `${this.baseURL}/api/mascota/${clienteId}`,
       {
         headers: this.getHeader(),
       }
@@ -175,12 +170,15 @@ export default class ApiService {
     );
     return response.data;
   }
-  
-// Eliminar turno
+
+  // Eliminar turno
   static async deleteTurno(turnoId) {
-    const response = await axios.delete(`${this.baseURL}/api/turno/delete/${turnoId}`, {
-      headers: this.getHeader(),
-    });
+    const response = await axios.delete(
+      `${this.baseURL}/api/turno/delete/${turnoId}`,
+      {
+        headers: this.getHeader(),
+      }
+    );
     return response.data;
   }
 
