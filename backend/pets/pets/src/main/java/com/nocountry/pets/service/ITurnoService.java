@@ -1,5 +1,6 @@
 package com.nocountry.pets.service;
 
+import com.nocountry.pets.dto.TurnoDto;
 import com.nocountry.pets.models.Turno;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface ITurnoService {
     void deleteById(Long id);
     Turno update (Turno turno);
 
+    void crearTurno(TurnoDto turnoDTO);
 }

@@ -1,7 +1,7 @@
 package com.nocountry.pets.security.service;
 
-import com.nocountry.pets.security.repository.IPermissionRepository;
 import com.nocountry.pets.security.models.Permission;
+import com.nocountry.pets.security.repository.IPermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

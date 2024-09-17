@@ -49,6 +49,7 @@ export default function Profile_Client() {
                 const response = await ApiService.getUserById(userId);
                 console.log("Response", response)
                 setUser(response);
+                console.log(response);
             } catch (error) {
                 setError(error.message);
             }

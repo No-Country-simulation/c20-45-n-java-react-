@@ -1,5 +1,6 @@
 package com.nocountry.pets.service;
 
+import com.nocountry.pets.dto.TurnoDto;
 import com.nocountry.pets.models.Cliente;
 import com.nocountry.pets.models.Prestacion;
 import com.nocountry.pets.models.Prestador;
@@ -55,4 +56,24 @@ public class TurnoService implements ITurnoService{
         return turnoRepository.save(turno);
     }
 
+    public void crearTurno(TurnoDto turnoDTO) throws EntityNotFoundException {
+        Turno turno = new Turno();
+
+        Cliente cliente = clienteRepository.findById(turnoDTO.getClienteId())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente con ID " + turnoDTO.getClienteId() + " no encontrado"));
+
+        Prestador cuidador = prestadorRepository.findById(turnoDTO.getCuidadorId())
+                .orElseThrow(() -> new EntityNotFoundException("Cuidador con ID " + turnoDTO.getCuidadorId() + " no encontrado"));
+
+        Prestacion prestacion = prestacionRepository.findById(turnoDTO.getPrestacionId())
+                .orElseThrow(() -> new EntityNotFoundException("Prestacion con ID " + turnoDTO.getPrestacionId() + " no encontrada"));
+
+        turno.setFecha(turnoDTO.getFecha());
+        turno.setHora(turnoDTO.getHora());
+        turno.setCliente(cliente);
+        turno.setCuidador(cuidador);
+        turno.setPrestacion(prestacion);
+
+        turnoRepository.save(turno);
+    }
 }

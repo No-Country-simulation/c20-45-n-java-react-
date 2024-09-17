@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,5 +20,5 @@ public class PrestadorRequest {
     private String email;
     private String telefono;
     private UserSec userSec;
-    private Prestacion prestacion;
+    private List<Prestacion> prestaciones;
 }
