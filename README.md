@@ -1,14 +1,12 @@
-
- 
-![img pata amiga actual](https://github.com/user-attachments/assets/8f0d35f8-b353-4261-b12e-8080d58f9611)
-
-
+<p align="center"> <img src="https://github.com/user-attachments/assets/8f0d35f8-b353-4261-b12e-8080d58f9611"> </p>
 
 ## Descripción de la app
 PataAmiga es una aplicación que permite la conexión de dueños de mascotas con paseadores. En tan solo segundos, podrás encontrar la mejor opción a la hora del paseo de tu mejor amigo, brindándote seguridad y confianza durante todo el proceso.
 
+## Tecnologías utilizadas
+
 ![Static Badge](https://img.shields.io/badge/java-21-green)
-![Static Badge](https://img.shields.io/badge/react-xxx-blue)
+![Static Badge](https://img.shields.io/badge/React-red)
 ![Static Badge](https://img.shields.io/badge/MySQL-v8.0-orange)
 ![Static Badge](https://img.shields.io/badge/SpringBoot%203-yellow)
 ![Static Badge](https://img.shields.io/badge/Postman-skyblue)
@@ -27,7 +25,7 @@ PataAmiga es una aplicación que permite la conexión de dueños de mascotas con
 - Registro de usuarios y preferencias
 - Publicación de paseadores con su disponibilidad horaria
 - Inscripción de mascotas con su libreta sanitaria, historia clínica, alimentación y más..
-- Toma de turnos de paseo por zona geográfica
+- Toma de turnos de paseo por región geográfica
 
 ## Plan de prueba
 Accedé desde ___[aquí](https://miniature-silicon-370.notion.site/Plan-de-pruebas-Aplicaci-n-Pata-Amiga-06948809a05b4ca7a33da52ec824e76c)___
@@ -54,8 +52,16 @@ Registro
 | Gabriel Romero           | Back End     |
 | Gaston Herrmann  | Back End       | [Linkedin](https://www.linkedin.com/in/gaston-herrmann)
 
-***
-git clone
+## Replicá el proyecto localmente
 
-git sdasd
-***
+Cloná el repositorio, instalá dependencias y hacelo correr: 
+```bash
+git clone https://github.com/No-Country-simulation/c20-45-n-java-react-.git
+```
+```bash
+npm install 
+```
+```bash
+npm run dev
+```
+
