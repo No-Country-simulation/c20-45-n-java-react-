@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaDog, FaSearch } from "react-icons/fa";
 import { default as Container } from "../container/container";
+import ApiService from "../../config/ApiService";
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token');
@@ -17,6 +18,11 @@ export default function HomeNavbar() {
         if (!isAuthenticated()) {
             window.location.href = '/login';
         }
+    };
+    
+    const handleCloseSesion = () => {
+        ApiService.logout();
+        window.location.href = '/login';
     };
 
     const menuItems = ["Inicio", "Servicios", "Testimonios", "Galeria"]
@@ -117,6 +123,9 @@ export default function HomeNavbar() {
                                             <Link to="/perfil" className="dropdown-item">
                                                 My Perfil
                                             </Link>
+                                        </DropdownItem>
+                                        <DropdownItem onClick={handleCloseSesion}>
+                                            Cerrar Sesión
                                         </DropdownItem>
                                     </DropdownMenu>
                                 ) : null}
