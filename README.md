@@ -47,6 +47,7 @@ Registro
 
 | Nombre                   | Rol | Linkedin
 | -----------              | ----------- | -----------
+| Elisa Luna  |  TeamLeader  |
 | Daiana Palacios          | Tester       |  [Linkedin](https://www.linkedin.com/in/daiana-rocio-palacios)
 | Antony Tenorio    | Front End       | 
 | Gabriel Romero           | Back End     |
