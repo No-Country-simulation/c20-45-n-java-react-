@@ -2,7 +2,6 @@ package com.nocountry.pets.controller;
 
 import com.nocountry.pets.models.Turno;
 import com.nocountry.pets.service.ITurnoService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
