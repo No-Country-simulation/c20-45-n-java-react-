@@ -17,6 +17,7 @@ interface Prestacion {
 export default function ListCard() {
     const [isContract, setIsContract] = useState(false);
     const [prestaciones, setPrestaciones] = useState<Prestacion[]>([]);
+    const userId = localStorage.getItem("userId");
 
     useEffect(() => {
         const fetchPrestaciones = async () => {
@@ -41,11 +42,22 @@ export default function ListCard() {
             }
         } else {
             // Crear turno
+            console.log("ID_prestacion", prestacion)
             const turno = {
-                prestacionId: prestacion.id_prestacion,
-                fecha: new Date().toISOString(),
+                fecha: new Date().toISOString().split('T')[0],
+                hora: new Date().toISOString().split('T')[1].substring(0, 5),
+                cliente: {
+                    id: userId,
+                },
+                prestador: {
+                    id: 2,
+                },
+                prestacion: {
+                    id_prestacion: prestacion.id_prestacion
+                }
             };
 
+            console.log(turno);
             try {
                 await ApiService.createTurno(turno);
                 console.log("Turno creado correctamente");
@@ -68,7 +80,7 @@ export default function ListCard() {
                         isBlurred
                     ><CardHeader className="justify-between">
                             <div className="flex gap-5">
-                                <Avatar isBordered radius="full" size="md" src="https://nextui.org/avatars/avatar-1.png" />
+                                <Avatar isBordered radius="full" size="md" src="" />
                                 <div className="flex flex-col gap-1 items-start justify-center">
                                     <h4 className="text-small font-semibold leading-none text-default-600">{prestacion.nombrePrest}</h4>
                                     <h5 className="text-small tracking-tight text-default-400">Zona: {prestacion.zona}</h5>

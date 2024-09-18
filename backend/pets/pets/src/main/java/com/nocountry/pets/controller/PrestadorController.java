@@ -24,6 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/prestador")
+@CrossOrigin( "http://localhost:5173/")
 public class PrestadorController {
     @Autowired
     private IUserService userService;

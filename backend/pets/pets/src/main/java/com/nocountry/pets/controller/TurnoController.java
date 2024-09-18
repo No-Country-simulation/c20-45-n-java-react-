@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/turnos")
+@CrossOrigin( "http://localhost:5173/")
 public class TurnoController {
     @Autowired
     private ITurnoService turnoService;

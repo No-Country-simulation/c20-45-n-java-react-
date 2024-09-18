@@ -1,17 +1,11 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from 'yup';
-import { Button, Input } from "../../../export-components";
-import { Select, SelectItem } from '@nextui-org/select';
+import { Input } from "../../../export-components";
 import { Textarea } from "@nextui-org/input";
-import latam_paises from "./latam_paises.json"
 import ApiService from "../../../config/ApiService";
 import ImageUpload from "../../../components/ImageUpload/ImageUpload";
-
-interface City {
-    key: string;
-    label: string;
-}
+import { Spinner } from "@nextui-org/spinner";
 
 interface User {
     nombre: string;
@@ -19,7 +13,7 @@ interface User {
     email: string;
     dni: string;
     observaciones: string;
-    domicilio: string;
+    direccion: string;
     pais: string;
     ciudad: string;
     telefono: string;
@@ -27,15 +21,19 @@ interface User {
     imagen: string;
 }
 
+interface Domicilio {
+    direccion: string;
+    pais: string;
+    ciudad: string;
+}
+
 const validationSchema = Yup.object({});
 
 export default function Profile_Client() {
     const [user, setUser] = useState<User | null>(null);
+    const [domicilio, setDomicilio] = useState<Domicilio | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [selectedCountry, setSelectedCountry] = useState("");
-    const [cityOptions, setCityOptions] = useState<City[]>([]);
-    const [imageUrl, setImageUrl] = useState(null);
-
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -47,9 +45,9 @@ export default function Profile_Client() {
             }
             try {
                 const response = await ApiService.getUserById(userId);
-                console.log("Response", response)
+                console.log("Response", response.domicilio)
                 setUser(response);
-                console.log(response);
+                setDomicilio(response.domicilio)
             } catch (error) {
                 setError(error.message);
             }
@@ -63,18 +61,6 @@ export default function Profile_Client() {
         console.log("URL:", url)
     };
 
-    const handleCountryChange = (e: any) => {
-        const selectedCountryKey = e.target.value;
-        setSelectedCountry(selectedCountryKey);
-
-        const selectedCountryObj = latam_paises.countries.find(c => c.key === selectedCountryKey);
-        if (selectedCountryObj) {
-            setCityOptions(selectedCountryObj.cities);
-        } else {
-            setCityOptions([]);
-        }
-    };
-
     const handleSubmit = async (values: User) => {
         const clienteId = localStorage.getItem("userId");
 
@@ -83,18 +69,27 @@ export default function Profile_Client() {
             return;
         }
 
-        const domicilio = {
-            direccion: values.domicilio, 
-            pais: values.pais, 
-            ciudad: values.ciudad 
-        };
+        console.log("Domicilio::", domicilio)
+        console.log("values..", values)
+        console.log("Imagen", imageUrl)
 
         const perfil = {
-            ...values,
-            domicilio: domicilio,
-            fotoUrl: imageUrl,
+            nombre: values.nombre,
+            apellido: values.apellido,
+            email: values.email,
+            dni: values.dni,
+            observaciones: values.observaciones,
+            domicilio: {
+                direccion: values.direccion,
+                pais: values.pais,
+                ciudad: values.ciudad
+            },
+            telefono: values.telefono,
+            telefonoEmergencia: values.telefonoEmergencia,
+            imagen: "imageUrl"  
         };
 
+        console.log("perfil..", perfil)
         try {
             const response = await ApiService.updateCliente(clienteId, perfil);
             console.log('Cliente actualizado con éxito:', response);
@@ -111,10 +106,10 @@ export default function Profile_Client() {
                 apellido: user?.apellido || '',
                 email: user?.email || '',
                 dni: user?.dni || '',
-                domicilio: user?.domicilio || '',
+                direccion: domicilio?.direccion || '',
                 observaciones: user?.observaciones || '',
-                pais: user?.pais || '',
-                ciudad: user?.ciudad || '',
+                pais: domicilio?.pais || '',
+                ciudad: domicilio?.ciudad || '',
                 telefono: user?.telefono || '',
                 telefonoEmergencia: user?.telefonoEmergencia || '',
                 imagen: user?.imagen || '',
@@ -178,6 +173,7 @@ export default function Profile_Client() {
                                     variant='faded'
                                     radius='md'
                                     label="DNI"
+                                    readOnly
                                     className="mt-2 mr-2"
                                 />
                                 <ErrorMessage name="dni" component="div" className="text-red-500 text-sm" />
@@ -209,36 +205,26 @@ export default function Profile_Client() {
                             </div>
                             <div className='w-full'>
                                 <Field
-                                    as={Select}
-                                    name="pais"
-                                    label="País"
-                                    className="mt-2 text-black"
-                                    color='primary'
-                                    onChange={handleCountryChange}
-                                >
-                                    {latam_paises.countries.map(p => (
-                                        <SelectItem key={p.key} value={p.key}>
-                                            {p.label}
-                                        </SelectItem>
-                                    ))}
-                                </Field>
+                                    as={Input}
+                                    type="text"
+                                    name='pais'
+                                    variant='faded'
+                                    radius='md'
+                                    label="Pais"
+                                    className="mt-2 mr-2"
+                                />
                                 <ErrorMessage name="pais" component="div" className="text-red-500 text-sm" />
                             </div>
                             <div className='w-full'>
                                 <Field
-                                    as={Select}
-                                    name="ciudad"
+                                    as={Input}
+                                    type="text"
+                                    name='ciudad'
+                                    variant='faded'
+                                    radius='md'
                                     label="Ciudad"
-                                    className="mt-2 mr-2 text-black"
-                                    color='primary'
-                                    disabled={!selectedCountry}
-                                >
-                                    {cityOptions.map((c) => (
-                                        <SelectItem key={c.key} value={c.key}>
-                                            {c.label}
-                                        </SelectItem>
-                                    ))}
-                                </Field>
+                                    className="mt-2 mr-2"
+                                />
                                 <ErrorMessage name="ciudad" component="div" className="text-red-500 text-sm" />
 
                             </div>
@@ -248,7 +234,7 @@ export default function Profile_Client() {
                     <Field
                         as={Textarea}
                         type="text"
-                        name='domicilio'
+                        name='direccion'
                         variant='faded'
                         radius='md'
                         label="Dirección"
@@ -267,6 +253,7 @@ export default function Profile_Client() {
 
                     <div className="flex justify-center mt-4">
                         <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
+                            {isSubmitting ? (<Spinner className="mr-2" />) : null}
                             {isSubmitting ? "Guardando..." : "Guardar"}
                         </button>
                     </div>
