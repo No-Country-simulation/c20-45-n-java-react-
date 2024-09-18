@@ -86,15 +86,28 @@ export default function Profile_Client() {
             },
             telefono: values.telefono,
             telefonoEmergencia: values.telefonoEmergencia,
-            imagen: "imageUrl"  
+            imagen: imageUrl || ''
         };
 
         console.log("perfil..", perfil)
+
         try {
-            const response = await ApiService.updateCliente(clienteId, perfil);
-            console.log('Cliente actualizado con éxito:', response);
+            const response = await fetch(`http://localhost:8080/api/cliente/${clienteId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(perfil)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al actualizar cliente');
+            }
+            const datos = await response.json();
+            console.log('Cliente actualizado con éxito:', datos);
         } catch (error) {
-            console.error('Error actualizando cliente:', error.response?.data || error.message);
+            console.error('Error actualizando cliente:', error.message);
+            setError(error.message);
         }
     };
 
