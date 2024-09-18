@@ -73,7 +73,6 @@ public class ClienteController {
         if (result.hasErrors()) {
             return validation(result);
         }
-
         try {
             Cliente updatedCliente = personaService.updatePersona(id, cliente, cliente.getUserSec());
             return ResponseEntity.ok("Cliente y usuario actualizados con éxito");
