@@ -87,8 +87,8 @@ public class PrestadorController {
 
             return ResponseEntity.ok().body("Prestador creado con éxito");
         }
-
-    public ResponseEntity<?> updatePrestador(@PathVariable Long id, @Valid @RequestBody Prestador prestador, BindingResult result) {
+        @PutMapping("/update/{id}")
+        public ResponseEntity<?> updatePrestador(@PathVariable Long id, @Valid @RequestBody Prestador prestador, BindingResult result) {
         if (result.hasErrors()) {
             return validation(result);
         }

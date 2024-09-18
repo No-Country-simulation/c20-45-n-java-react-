@@ -65,12 +65,11 @@ public class ClienteController {
         return ResponseEntity.ok(cliente);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateCliente(@PathVariable Long id, @Valid @RequestBody Cliente cliente, BindingResult result) {
         if (result.hasErrors()) {
             return validation(result);
         }
-
         try {
             Cliente updatedCliente = personaService.updatePersona(id, cliente, cliente.getUserSec());
             return ResponseEntity.ok("Cliente y usuario actualizados con éxito");
