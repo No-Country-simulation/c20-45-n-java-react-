@@ -22,7 +22,6 @@ public class Turno {
 
         @NotNull
         @Temporal(TemporalType.DATE)
-        @Future
         private Date fecha;
 
         @NotNull

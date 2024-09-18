@@ -47,7 +47,7 @@ export default function ListCard() {
                 fecha: new Date().toISOString().split('T')[0],
                 hora: new Date().toISOString().split('T')[1].substring(0, 5),
                 cliente: {
-                    id: userId,
+                    id: 1,
                 },
                 prestador: {
                     id: 2,

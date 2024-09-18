@@ -1,5 +1,6 @@
 package com.nocountry.pets.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class Prestador extends Persona{
     @Size(max = 1000)
     private String experiencia;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "prestador_prestacion",
