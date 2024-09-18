@@ -2,6 +2,7 @@ package com.nocountry.pets.controller;
 
 import com.nocountry.pets.dto.ClienteRequest;
 import com.nocountry.pets.models.Cliente;
+import com.nocountry.pets.models.Domicilio;
 import com.nocountry.pets.security.models.UserSec;
 import com.nocountry.pets.security.service.UserService;
 import com.nocountry.pets.service.IClienteService;
@@ -51,9 +52,11 @@ public class ClienteController {
         cliente.setNombre(clienteRequest.getNombre());
         cliente.setApellido(clienteRequest.getApellido());
         cliente.setEmail(clienteRequest.getEmail());
-
+        cliente.setDni(clienteRequest.getDni());
+        cliente.setTelefono(clienteRequest.getTelefono());
+        cliente.setTelefonoEmergencia(clienteRequest.getTelefonoEmergencia());
         UserSec userSec = clienteRequest.getUserSec();
-
+        Domicilio domicilio = clienteRequest.getDomicilio();
         cliente = personaService.createPersona(cliente, userSec);
 
         Cliente savedCliente = clienteService.save(cliente);

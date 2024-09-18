@@ -151,7 +151,7 @@ export default class ApiService {
 
   // Obtener todas las prestaciones
   static async getPrestaciones() {
-    const response = await axios.get(`${this.baseURL}/api/prestacion`, {
+    const response = await axios.get(`${this.baseURL}/prestacion`, {
       headers: this.getHeader(),
     });
     return response.data;
@@ -161,14 +161,11 @@ export default class ApiService {
 
   // Crear turno
   static async createTurno(turno) {
-    const response = await axios.post(
-      `${this.baseURL}/api/turno/create`,
-      turno,
-      {
+    await axios
+      .post(`${this.baseURL}/api/turnos/create`, turno, {
         headers: this.getHeader(),
-      }
-    );
-    return response.data;
+      })
+      .then(({ data }) => console.log(data));
   }
 
   // Eliminar turno

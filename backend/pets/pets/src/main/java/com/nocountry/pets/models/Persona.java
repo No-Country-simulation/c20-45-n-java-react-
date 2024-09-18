@@ -28,7 +28,7 @@ public abstract class Persona {
     @NotNull
     @Email
     private String email;
-    private int dni;
+    private String dni;
     private String telefono;
     private String telefonoEmergencia;
     @Size(max = 750)

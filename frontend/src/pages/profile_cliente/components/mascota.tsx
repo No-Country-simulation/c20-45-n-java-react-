@@ -7,7 +7,7 @@ import { Textarea } from "@nextui-org/input";
 import latam_paises from "./latam_paises.json"
 import ApiService from "../../../config/ApiService";
 import ImageUpload from "../../../components/ImageUpload/ImageUpload";
-
+import { Spinner } from "@nextui-org/spinner";
 
 interface Mascota {
     nombre: string;
@@ -66,18 +66,28 @@ export default function Profile_Mascota() {
     };
 
     const handleSubmit = async (values: Mascota) => {
-
+        const userId = localStorage.getItem("userId");
         const mascotaData = {
-            ...values,
-            fotoUrl: imageUrl,
+            nombre: values.nombre,
+            raza: values.raza,
+            edad: values.edad,
+            genero: values.genero,
+            condicionMedica: values.condicionMedica,
+            vacuna: values.vacuna,
+            comportamiento: values.comportamiento,
+            dieta: values.dieta,
+            imagen: "imageUrl",
+            cliente: {
+                id: userId,
+            }
         };
 
+        console.log("PETSS:", mascotaData)
         try {
-            await ApiService.createMascota(mascotaData);
-            alert('Mascota creada con éxito');
+            const response = await ApiService.createMascota(mascotaData);
+            console.log('Mascota creada con éxito:', response);
         } catch (error) {
-            console.error('Error al crear la mascota:', error);
-            alert('Error al crear la mascota');
+            console.error('Error al crear la mascota:', error.response?.data || error.message);
         }
     };
 
@@ -211,6 +221,7 @@ export default function Profile_Mascota() {
 
                     <div className="flex justify-center mt-4">
                         <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
+                            {isSubmitting ? (<Spinner className="mr-2" />) : null}
                             {isSubmitting ? "Guardando..." : "Guardar"}
                         </button>
                     </div>
