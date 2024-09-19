@@ -2,14 +2,15 @@ import { Navigate, Route, Routes } from "react-router";
 import Footer from "./components/footer/footer";
 import HomeNavbar from "./components/navbar2/navbar";
 import Profile_Cliente from "./pages/profile_cliente/profile-cliente";
-import Home from "./pages/home/home";
+//import Home from "./pages/home/home";
 import FormLogin from "./pages/auth/Authentication/auth-form";
-import { ProtectedRoute } from "./config/guard";
+//import { ProtectedRoute } from "./config/guard";
 import ListCard from "./components/listCard/listCard";
 import Galeria from "./pages/information/galeria";
 import Testimonios from "./pages/information/testimonio";
 import Servicios from "./pages/information/servicios";
 import QuienesSomos from "./pages/information/qsomos";
+import Reservas from "./pages/information/reserva";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route exact path="/quienes-somos" element={<QuienesSomos />} />
             <Route exact path="/galeria" element={<Galeria />} />
+            <Route exact path="/reserva" element={<Reservas />} />
             <Route exact path="/testimonios" element={<Testimonios />} />
             <Route exact path="/servicios" element={<Servicios />} />
             <Route exact path="/lista-prestaciones" element={<ListCard />} />

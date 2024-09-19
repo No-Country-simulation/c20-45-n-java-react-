@@ -40,13 +40,8 @@ export default function LoginForm() {
 
             if (response.status === true) {
                 localStorage.setItem("token", response.token);
-                console.log("Token", response.token);
-
                 localStorage.setItem("role", response.role);
-                console.log("Role", response.role);
-
                 localStorage.setItem("userId", response.id);
-                console.log("USerId", response.id);
                 navigate(from, { replace: true });
             } else {
                 throw new Error("Credenciales incorrectas");
