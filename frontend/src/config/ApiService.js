@@ -179,10 +179,20 @@ export default class ApiService {
     return response.data;
   }
 
+  static async getTurnos() {
+    const response = await axios.get(
+      `${this.baseURL}/api/turnos`,
+      {
+        headers: this.getHeader(),
+      }
+    );
+    return response.data;
+  }
+
   // Obtener turnos de un cliente
   static async getTurnosByCliente(clienteId) {
     const response = await axios.get(
-      `${this.baseURL}/api/turno/cliente/${clienteId}`,
+      `${this.baseURL}/api/turnos/${clienteId}`,
       {
         headers: this.getHeader(),
       }

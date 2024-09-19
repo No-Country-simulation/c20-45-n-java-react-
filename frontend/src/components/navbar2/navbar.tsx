@@ -98,8 +98,8 @@ export default function HomeNavbar() {
                         ))}
                     </NavbarMenu>
 
-                    <NavbarContent justify="center" className="col-end-6" >
-                        <NavbarItem className="hidden lg:flex">
+                    <NavbarContent justify="center" className=" flex col-end-5 md:col-end-6 pr-14" >
+                        <NavbarItem >
                             <Link to="/lista-prestaciones" className="bg-green-500 flex items-center px-4 py-2 rounded-full transition-colors duration-300 hover:bg-green-700">
                                 <FaDog className="mr-2" /> Empezar a pasear
                             </Link>
@@ -122,6 +122,11 @@ export default function HomeNavbar() {
                                         <DropdownItem key="settings">
                                             <Link to="/perfil" className="dropdown-item">
                                                 My Perfil
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem key="reserva">
+                                            <Link to="/reserva" className="dropdown-item">
+                                                Reservas
                                             </Link>
                                         </DropdownItem>
                                         <DropdownItem onClick={handleCloseSesion}>
