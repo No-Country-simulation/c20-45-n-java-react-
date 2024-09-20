@@ -35,4 +35,9 @@ public class TurnoController {
         }
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> delete(Long id){
+        turnoService.deleteById(id);
+        return ResponseEntity.ok("Turno cancelado con éxito");
+    }
 }
