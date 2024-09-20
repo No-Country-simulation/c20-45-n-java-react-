@@ -19,7 +19,8 @@ interface Prestacion {
     id: number;
     nombre: string;
     apellido: string;
-    calificacion: number;
+    calificacion: string;
+
   };
 }
 
@@ -76,11 +77,9 @@ export default function ListCard() {
       },
     };
 
-    console.log(turno);
     try {
       await ApiService.createTurno(turno);
       alert("El turno ha sido creado exitosamente.");
-      console.log("Turno creado correctamente");
       navigate("/reserva");
     } catch (error) {
       console.error("Error al crear turno:", error);
@@ -100,7 +99,8 @@ export default function ListCard() {
         prestaciones.map((prestacion) => (
           <Card
             key={prestacion.id_prestacion}
-            className="h-52 w-full bg-slate-800 "
+            className="bg-slate-800 "
+            style={{ height: "300px", width: "auto" }}
             shadow="sm"
             isBlurred
           >
@@ -108,11 +108,11 @@ export default function ListCard() {
               <div className="flex gap-5">
                 <Avatar isBordered radius="full" size="md" src="" />
                 <div className="flex flex-col gap-1 items-start justify-center">
-                  <h4 className="text-small font-semibold leading-none text-default-600">
-                    {prestacion.prestador.nombre}{" "}
-                    {prestacion.prestador.apellido}
+                  <h4 className="text-small font-semibold leading-none text-default-100">
+                    {prestacion.prestador[0].nombre}{" "}
+                    {prestacion.prestador[0].apellido}
                   </h4>
-                  <h5 className="text-small tracking-tight text-default-400">
+                  <h5 className="text-small tracking-tight text-default-100">
                     Zona: {prestacion.zona}
                   </h5>
                 </div>
@@ -145,8 +145,8 @@ export default function ListCard() {
 
             <Divider className="bg-white" />
 
-            <CardBody className="px-3 py-0 text-small text-default-400 mt-3">
-              <h2 className="text-small font-semibold leading-none text-default-600">
+            <CardBody className="px-3 py-0 text-small text-default-100 mt-3">
+              <h2 className="text-small font-semibold leading-none text-default-100">
                 {prestacion.nombrePrest}
               </h2>
               <span className="pt-2">
@@ -155,26 +155,27 @@ export default function ListCard() {
               <span className="pt-2">
                 <p>{prestacion.caracteristicasPrest}</p>
               </span>
+             
             </CardBody>
 
             <Divider className="bg-white"/>
 
             <CardFooter className="grid grid-cols-2">
               <div className="flex gap-1 ">
-                <p className="font-semibold text-default-400 text-small">
+                <p className="font-semibold text-default-100 text-small">
                   Costo:
                 </p>
-                <p className=" text-default-400 text-small">$</p>
-                <p className="font-semibold text-default-400 text-small ml-3">
+                <p className=" text-default-100 text-small">$</p>
+                <p className="font-semibold text-default-100 text-small ml-3">
                   {prestacion.precio}
                 </p>
               </div>
-              <div className="flex gap-2">
-                <p className="font-semibold text-default-400 text-small">
+              <div className="flex gap-1">
+                <p className="font-semibold text-default-100 text-small">
                   Calificación:
                 </p>
-                <p className="font-semibold text-default-400 text-small ml-3">
-                  {prestacion.prestador.calificacion}
+                <p className="font-semibold text-default-100 text-small ml-3">
+                  {prestacion.prestador[0].calificacion}
                 </p>
                 <PiStarThin color="white" size={20} />
               </div>
