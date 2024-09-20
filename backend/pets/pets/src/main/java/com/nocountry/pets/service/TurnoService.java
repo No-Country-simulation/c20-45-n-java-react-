@@ -69,4 +69,8 @@ public class TurnoService implements ITurnoService{
         return turnoRepository.save(turno);
     }
 
+    @Override
+    public List<Turno> findByClienteId(Long clienteId) {
+        return turnoRepository.findByClienteId(clienteId);
+    }
 }

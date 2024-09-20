@@ -20,6 +20,7 @@ interface Prestacion {
     nombre: string;
     apellido: string;
     calificacion: string;
+    experiencia: string;
 
   };
 }
@@ -100,7 +101,7 @@ export default function ListCard() {
           <Card
             key={prestacion.id_prestacion}
             className="bg-slate-800 "
-            style={{ height: "300px", width: "auto" }}
+            style={{ height: "30  0px", width: "auto" }}
             shadow="sm"
             isBlurred
           >
@@ -110,8 +111,9 @@ export default function ListCard() {
                 <div className="flex flex-col gap-1 items-start justify-center">
                   <h4 className="text-small font-semibold leading-none text-default-100">
                     {prestacion.prestador[0].nombre}{" "}
-                    {prestacion.prestador[0].apellido}
+                    {prestacion.prestador[0].apellido}{" "}
                   </h4>
+                  <h3 className="text-small tracking-tight text-default-100">  {prestacion.prestador[0].experiencia}</h3>
                   <h5 className="text-small tracking-tight text-default-100">
                     Zona: {prestacion.zona}
                   </h5>

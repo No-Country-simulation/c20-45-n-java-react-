@@ -40,4 +40,12 @@ public class TurnoController {
         turnoService.deleteById(id);
         return ResponseEntity.ok("Turno cancelado con éxito");
     }
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<Turno>> findByClienteId(@PathVariable Long clienteId) {
+        List<Turno> turnos = turnoService.findByClienteId(clienteId);
+        if (turnos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(turnos);
+        }
+        return ResponseEntity.ok(turnos);
+    }
 }

@@ -16,4 +16,5 @@ public interface ITurnoService {
     void deleteById(Long id);
 
     Turno update(Turno turno);
+    List<Turno> findByClienteId(Long clienteId);
 }
