@@ -138,10 +138,7 @@ export default function Profile_Client() {
           <div className="flex justify-center font-extrabold text-xl font-mono">
             Información personal
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2">
-            <div className="mt-2.5">
-              <ImageUpload onImageUploadSuccess={handleImageUploadSuccess} />
-            </div>
+          <div className="grid grid-cols-1">
 
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-1 sm:ml-1">
               <div className="w-full">

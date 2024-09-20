@@ -117,76 +117,70 @@ export default function Profile_Mascota() {
             Información de tu mascota
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2">
-            <div className="mt-2.5">
-              <ImageUpload onImageUploadSuccess={handleImageUploadSuccess} />
+          <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-1 sm:ml-1">
+            <div className="w-full">
+              <Field
+                as={Input}
+                type="text"
+                name="nombre"
+                variant="faded"
+                radius="md"
+                label="Nombre"
+                className=" mt-2 mr-2"
+              />
+              <ErrorMessage
+                name="nombre"
+                component="div"
+                className="text-red-500 text-sm"
+              />
             </div>
-
-            <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-1 sm:ml-1">
-              <div className="w-full">
-                <Field
-                  as={Input}
-                  type="text"
-                  name="nombre"
-                  variant="faded"
-                  radius="md"
-                  label="Nombre"
-                  className=" mt-2 mr-2"
-                />
-                <ErrorMessage
-                  name="nombre"
-                  component="div"
-                  className="text-red-500 text-sm"
-                />
-              </div>
-              <div className="w-full">
-                <Field
-                  as={Input}
-                  type="text"
-                  name="raza"
-                  variant="faded"
-                  radius="md"
-                  label="Raza"
-                  className=" mt-2 mr-2"
-                />
-                <ErrorMessage
-                  name="raza"
-                  component="div"
-                  className="text-red-500 text-sm"
-                />
-              </div>
-              <div className="w-full">
-                <Field
-                  as={Input}
-                  type="text"
-                  name="edad"
-                  variant="faded"
-                  radius="md"
-                  label="Edad"
-                  className="w-full mt-2"
-                />
-                <ErrorMessage
-                  name="edad"
-                  component="div"
-                  className="text-red-500 text-sm"
-                />
-              </div>
-              <div className="w-full">
-                <Field
-                  as={Input}
-                  type="text"
-                  name="genero"
-                  variant="faded"
-                  radius="md"
-                  label="Genero"
-                  className="mt-2 mr-2"
-                />
-                <ErrorMessage
-                  name="genero"
-                  component="div"
-                  className="text-red-500 text-sm"
-                />
-              </div>
+            <div className="w-full">
+              <Field
+                as={Input}
+                type="text"
+                name="raza"
+                variant="faded"
+                radius="md"
+                label="Raza"
+                className=" mt-2 mr-2"
+              />
+              <ErrorMessage
+                name="raza"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
+            <div className="w-full">
+              <Field
+                as={Input}
+                type="text"
+                name="edad"
+                variant="faded"
+                radius="md"
+                label="Edad"
+                className="w-full mt-2"
+              />
+              <ErrorMessage
+                name="edad"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
+            <div className="w-full">
+              <Field
+                as={Input}
+                type="text"
+                name="genero"
+                variant="faded"
+                radius="md"
+                label="Genero"
+                className="mt-2 mr-2"
+              />
+              <ErrorMessage
+                name="genero"
+                component="div"
+                className="text-red-500 text-sm"
+              />
             </div>
           </div>
 
