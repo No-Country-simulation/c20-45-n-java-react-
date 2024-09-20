@@ -3,7 +3,7 @@ import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import React, { useEffect, useState } from "react";
 import ApiService from "../../config/ApiService";
-
+import {useNavigate} from "react-router";
 interface Prestacion {
   id_prestacion: number;
   nombrePrest: string;
@@ -28,6 +28,7 @@ export default function ListCard() {
   const [prestaciones, setPrestaciones] = useState<Prestacion[]>([]);
   const [turnos, setTurnos] = useState<Turno[]>([]);
   const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPrestaciones = async () => {
@@ -72,10 +73,7 @@ export default function ListCard() {
       await ApiService.createTurno(turno);
       alert("El turno ha sido creado exitosamente.");
       console.log("Turno creado correctamente");
-      
-      setTimeout(() => {
-        window.location.href = "/reservaciones";
-      }, 3000);
+      navigate("/reserva")
     } catch (error) {
       console.error("Error al crear turno:", error);
       alert("Ha ocurrido un error al crear el turno.");
