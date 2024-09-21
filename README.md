@@ -27,21 +27,12 @@ PataAmiga es una aplicación que permite la conexión de dueños de mascotas con
 - Inscripción de mascotas con su libreta sanitaria, historia clínica, alimentación y más..
 - Toma de turnos de paseo por región geográfica
 
-## Plan de prueba
-Accedé desde ___[aquí](https://miniature-silicon-370.notion.site/Plan-de-pruebas-Aplicaci-n-Pata-Amiga-06948809a05b4ca7a33da52ec824e76c)___
-
 ## Navegación por el sitio
 
-Registro
-![1 registro](https://github.com/user-attachments/assets/30dbba21-646e-4585-8c0d-9284bd283fd4)
-
- Ingresar detalle de tu mascota
-![Ingresar detalle de tu mascota](https://github.com/user-attachments/assets/8843082c-0e16-46b9-a1ae-dd1ba1bfe801)
-
- Si sos paseador, hacete conocer! Elegí tus horarios y maximizá tus ganancias
-![Hacete conocer](https://github.com/user-attachments/assets/d03882dc-8c10-46ef-af61-a90f7ac8ed2d)
-
-![Empezar a pasear](https://github.com/user-attachments/assets/6f88b95e-4420-44a3-9a87-1d48273b1b0c)
+<p align="center"> <img src="https://github.com/user-attachments/assets/8d2f92d2-6ba0-4820-bcd9-2bdc8a70bf0c" width=500 height= 300> </p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/4b1fef7e-5f2c-4a02-bb81-26875bf67177" width=500 height= 300> </p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/a906eb9c-76b9-4bbf-a420-b51d482e3474" width=500 height= 300> </p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/d5d3213a-8391-406b-b42d-97648ced1316" width=500 height= 300> </p>
 
 ## Integrantes del equipo
 
